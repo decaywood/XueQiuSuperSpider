@@ -23,7 +23,7 @@ public class HttpRequestHelper {
     public HttpRequestHelper() {
         this.config = new HashMap<>();
         this.gzipDecode()
-                .addToHeader("Cookie", CookieConfig.loadCookie())
+                .addToHeader("Cookie", FileLoader.loadCookie())
                 .addToHeader("Host", "xueqiu.com")
                 .addToHeader("Accept-Encoding", "gzip,deflate,sdch");
     }

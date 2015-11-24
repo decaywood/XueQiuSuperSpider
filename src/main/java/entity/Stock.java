@@ -1,55 +1,55 @@
 package entity;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import utils.DateParser;
+import utils.EmptyObject;
+
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * @author: decaywood
  * @date: 2015/11/23 19:14
  */
-public class Stock {
+public class Stock implements DeepCopy<Stock> {
 
     private static final String Stock_Page_PreFix = "http://xueqiu.com/S/";
 
     private final String stockName; //股票名称
     private final String stockNo; //股票代码
 
-    private String currency_unit;//币种
-    private String current; //当前价
-    private String volume;//成交量
-    private String percentage;//百分比
-    private String change;//涨跌幅
-    private String open;//开盘价
-    private String high;//最高
-    private String low;//最低
-    private String amplitude;//振幅
-    private String fall_stop;//跌停价
-    private String rise_stop;//涨停价
-    private String close;//收盘价
-    private String last_close;//昨收
-    private String high52Week;//52周最高
-    private String low52week;//52周最低
-    private String marketCapital;//总市值
-    private String float_market_capital;//流通值
-    private String float_shares;//流通股本
-    private String totalShares;//总股本
-    private String eps;//每股收益
-    private String net_assets;//每股净资产
-    private String pe_ttm;//ttm;
-    private String pe_lyr;//lyr;
-    private String dividend;//每股股息
-    private String psr;//市销率
+    private String currency_unit = EmptyObject.emptyString;//币种
+    private String current = EmptyObject.emptyString; //当前价
+    private String volume = EmptyObject.emptyString;//成交量
+    private String percentage = EmptyObject.emptyString;//百分比
+    private String change = EmptyObject.emptyString;//涨跌幅
+    private String open = EmptyObject.emptyString;//开盘价
+    private String high = EmptyObject.emptyString;//最高
+    private String low = EmptyObject.emptyString;//最低
+    private String amplitude = EmptyObject.emptyString;//振幅
+    private String fall_stop = EmptyObject.emptyString;//跌停价
+    private String rise_stop = EmptyObject.emptyString;//涨停价
+    private String close = EmptyObject.emptyString;//收盘价
+    private String last_close = EmptyObject.emptyString;//昨收
+    private String high52Week = EmptyObject.emptyString;//52周最高
+    private String low52week = EmptyObject.emptyString;//52周最低
+    private String marketCapital = EmptyObject.emptyString;//总市值
+    private String float_market_capital = EmptyObject.emptyString;//流通值
+    private String float_shares = EmptyObject.emptyString;//流通股本
+    private String totalShares = EmptyObject.emptyString;//总股本
+    private String eps = EmptyObject.emptyString;//每股收益
+    private String net_assets = EmptyObject.emptyString;//每股净资产
+    private String pe_ttm = EmptyObject.emptyString;//ttm = EmptyEntity.emptyString;
+    private String pe_lyr = EmptyObject.emptyString;//lyr = EmptyEntity.emptyString;
+    private String dividend = EmptyObject.emptyString;//每股股息
+    private String psr = EmptyObject.emptyString;//市销率
 
-    private Date time;//雪球系统时间
+    private StockTrend stockTrend = EmptyObject.emptyStockTrend;//股票走势
 
-    DateFormat dateFormat;
+    private Date time = EmptyObject.emptyDate;//雪球系统时间
+
 
     public Stock(final String stockName, final String stockNo) {
         this.stockName = stockName;
         this.stockNo = stockNo;
-        this.dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy", Locale.ENGLISH);
     }
 
     public String getKeyName() {
@@ -266,20 +266,27 @@ public class Stock {
     }
 
     public void setTime(String time) {
-        try {
-            this.time = dateFormat.parse(time);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.time = DateParser.parseToDate(time);
     }
 
+    public StockTrend getStockTrend() {
+        return stockTrend;
+    }
 
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public void setStockTrend(StockTrend stockTrend) {
+        this.stockTrend = stockTrend;
+    }
 
     public String getStockPageSite() {
         return Stock_Page_PreFix + stockNo;
     }
 
-    public Stock deepCopy() {
+    @Override
+    public Stock copy() {
         Stock stock = new Stock(this.stockName, this.stockNo);
         stock.currency_unit = currency_unit;
         stock.current = current;
@@ -307,8 +314,9 @@ public class Stock {
         stock.dividend = dividend;
         stock.psr = psr;
         stock.time = time;
-        stock.dateFormat = dateFormat;
+        stock.stockTrend = stockTrend.copy();
         return stock;
     }
+
 
 }

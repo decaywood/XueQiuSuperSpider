@@ -5,7 +5,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import timeWaitingStrategy.TimeWaitingStrategy;
 import utils.HttpRequestHelper;
+import utils.URLMapper;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,11 +19,20 @@ import java.util.List;
  */
 public class CommissionIndustryCollector extends AbstractCollector<List<Industry>> {
 
+    public CommissionIndustryCollector() {
+        this(null);
+    }
+
+    public CommissionIndustryCollector(TimeWaitingStrategy strategy) {
+        super(strategy);
+    }
 
     @Override
-    public List<Industry> collectInternal() throws Exception {
-        String target = "http://xueqiu.com/hq";
+    public List<Industry> collectLogic() throws Exception {
+
         List<Industry> res = new ArrayList<>();
+
+        String target = URLMapper.COMPREHENSIVE_PAGE.toString();
         HttpRequestHelper requestHelper = new HttpRequestHelper();
         String content = requestHelper.request(new URL(target));
         Document doc = Jsoup.parse(content);
@@ -37,8 +48,8 @@ public class CommissionIndustryCollector extends AbstractCollector<List<Industry
             res.add(new Industry(ele.attr("title"), builder.toString()));
             builder.delete(0, builder.length());
         }
+
         return res;
     }
-
 
 }

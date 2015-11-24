@@ -1,5 +1,8 @@
 package collector;
 
+import timeWaitingStrategy.DefaultTimeWaitingStrategy;
+import timeWaitingStrategy.TimeWaitingStrategy;
+
 import java.util.function.Supplier;
 
 /**
@@ -8,26 +11,30 @@ import java.util.function.Supplier;
  */
 public abstract class AbstractCollector<T> implements Supplier<T> {
 
-    public abstract T collectInternal() throws Exception;
+    public abstract T collectLogic() throws Exception;
+
+    private TimeWaitingStrategy strategy;
+
+    public AbstractCollector(TimeWaitingStrategy strategy) {
+        this.strategy = strategy == null ? new DefaultTimeWaitingStrategy<>() : strategy;
+    }
 
     @Override
     public T get() {
+
+        if(this.strategy == null) this.strategy = new DefaultTimeWaitingStrategy<>();
+
         T res;
-        long sleepTimeMill = 500;
+
         while (true) {
             try {
-                res = collectInternal();
+                res = collectLogic();
                 break;
-            }
-            catch (Exception e) {
-                try {
-                    Thread.sleep(sleepTimeMill);
-                    sleepTimeMill *= 2;
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                }
+            } catch (Exception e) {
+                this.strategy.waiting();
             }
         }
         return res;
+
     }
 }

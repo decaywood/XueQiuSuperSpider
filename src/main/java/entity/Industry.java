@@ -30,4 +30,6 @@ public class Industry {
     public String toString() {
         return "industryName = " + industryName  + "  " + "industryInfo = " + industryInfo;
     }
+
+
 }
