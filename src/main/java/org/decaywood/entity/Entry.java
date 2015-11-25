@@ -1,4 +1,4 @@
-package entity;
+package org.decaywood.entity;
 
 /**
  * @author: decaywood

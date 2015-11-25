@@ -1,7 +1,7 @@
-package entity;
+package org.decaywood.entity;
 
-import utils.DateParser;
-import utils.EmptyObject;
+import org.decaywood.utils.DateParser;
+import org.decaywood.utils.EmptyObject;
 
 import java.util.Date;
 
@@ -41,6 +41,8 @@ public class Stock implements DeepCopy<Stock> {
     private String pe_lyr = EmptyObject.emptyString;//lyr = EmptyEntity.emptyString;
     private String dividend = EmptyObject.emptyString;//每股股息
     private String psr = EmptyObject.emptyString;//市销率
+    private String turnover_rate = EmptyObject.emptyString;//换手
+    private String amount = EmptyObject.emptyString;//成交额
 
     private StockTrend stockTrend = EmptyObject.emptyStockTrend;//股票走势
 
@@ -127,6 +129,15 @@ public class Stock implements DeepCopy<Stock> {
 
     public String getAmplitude() {
         return amplitude;
+    }
+
+
+    public void setTurnover_rate(String turnover_rate) {
+        this.turnover_rate = turnover_rate;
+    }
+
+    public String getTurnover_rate() {
+        return turnover_rate;
     }
 
     public void setAmplitude(String amplitude) {
@@ -285,6 +296,14 @@ public class Stock implements DeepCopy<Stock> {
         return Stock_Page_PreFix + stockNo;
     }
 
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
     @Override
     public Stock copy() {
         Stock stock = new Stock(this.stockName, this.stockNo);
@@ -314,6 +333,8 @@ public class Stock implements DeepCopy<Stock> {
         stock.dividend = dividend;
         stock.psr = psr;
         stock.time = time;
+        stock.amount = amount;
+        stock.turnover_rate = turnover_rate;
         stock.stockTrend = stockTrend.copy();
         return stock;
     }

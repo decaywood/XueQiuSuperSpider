@@ -1,4 +1,4 @@
-package timeWaitingStrategy;
+package org.decaywood.timeWaitingStrategy;
 
 /**
  * @author: decaywood

@@ -1,4 +1,4 @@
-package utils;
+package org.decaywood.utils;
 
 /**
  * @author: decaywood

@@ -1,6 +1,6 @@
-package entity;
+package org.decaywood.entity;
 
-import utils.DateParser;
+import org.decaywood.utils.DateParser;
 
 import java.util.ArrayList;
 import java.util.Date;

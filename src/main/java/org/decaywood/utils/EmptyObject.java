@@ -1,6 +1,6 @@
-package utils;
+package org.decaywood.utils;
 
-import entity.StockTrend;
+import org.decaywood.entity.StockTrend;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,5 +26,6 @@ public abstract class EmptyObject {
     public static StockTrend emptyStockTrend = new EmptyStockTrend();
     public static String emptyString = "";
     public static Date emptyDate = new Date(0);
+
 
 }

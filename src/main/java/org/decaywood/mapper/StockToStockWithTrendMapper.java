@@ -1,14 +1,15 @@
-package mapper;
+package org.decaywood.mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import entity.Stock;
-import entity.StockTrend;
-import entity.StockTrend.Period;
-import entity.StockTrend.TrendBlock;
-import timeWaitingStrategy.TimeWaitingStrategy;
-import utils.HttpRequestHelper;
-import utils.RequestParaBuilder;
-import utils.URLMapper;
+import org.decaywood.entity.Stock;
+import org.decaywood.entity.StockTrend;
+import org.decaywood.entity.StockTrend.Period;
+import org.decaywood.entity.StockTrend.TrendBlock;
+import org.decaywood.mapper.pipe.StockFirst;
+import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
+import org.decaywood.utils.HttpRequestHelper;
+import org.decaywood.utils.RequestParaBuilder;
+import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/24 15:23
  */
-public class StockToStockWithTrendMapper extends AbstractMapper<Stock, Stock> {
+public class StockToStockWithTrendMapper extends AbstractMapper<Stock, Stock> implements StockFirst<Stock> {
 
 
     private Period period;

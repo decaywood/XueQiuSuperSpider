@@ -1,13 +1,13 @@
-package mapper;
+package org.decaywood.mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import entity.Entry;
-import entity.Industry;
-import entity.Stock;
-import timeWaitingStrategy.TimeWaitingStrategy;
-import utils.HttpRequestHelper;
-import utils.RequestParaBuilder;
-import utils.URLMapper;
+import org.decaywood.entity.Industry;
+import org.decaywood.entity.Stock;
+import org.decaywood.mapper.pipe.IndustryFirst;
+import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
+import org.decaywood.utils.HttpRequestHelper;
+import org.decaywood.utils.RequestParaBuilder;
+import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,7 +18,8 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/23 14:04
  */
-public class IndustryToIndustryWithStockEntryMapper extends AbstractMapper<Industry, List<Entry<Industry, Stock>>> {
+public class IndustryToIndustryWithStockEntryMapper extends AbstractMapper<Industry, Industry>
+implements IndustryFirst<Industry> {
 
 
     public IndustryToIndustryWithStockEntryMapper(TimeWaitingStrategy strategy) {
@@ -30,44 +31,46 @@ public class IndustryToIndustryWithStockEntryMapper extends AbstractMapper<Indus
     }
 
     @Override
-    public List<Entry<Industry, Stock>> mapLogic(Industry industry) throws Exception {
-
+    public Industry mapLogic(Industry industry) throws Exception {
+        Industry industryCopy = industry.copy();
         String target = URLMapper.INDUSTRY_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target);
         builder.addParameter("page", 1)
                 .addParameter("size", 500)
                 .addParameter("order", "desc")
                 .addParameter("orderBy", "percent");
-        URL url = new URL(builder.build());
-        String info = industry.getIndustryInfo();
-        if(info.startsWith("#")) info = info.substring(1);
+        String info = industryCopy.getIndustryInfo();
+        if (info.startsWith("#")) info = info.substring(1);
         for (String s : info.split("&")) {
             String[] keyAndVal = s.split("=");
             builder.addParameter(keyAndVal[0], keyAndVal[1]);
         }
+        URL url = new URL(builder.build());
         String json = new HttpRequestHelper()
-                .addToHeader("Referer", URLMapper.COMPREHENSIVE_PAGE.toString())
+                .addToHeader("Referer", URLMapper.MAIN_PAGE.toString())
                 .request(url);
-        return parserJson(industry, json);
+        return parserJson(industryCopy, json);
 
     }
 
 
-    private List<Entry<Industry, Stock>> parserJson(Industry industry, String jsonContent) {
-        List<Entry<Industry, Stock>> entries = new ArrayList<>();
+    private Industry parserJson(Industry industry, String jsonContent) {
+
+        List<Stock> stocks = new ArrayList<>();
         try {
 
             JsonNode root = mapper.readTree(jsonContent);
             JsonNode node = root.get("data");
             for (JsonNode jsonNode : node) {
                 Stock stock = new Stock(jsonNode.get("name").asText(), jsonNode.get("symbol").asText());
-                entries.add(new Entry<>(industry, stock));
+                stocks.add(stock);
             }
-
+            industry.setStocks(stocks);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return entries;
+        return industry;
+
     }
 
 

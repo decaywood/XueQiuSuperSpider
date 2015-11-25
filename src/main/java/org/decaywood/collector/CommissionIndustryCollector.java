@@ -1,13 +1,13 @@
-package collector;
+package org.decaywood.collector;
 
-import entity.Industry;
+import org.decaywood.entity.Industry;
+import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
+import org.decaywood.utils.HttpRequestHelper;
+import org.decaywood.utils.URLMapper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import timeWaitingStrategy.TimeWaitingStrategy;
-import utils.HttpRequestHelper;
-import utils.URLMapper;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -51,5 +51,7 @@ public class CommissionIndustryCollector extends AbstractCollector<List<Industry
 
         return res;
     }
+
+
 
 }

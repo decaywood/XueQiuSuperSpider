@@ -1,4 +1,4 @@
-package utils;
+package org.decaywood.utils;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
