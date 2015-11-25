@@ -1,7 +1,7 @@
 package mapperTest;
 
 import org.decaywood.entity.Stock;
-import org.decaywood.mapper.StockToStockWithAttributeMapper;
+import org.decaywood.mapper.stockFirst.StockToStockWithAttributeMapper;
 import org.decaywood.utils.EmptyObject;
 import org.junit.Assert;
 import org.junit.Test;

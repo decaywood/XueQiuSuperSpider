@@ -1,7 +1,7 @@
 package mapperTest;
 
 import org.decaywood.entity.Industry;
-import org.decaywood.mapper.IndustryToIndustryWithStocksMapper;
+import org.decaywood.mapper.industryFirst.IndustryToIndustryWithStocksMapper;
 import org.decaywood.utils.EmptyObject;
 import org.junit.Assert;
 import org.junit.Test;

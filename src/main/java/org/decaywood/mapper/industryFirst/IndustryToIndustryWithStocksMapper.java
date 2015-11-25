@@ -1,9 +1,10 @@
-package org.decaywood.mapper;
+package org.decaywood.mapper.industryFirst;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.entity.Industry;
 import org.decaywood.entity.Stock;
-import org.decaywood.mapper.pipe.IndustryFirst;
+import org.decaywood.mapper.AbstractMapper;
+import org.decaywood.mapper.IndustryFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.HttpRequestHelper;

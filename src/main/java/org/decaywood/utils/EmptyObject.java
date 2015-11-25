@@ -1,9 +1,6 @@
 package org.decaywood.utils;
 
-import org.decaywood.entity.Cube;
-import org.decaywood.entity.Industry;
-import org.decaywood.entity.Stock;
-import org.decaywood.entity.StockTrend;
+import org.decaywood.entity.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +19,18 @@ public abstract class EmptyObject {
 
         @Override
         public StockTrend copy() {
+            return this;
+        }
+    }
+
+    private static class EmptyCubeTrend extends CubeTrend {
+
+        public EmptyCubeTrend() {
+            super(emptyString, emptyString, emptyString, emptyString, new ArrayList<>());
+        }
+
+        @Override
+        public CubeTrend copy() {
             return this;
         }
     }
@@ -70,5 +79,6 @@ public abstract class EmptyObject {
     public static Industry emptyIndustry = new EmptyIndustry();
     public static Stock emptyStock = new EmptyStock();
     public static Cube emptyCube = new EmptyCube();
+    public static CubeTrend emptyCubeTrend = new EmptyCubeTrend();
 
 }

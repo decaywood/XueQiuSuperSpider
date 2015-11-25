@@ -1,4 +1,4 @@
-package org.decaywood.mapper.pipe;
+package org.decaywood.mapper;
 
 import org.decaywood.entity.Industry;
 
