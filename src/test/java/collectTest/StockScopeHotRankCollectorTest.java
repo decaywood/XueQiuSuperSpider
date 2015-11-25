@@ -24,11 +24,11 @@ public class StockScopeHotRankCollectorTest {
         Assert.assertTrue(stocks24.size() > 0);
         for (Stock stock : stocks1) {
             Assert.assertTrue(stock.getStockNo().length() > 0);
-            Assert.assertTrue(stock.getKeyName().length() > 0);
+            Assert.assertTrue(stock.getStockName().length() > 0);
         }
         for (Stock stock : stocks24) {
             Assert.assertTrue(stock.getStockNo().length() > 0);
-            Assert.assertTrue(stock.getKeyName().length() > 0);
+            Assert.assertTrue(stock.getStockName().length() > 0);
         }
     }
 
@@ -42,11 +42,11 @@ public class StockScopeHotRankCollectorTest {
         Assert.assertTrue(stocks24.size() > 0);
         for (Stock stock : stocks1) {
             Assert.assertTrue(stock.getStockNo().length() > 0);
-            Assert.assertTrue(stock.getKeyName().length() > 0);
+            Assert.assertTrue(stock.getStockName().length() > 0);
         }
         for (Stock stock : stocks24) {
             Assert.assertTrue(stock.getStockNo().length() > 0);
-            Assert.assertTrue(stock.getKeyName().length() > 0);
+            Assert.assertTrue(stock.getStockName().length() > 0);
         }
     }
 
@@ -63,11 +63,11 @@ public class StockScopeHotRankCollectorTest {
         Assert.assertTrue(stocks24.size() > 0);
         for (Stock stock : stocks1) {
             Assert.assertTrue(stock.getStockNo().length() > 0);
-            Assert.assertTrue(stock.getKeyName().length() > 0);
+            Assert.assertTrue(stock.getStockName().length() > 0);
         }
         for (Stock stock : stocks24) {
             Assert.assertTrue(stock.getStockNo().length() > 0);
-            Assert.assertTrue(stock.getKeyName().length() > 0);
+            Assert.assertTrue(stock.getStockName().length() > 0);
         }
     }
 
@@ -81,11 +81,11 @@ public class StockScopeHotRankCollectorTest {
         Assert.assertTrue(stocks24.size() > 0);
         for (Stock stock : stocks1) {
             Assert.assertTrue(stock.getStockNo().length() > 0);
-            Assert.assertTrue(stock.getKeyName().length() > 0);
+            Assert.assertTrue(stock.getStockName().length() > 0);
         }
         for (Stock stock : stocks24) {
             Assert.assertTrue(stock.getStockNo().length() > 0);
-            Assert.assertTrue(stock.getKeyName().length() > 0);
+            Assert.assertTrue(stock.getStockName().length() > 0);
         }
     }
 

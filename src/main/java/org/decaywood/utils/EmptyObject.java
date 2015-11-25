@@ -1,5 +1,6 @@
 package org.decaywood.utils;
 
+import org.decaywood.entity.Cube;
 import org.decaywood.entity.Industry;
 import org.decaywood.entity.Stock;
 import org.decaywood.entity.StockTrend;
@@ -50,10 +51,24 @@ public abstract class EmptyObject {
         }
     }
 
+    private static class EmptyCube extends Cube {
+
+
+        public EmptyCube() {
+            super(emptyString, emptyString, emptyString);
+        }
+
+        @Override
+        public Cube copy() {
+            return this;
+        }
+    }
+
     public static StockTrend emptyStockTrend = new EmptyStockTrend();
     public static String emptyString = "*";
     public static Date emptyDate = new Date(0);
     public static Industry emptyIndustry = new EmptyIndustry();
     public static Stock emptyStock = new EmptyStock();
+    public static Cube emptyCube = new EmptyCube();
 
 }

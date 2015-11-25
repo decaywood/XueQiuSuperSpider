@@ -6,6 +6,6 @@ package org.decaywood.timeWaitingStrategy;
  */
 public interface TimeWaitingStrategy {
 
-    void waiting();
+    void waiting(int loopTime);
 
 }

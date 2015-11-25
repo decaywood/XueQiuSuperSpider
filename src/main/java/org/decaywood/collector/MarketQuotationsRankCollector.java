@@ -17,10 +17,12 @@ import java.util.List;
  */
 public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>> {
 
+    // it can order not only by these four... you can have a try
     public static final String ORDER_BY_PERCENT = "percent";
     public static final String ORDER_BY_VOLUME = "volume";
     public static final String ORDER_BY_AMOUNT = "amount";
     public static final String ORDER_BY_TURNOVER_RATE = "turnover_rate";
+
 
     public static final int TOPK_MAX_SHRESHOLD = 20;
 
@@ -65,7 +67,7 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
         super(strategy);
 
         orderPattern = orderPattern == null ? "" : orderPattern;
-        if(!isLegal(orderPattern) || topK <= 0) throw new IllegalArgumentException();
+        if(!isLegal(orderPattern) || topK <= 0) throw new IllegalArgumentException("Not legal or not support yet exception");
 
         this.stockType = stockType;
         this.orderPattern = orderPattern;

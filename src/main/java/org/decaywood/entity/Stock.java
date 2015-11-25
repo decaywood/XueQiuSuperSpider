@@ -55,7 +55,7 @@ public class Stock implements DeepCopy<Stock> {
         this.stockNo = stockNo;
     }
 
-    public String getKeyName() {
+    public String getStockName() {
         return stockName;
     }
 

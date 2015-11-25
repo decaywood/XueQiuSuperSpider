@@ -30,7 +30,7 @@ public class Industry implements DeepCopy<Industry> {
         this.stocks = stocks;
     }
 
-    public String getKeyName() {
+    public String getIndustryName() {
         return industryName;
     }
 

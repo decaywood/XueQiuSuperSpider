@@ -33,6 +33,7 @@ public abstract class AbstractMapper <T, R> implements Function<T, R> {
         R res = null;
 
         try {
+            int loopTime = 1;
             while (true) {
                 try {
                     res = mapLogic(t);
@@ -40,7 +41,7 @@ public abstract class AbstractMapper <T, R> implements Function<T, R> {
                 } catch (Exception e) {
                     if(!(e instanceof IOException)) throw e;
                     HttpRequestHelper.updateCookie();
-                    this.strategy.waiting();
+                    this.strategy.waiting(loopTime++);
                 }
             }
         } catch (Exception e) {

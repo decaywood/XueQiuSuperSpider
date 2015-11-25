@@ -6,30 +6,26 @@ package org.decaywood.timeWaitingStrategy;
  */
 public class DefaultTimeWaitingStrategy <T> implements TimeWaitingStrategy {
 
-    private final long timeWaitingThreshold;
-    private long timeWaiting;
+    private final long timeWaitingShreshold;
+    private final long timeWaiting;
 
     public DefaultTimeWaitingStrategy() {
         this(100000, 500);
     }
 
-    public DefaultTimeWaitingStrategy(final long timeWaitingThreshold, long timeWaiting) {
-        this.timeWaitingThreshold = timeWaitingThreshold;
+    public DefaultTimeWaitingStrategy(final long timeWaitingShreshold, long timeWaiting) {
+        this.timeWaitingShreshold = timeWaitingShreshold;
         this.timeWaiting = timeWaiting;
     }
 
-    public void setTimeWaiting(long timeWaiting) {
-        this.timeWaiting = timeWaiting;
-    }
 
     @Override
-    public void waiting() {
+    public void waiting(int loopTime) {
         try {
 
-            Thread.sleep(this.timeWaiting);
-            this.timeWaiting *= 2;
-            if(this.timeWaiting > this.timeWaitingThreshold)
-                this.timeWaiting = this.timeWaitingThreshold;
+            long sleepTime = this.timeWaiting * (2 << loopTime);
+            sleepTime = Math.min(sleepTime, timeWaitingShreshold);
+            Thread.sleep(sleepTime);
 
         } catch (InterruptedException e) {
             e.printStackTrace();

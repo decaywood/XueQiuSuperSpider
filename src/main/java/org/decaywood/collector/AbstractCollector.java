@@ -32,6 +32,7 @@ public abstract class AbstractCollector<T> implements Supplier<T> {
         T res = null;
 
         try {
+            int loopTime = 1;
             while (true) {
                 try {
                     res = collectLogic();
@@ -39,7 +40,7 @@ public abstract class AbstractCollector<T> implements Supplier<T> {
                 } catch (Exception e) {
                     if(!(e instanceof IOException)) throw e;
                     HttpRequestHelper.updateCookie();
-                    this.strategy.waiting();
+                    this.strategy.waiting(loopTime++);
                 }
             }
         } catch (Exception e) {
