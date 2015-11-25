@@ -43,10 +43,11 @@ public class Stock implements DeepCopy<Stock> {
     private String psr = EmptyObject.emptyString;//市销率
     private String turnover_rate = EmptyObject.emptyString;//换手
     private String amount = EmptyObject.emptyString;//成交额
+    private Date time = EmptyObject.emptyDate;//雪球系统时间
 
     private StockTrend stockTrend = EmptyObject.emptyStockTrend;//股票走势
 
-    private Date time = EmptyObject.emptyDate;//雪球系统时间
+
 
 
     public Stock(final String stockName, final String stockNo) {

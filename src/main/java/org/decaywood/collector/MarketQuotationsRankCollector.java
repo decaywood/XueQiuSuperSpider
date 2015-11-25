@@ -103,9 +103,7 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
                 .addParameter("page", 1)
                 .addParameter("column", "symbol%2Cname");
         URL url = new URL(builder.build());
-        String json = new HttpRequestHelper()
-                .addToHeader("Host", URLMapper.MAIN_PAGE.toString())
-                .request(url);
+        String json = new HttpRequestHelper().request(url);
         JsonNode node = mapper.readTree(json);
         return processNode(node);
     }

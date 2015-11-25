@@ -1,5 +1,3 @@
-package mapperTest;
-
 import org.junit.Test;
 
 /**

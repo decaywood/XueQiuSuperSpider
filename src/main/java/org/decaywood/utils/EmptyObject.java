@@ -1,5 +1,7 @@
 package org.decaywood.utils;
 
+import org.decaywood.entity.Industry;
+import org.decaywood.entity.Stock;
 import org.decaywood.entity.StockTrend;
 
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ public abstract class EmptyObject {
     private static class EmptyStockTrend extends StockTrend {
 
         public EmptyStockTrend() {
-            super("", Period.ALL, new ArrayList<>());
+            super(emptyString, Period.ALL, new ArrayList<>());
         }
 
         @Override
@@ -23,9 +25,35 @@ public abstract class EmptyObject {
         }
     }
 
-    public static StockTrend emptyStockTrend = new EmptyStockTrend();
-    public static String emptyString = "";
-    public static Date emptyDate = new Date(0);
+    private static class EmptyIndustry extends Industry {
 
+        public EmptyIndustry() {
+            super(emptyString, emptyString);
+        }
+
+        @Override
+        public Industry copy() {
+            return this;
+        }
+    }
+
+    private static class EmptyStock extends Stock {
+
+
+        public EmptyStock() {
+            super(emptyString, emptyString);
+        }
+
+        @Override
+        public Stock copy() {
+            return this;
+        }
+    }
+
+    public static StockTrend emptyStockTrend = new EmptyStockTrend();
+    public static String emptyString = "*";
+    public static Date emptyDate = new Date(0);
+    public static Industry emptyIndustry = new EmptyIndustry();
+    public static Stock emptyStock = new EmptyStock();
 
 }

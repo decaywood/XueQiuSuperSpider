@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.entity.Stock;
 import org.decaywood.mapper.pipe.StockFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
+import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
@@ -28,6 +29,8 @@ public class StockToStockWithAttributeMapper extends AbstractMapper<Stock, Stock
 
     @Override
     public Stock mapLogic(Stock stock) throws Exception {
+
+        if(stock == null || stock == EmptyObject.emptyStock) return EmptyObject.emptyStock;
 
         Stock copyStock = stock.copy();
         String target = URLMapper.STOCK_JSON.toString();

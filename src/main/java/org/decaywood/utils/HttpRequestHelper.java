@@ -74,4 +74,14 @@ public class HttpRequestHelper {
     }
 
 
+    public static void updateCookie() throws Exception {
+        URL url = new URL(URLMapper.MAIN_PAGE.toString());
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.connect();
+        String cookie = connection.getHeaderField("Set-Cookie");
+        FileLoader.updateCookie(cookie);
+    }
+
+
+
 }

@@ -3,6 +3,7 @@ package org.decaywood.mapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.decaywood.timeWaitingStrategy.DefaultTimeWaitingStrategy;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
+import org.decaywood.utils.HttpRequestHelper;
 
 import java.io.IOException;
 import java.util.function.Function;
@@ -38,6 +39,7 @@ public abstract class AbstractMapper <T, R> implements Function<T, R> {
                     break;
                 } catch (Exception e) {
                     if(!(e instanceof IOException)) throw e;
+                    HttpRequestHelper.updateCookie();
                     this.strategy.waiting();
                 }
             }

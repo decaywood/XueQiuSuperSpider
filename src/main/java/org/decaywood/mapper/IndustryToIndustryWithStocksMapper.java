@@ -5,6 +5,7 @@ import org.decaywood.entity.Industry;
 import org.decaywood.entity.Stock;
 import org.decaywood.mapper.pipe.IndustryFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
+import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
@@ -18,20 +19,23 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/23 14:04
  */
-public class IndustryToIndustryWithStockEntryMapper extends AbstractMapper<Industry, Industry>
+public class IndustryToIndustryWithStocksMapper extends AbstractMapper<Industry, Industry>
 implements IndustryFirst<Industry> {
 
 
-    public IndustryToIndustryWithStockEntryMapper(TimeWaitingStrategy strategy) {
+    public IndustryToIndustryWithStocksMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }
 
-    public IndustryToIndustryWithStockEntryMapper() {
+    public IndustryToIndustryWithStocksMapper() {
         this(null);
     }
 
     @Override
     public Industry mapLogic(Industry industry) throws Exception {
+
+        if(industry == null || industry == EmptyObject.emptyIndustry) return EmptyObject.emptyIndustry;
+
         Industry industryCopy = industry.copy();
         String target = URLMapper.INDUSTRY_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target);

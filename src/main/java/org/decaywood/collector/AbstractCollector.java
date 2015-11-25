@@ -3,6 +3,7 @@ package org.decaywood.collector;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.decaywood.timeWaitingStrategy.DefaultTimeWaitingStrategy;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
+import org.decaywood.utils.HttpRequestHelper;
 
 import java.io.IOException;
 import java.util.function.Supplier;
@@ -37,6 +38,7 @@ public abstract class AbstractCollector<T> implements Supplier<T> {
                     break;
                 } catch (Exception e) {
                     if(!(e instanceof IOException)) throw e;
+                    HttpRequestHelper.updateCookie();
                     this.strategy.waiting();
                 }
             }

@@ -7,6 +7,7 @@ import org.decaywood.entity.StockTrend.Period;
 import org.decaywood.entity.StockTrend.TrendBlock;
 import org.decaywood.mapper.pipe.StockFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
+import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
@@ -39,6 +40,8 @@ public class StockToStockWithTrendMapper extends AbstractMapper<Stock, Stock> im
 
     @Override
     public Stock mapLogic(Stock stock) throws Exception {
+
+        if(stock == null || stock == EmptyObject.emptyStock) return EmptyObject.emptyStock;
 
         Stock copyStock = stock.copy();
         String target = URLMapper.STOCK_TREND_JSON.toString();

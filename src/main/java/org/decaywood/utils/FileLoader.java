@@ -1,8 +1,6 @@
 package org.decaywood.utils;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 /**
  * @author: decaywood
@@ -17,7 +15,13 @@ public abstract class FileLoader {
     private static String cookie;
 
     public static String loadCookie() {
-        return loadFile(COOKIE_RELETIVE_PATH);
+        if(cookie != null) return cookie;
+        return cookie = loadFile(COOKIE_RELETIVE_PATH);
+    }
+
+    public static void updateCookie(String cookie) {
+        FileLoader.cookie = cookie;
+        updateFile(COOKIE_RELETIVE_PATH, cookie);
     }
 
     public static String loadTestJson() {
@@ -25,9 +29,24 @@ public abstract class FileLoader {
     }
 
     public static String loadFile(String rowPath) {
-        if(cookie != null) return cookie;
         return loadFile(rowPath, new StringBuilder());
     }
+
+    public static void updateFile(String rowPath, String text) {
+        updateFile(rowPath, text, new StringBuilder());
+    }
+
+    public static void updateFile(String rowPath, String text, StringBuilder builder) {
+        String path = ROOT_PATH + rowPath;
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+            writer.write(text);
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            updateFile(builder.append("../").toString() + rowPath, text, builder);
+        }
+    }
+
 
     public static String loadFile(String rowPath, StringBuilder builder) {
         String path = ROOT_PATH + rowPath;
@@ -42,8 +61,10 @@ public abstract class FileLoader {
         } catch (Exception e) {
             return loadFile(builder.append("../").toString() + rowPath, builder);
         }
-        return cookie = textBuilder.toString();
+        return textBuilder.toString();
     }
+
+
 
 
 }
