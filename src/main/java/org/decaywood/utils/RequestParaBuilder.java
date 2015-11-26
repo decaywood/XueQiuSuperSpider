@@ -23,6 +23,11 @@ public class RequestParaBuilder {
         return this;
     }
 
+    public RequestParaBuilder addParameter(String key, long val) {
+        this.config.append(key).append("=").append(val).append("&");
+        return this;
+    }
+
     public String build() {
         return this.config.substring(0, config.length() - 1);
     }

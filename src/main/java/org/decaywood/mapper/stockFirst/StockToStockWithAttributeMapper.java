@@ -6,7 +6,6 @@ import org.decaywood.mapper.AbstractMapper;
 import org.decaywood.mapper.StockFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.EmptyObject;
-import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
@@ -38,9 +37,7 @@ public class StockToStockWithAttributeMapper extends AbstractMapper<Stock, Stock
         RequestParaBuilder builder = new RequestParaBuilder(target)
                 .addParameter("code", copyStock.getStockNo());
         URL url = new URL(builder.build());
-        String json = new HttpRequestHelper()
-                .addToHeader("Referer", URLMapper.MAIN_PAGE.toString())
-                .request(url);
+        String json = request(url);
         JsonNode node = mapper.readTree(json);
         node = node.get(copyStock.getStockNo());
 

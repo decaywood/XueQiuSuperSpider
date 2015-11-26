@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.decaywood.timeWaitingStrategy.DefaultTimeWaitingStrategy;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
+import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.function.Function;
 
 /**
@@ -15,6 +17,12 @@ import java.util.function.Function;
 public abstract class AbstractMapper <T, R> implements Function<T, R> {
 
     public abstract R mapLogic(T t) throws Exception;
+
+    protected String request(URL url) throws IOException {
+        return new HttpRequestHelper()
+                .addToHeader("Referer", URLMapper.MAIN_PAGE.toString())
+                .request(url);
+    }
 
     private TimeWaitingStrategy strategy;
     protected ObjectMapper mapper;

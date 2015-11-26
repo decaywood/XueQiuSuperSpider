@@ -66,7 +66,7 @@ public class StockScopeHotRankCollector extends AbstractCollector<List<Stock>> {
         super(strategy);
         if(topK <= 0) throw new IllegalArgumentException();
         this.topK = Math.min(topK, PAGE_SIZE_SHRESHOLD);
-        this.scope = scope;
+        this.scope = scope == null ? Scope.SH_SZ_WITHIN_24_HOUR : scope;
     }
 
 
@@ -99,4 +99,7 @@ public class StockScopeHotRankCollector extends AbstractCollector<List<Stock>> {
         return stocks;
     }
 
+    public Scope getScope() {
+        return scope;
+    }
 }

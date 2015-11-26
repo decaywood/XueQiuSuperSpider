@@ -1,5 +1,6 @@
-package org.decaywood.entity;
+package org.decaywood.entity.trend;
 
+import org.decaywood.entity.DeepCopy;
 import org.decaywood.utils.DateParser;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/24 16:00
  */
-public class StockTrend implements DeepCopy<StockTrend> {
+public class StockTrend extends Trend<StockTrend.TrendBlock> implements DeepCopy<StockTrend> {
 
     public enum Period
 
@@ -43,6 +44,8 @@ public class StockTrend implements DeepCopy<StockTrend> {
         private final Date time;
 
         public TrendBlock(String volume, String avg_price, String current, String time) {
+            if(time == null || volume == null || avg_price == null || current == null)
+                throw new IllegalArgumentException();
             this.volume = volume;
             this.avg_price = avg_price;
             this.current = current;
@@ -51,19 +54,15 @@ public class StockTrend implements DeepCopy<StockTrend> {
     }
 
 
-    private final List<TrendBlock> history;
     private final Period period;
     private final String stockNo;
 
     public StockTrend(String stockNo, Period period, List<TrendBlock> history) {
+        super(history);
         this.period = period;
         this.stockNo = stockNo;
-        this.history = history;
     }
 
-    public List<TrendBlock> getHistory() {
-        return history;
-    }
 
     public Period getPeriod() {
         return period;

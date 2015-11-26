@@ -7,7 +7,6 @@ import org.decaywood.mapper.AbstractMapper;
 import org.decaywood.mapper.IndustryFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.EmptyObject;
-import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
@@ -51,9 +50,7 @@ implements IndustryFirst<Industry> {
             builder.addParameter(keyAndVal[0], keyAndVal[1]);
         }
         URL url = new URL(builder.build());
-        String json = new HttpRequestHelper()
-                .addToHeader("Referer", URLMapper.MAIN_PAGE.toString())
-                .request(url);
+        String json = request(url);
         return parserJson(industryCopy, json);
 
     }

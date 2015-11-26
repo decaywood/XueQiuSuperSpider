@@ -1,5 +1,6 @@
 package org.decaywood.entity;
 
+import org.decaywood.entity.trend.StockTrend;
 import org.decaywood.utils.DateParser;
 import org.decaywood.utils.EmptyObject;
 

@@ -20,4 +20,11 @@ public class CommissionIndustryCollectorTest {
         Assert.assertEquals(list.size(), 77);
     }
 
+    @Test
+    public void testNull() throws Exception {
+        CommissionIndustryCollector commissionIndustryCollector = new CommissionIndustryCollector(null);
+        List<Industry> list = commissionIndustryCollector.collectLogic();
+        Assert.assertEquals(list.size(), 77);
+    }
+
 }

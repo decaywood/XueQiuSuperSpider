@@ -8,7 +8,7 @@ import java.io.*;
  */
 public abstract class FileLoader {
 
-    private static final String COOKIE_RELETIVE_PATH = "cookie/cookie.txt";
+    private static final String COOKIE_FLUSH_PATH = "cookie/cookie.txt";
     private static final String TEST_JSON_PATH = "testJson/testJson.txt";
     private static final String ROOT_PATH = FileLoader.class.getResource("").getPath();
 
@@ -16,12 +16,12 @@ public abstract class FileLoader {
 
     public static String loadCookie() {
         if(cookie != null) return cookie;
-        return cookie = loadFile(COOKIE_RELETIVE_PATH);
+        return cookie = loadFile(COOKIE_FLUSH_PATH);
     }
 
     public static void updateCookie(String cookie) {
         FileLoader.cookie = cookie;
-        updateFile(COOKIE_RELETIVE_PATH, cookie);
+        updateFile(COOKIE_FLUSH_PATH, cookie);
     }
 
     public static String loadTestJson() {

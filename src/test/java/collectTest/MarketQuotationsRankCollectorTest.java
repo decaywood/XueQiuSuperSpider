@@ -15,6 +15,21 @@ import java.util.List;
 public class MarketQuotationsRankCollectorTest {
 
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testNull() {
+
+        MarketQuotationsRankCollector collector =
+                new MarketQuotationsRankCollector(null,
+                        MarketQuotationsRankCollector.ORDER_BY_TURNOVER_RATE,
+                        -5);
+        Assert.assertNotNull(collector.getStockType());
+        MarketQuotationsRankCollector collector1 =
+                new MarketQuotationsRankCollector(StockType.GROWTH_ENTERPRISE_BOARD,
+                        null,
+                        -5);
+        Assert.assertNotNull(collector1.getOrderPattern());
+    }
+
 
     @Test(expected = IllegalArgumentException.class)
     public void testOverFlowTopK() {

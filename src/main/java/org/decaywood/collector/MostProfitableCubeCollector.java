@@ -15,7 +15,7 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/25 21:45.
  */
-public class MostProfitableStrategyCollector extends  AbstractCollector<List<Cube>> {
+public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> {
 
     public enum Market {
         CN("cn"),
@@ -56,24 +56,27 @@ public class MostProfitableStrategyCollector extends  AbstractCollector<List<Cub
     private ORDER_BY order_by;
     private int topK;
 
-    public MostProfitableStrategyCollector() {
+    public MostProfitableCubeCollector() {
         this(Market.CN);
     }
 
-    public MostProfitableStrategyCollector(Market market) {
+    public MostProfitableCubeCollector(Market market) {
         this(market, ORDER_BY.MONTHLY);
     }
 
-    public MostProfitableStrategyCollector(Market market, ORDER_BY order_by) {
+    public MostProfitableCubeCollector(Market market, ORDER_BY order_by) {
         this(null, market, order_by, 10);
     }
 
-    public MostProfitableStrategyCollector(TimeWaitingStrategy strategy, Market market, ORDER_BY order_by, int topK) {
+    public MostProfitableCubeCollector(TimeWaitingStrategy strategy, Market market, ORDER_BY order_by, int topK) {
         super(strategy);
-        this.market = market;
-        this.order_by = order_by;
+
+        this.market = market == null ? Market.CN : market;
+        this.order_by = order_by == null ? ORDER_BY.MONTHLY : order_by;
+
         if(topK <= 0) throw new IllegalArgumentException();
         this.topK = Math.min(topK, CUBE_SIZE_SHRESHOLD);
+
     }
 
     @Override
@@ -101,8 +104,18 @@ public class MostProfitableStrategyCollector extends  AbstractCollector<List<Cub
             String id = jsonNode.get("id").asText();
             String name = jsonNode.get("name").asText();
             String symbol = jsonNode.get("symbol").asText();
-
-            Cube cube = new Cube(id, name, symbol);
+            String daily_gain = jsonNode.get("daily_gain").asText();
+            String monthly_gain = jsonNode.get("monthly_gain").asText();
+            String annualized_gain_rate = jsonNode.get("annualized_gain_rate").asText();
+            String total_gain = jsonNode.get("total_gain").asText();
+            Cube cube = new Cube(
+                    id,
+                    name,
+                    symbol,
+                    daily_gain,
+                    monthly_gain,
+                    annualized_gain_rate,
+                    total_gain);
             cubes.add(cube);
 
         }
@@ -110,5 +123,16 @@ public class MostProfitableStrategyCollector extends  AbstractCollector<List<Cub
 
     }
 
+    public static void main(String[] args) {
+        new MostProfitableCubeCollector().get();
+    }
 
+
+    public Market getMarket() {
+        return market;
+    }
+
+    public ORDER_BY getOrder_by() {
+        return order_by;
+    }
 }

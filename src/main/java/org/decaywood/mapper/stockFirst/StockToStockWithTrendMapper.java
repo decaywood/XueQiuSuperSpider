@@ -2,14 +2,13 @@ package org.decaywood.mapper.stockFirst;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.entity.Stock;
-import org.decaywood.entity.StockTrend;
-import org.decaywood.entity.StockTrend.Period;
-import org.decaywood.entity.StockTrend.TrendBlock;
+import org.decaywood.entity.trend.StockTrend;
+import org.decaywood.entity.trend.StockTrend.Period;
+import org.decaywood.entity.trend.StockTrend.TrendBlock;
 import org.decaywood.mapper.AbstractMapper;
 import org.decaywood.mapper.StockFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.EmptyObject;
-import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
@@ -50,10 +49,8 @@ public class StockToStockWithTrendMapper extends AbstractMapper<Stock, Stock> im
                 .addParameter("symbol", copyStock.getStockNo())
                 .addParameter("period", period.toString());
         URL url = new URL(builder.build());
-        System.out.println(url);
-        String json = new HttpRequestHelper()
-                .addToHeader("Referer", URLMapper.MAIN_PAGE.toString())
-                .request(url);
+
+        String json = request(url);
 
         JsonNode node = mapper.readTree(json).get("chartlist");
         processStock(copyStock, node);
@@ -76,8 +73,8 @@ public class StockToStockWithTrendMapper extends AbstractMapper<Stock, Stock> im
 
         }
 
-        StockTrend trend = new StockTrend(stock.getStockNo(), period, history);
-        System.out.println(trend.getHistory().size());
+        StockTrend trend = history.isEmpty() ? EmptyObject.emptyStockTrend
+                : new StockTrend(stock.getStockNo(), period, history);
         stock.setStockTrend(trend);
     }
 

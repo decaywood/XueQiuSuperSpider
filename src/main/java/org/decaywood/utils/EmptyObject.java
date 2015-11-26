@@ -1,6 +1,9 @@
 package org.decaywood.utils;
 
 import org.decaywood.entity.*;
+import org.decaywood.entity.trend.CubeTrend;
+import org.decaywood.entity.trend.MarketIndexTrend;
+import org.decaywood.entity.trend.StockTrend;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +13,18 @@ import java.util.Date;
  * @date: 2015/11/24 20:47
  */
 public abstract class EmptyObject {
+
+    private static class EmptyMarketIndexTrend extends MarketIndexTrend {
+
+        public EmptyMarketIndexTrend() {
+            super(emptyString, emptyString, new ArrayList<>());
+        }
+
+        @Override
+        public EmptyMarketIndexTrend copy() {
+            return this;
+        }
+    }
 
     private static class EmptyStockTrend extends StockTrend {
 
@@ -26,7 +41,12 @@ public abstract class EmptyObject {
     private static class EmptyCubeTrend extends CubeTrend {
 
         public EmptyCubeTrend() {
-            super(emptyString, emptyString, emptyString, emptyString, new ArrayList<>());
+            super(
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    new ArrayList<>());
         }
 
         @Override
@@ -64,7 +84,14 @@ public abstract class EmptyObject {
 
 
         public EmptyCube() {
-            super(emptyString, emptyString, emptyString);
+            super(
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString);
         }
 
         @Override
@@ -80,5 +107,6 @@ public abstract class EmptyObject {
     public static Stock emptyStock = new EmptyStock();
     public static Cube emptyCube = new EmptyCube();
     public static CubeTrend emptyCubeTrend = new EmptyCubeTrend();
+    public static MarketIndexTrend emptyMarketIndexTrend = new EmptyMarketIndexTrend();
 
 }

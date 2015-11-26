@@ -67,9 +67,11 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
         super(strategy);
 
         orderPattern = orderPattern == null ? "" : orderPattern;
-        if(!isLegal(orderPattern) || topK <= 0) throw new IllegalArgumentException("Not legal or not support yet exception");
 
-        this.stockType = stockType;
+        if(!isLegal(orderPattern) || topK <= 0)
+            throw new IllegalArgumentException("Not legal or not support yet exception");
+
+        this.stockType = stockType == null ? StockType.SH_A : stockType;
         this.orderPattern = orderPattern;
         this.topK = Math.min(topK, TOPK_MAX_SHRESHOLD);
 
@@ -124,5 +126,11 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
 
     }
 
+    public StockType getStockType() {
+        return stockType;
+    }
 
+    public String getOrderPattern() {
+        return orderPattern;
+    }
 }
