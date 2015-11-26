@@ -3,6 +3,7 @@ package org.decaywood.utils;
 import org.decaywood.entity.*;
 import org.decaywood.entity.trend.CubeTrend;
 import org.decaywood.entity.trend.MarketIndexTrend;
+import org.decaywood.entity.trend.Rebalancing;
 import org.decaywood.entity.trend.StockTrend;
 
 import java.util.ArrayList;
@@ -13,6 +14,18 @@ import java.util.Date;
  * @date: 2015/11/24 20:47
  */
 public abstract class EmptyObject {
+
+    private static class EmptyRebalancing extends Rebalancing {
+
+        public EmptyRebalancing() {
+            super(new ArrayList<>());
+        }
+
+        @Override
+        public EmptyRebalancing copy() {
+            return this;
+        }
+    }
 
     private static class EmptyMarketIndexTrend extends MarketIndexTrend {
 
@@ -84,14 +97,7 @@ public abstract class EmptyObject {
 
 
         public EmptyCube() {
-            super(
-                    emptyString,
-                    emptyString,
-                    emptyString,
-                    emptyString,
-                    emptyString,
-                    emptyString,
-                    emptyString);
+            super(emptyString, emptyString, emptyString);
         }
 
         @Override
@@ -108,5 +114,5 @@ public abstract class EmptyObject {
     public static Cube emptyCube = new EmptyCube();
     public static CubeTrend emptyCubeTrend = new EmptyCubeTrend();
     public static MarketIndexTrend emptyMarketIndexTrend = new EmptyMarketIndexTrend();
-
+    public static Rebalancing emptyRebalancing = new EmptyRebalancing();
 }

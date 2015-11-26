@@ -2,6 +2,7 @@ package org.decaywood.entity.trend;
 
 import org.decaywood.entity.DeepCopy;
 import org.decaywood.utils.DateParser;
+import org.decaywood.utils.StringChecker;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +45,7 @@ public class StockTrend extends Trend<StockTrend.TrendBlock> implements DeepCopy
         private final Date time;
 
         public TrendBlock(String volume, String avg_price, String current, String time) {
-            if(time == null || volume == null || avg_price == null || current == null)
+            if(StringChecker.nullOrEmpty(volume, avg_price, current, time))
                 throw new IllegalArgumentException();
             this.volume = volume;
             this.avg_price = avg_price;

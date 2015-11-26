@@ -47,7 +47,7 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
     private final StockType stockType;
     private final String orderPattern;
     private boolean asc;
-    private int topK;
+    private final int topK;
 
     public MarketQuotationsRankCollector(StockType stockType, String orderPattern) {
         this(stockType, orderPattern, 10);

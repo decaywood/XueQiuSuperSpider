@@ -108,14 +108,11 @@ public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> 
             String monthly_gain = jsonNode.get("monthly_gain").asText();
             String annualized_gain_rate = jsonNode.get("annualized_gain_rate").asText();
             String total_gain = jsonNode.get("total_gain").asText();
-            Cube cube = new Cube(
-                    id,
-                    name,
-                    symbol,
-                    daily_gain,
-                    monthly_gain,
-                    annualized_gain_rate,
-                    total_gain);
+            Cube cube = new Cube(id, name, symbol);
+            cube.setDaily_gain(daily_gain);
+            cube.setMonthly_gain(monthly_gain);
+            cube.setAnnualized_gain_rate(annualized_gain_rate);
+            cube.setTotal_gain(total_gain);
             cubes.add(cube);
 
         }

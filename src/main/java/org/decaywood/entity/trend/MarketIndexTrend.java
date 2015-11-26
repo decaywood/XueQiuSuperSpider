@@ -1,6 +1,7 @@
 package org.decaywood.entity.trend;
 
 import org.decaywood.entity.DeepCopy;
+import org.decaywood.utils.StringChecker;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class MarketIndexTrend extends Trend<MarketIndexTrend.TrendBlock>
         private final String percent;
 
         public TrendBlock(String time, String date, String value, String percent) {
-            if(time == null || date == null || value == null || percent == null)
+            if(StringChecker.nullOrEmpty(time, date, value, percent))
                 throw new IllegalArgumentException();
             this.time = time;
             this.date = date;

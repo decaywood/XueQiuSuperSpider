@@ -1,5 +1,6 @@
 package mapperTest;
 
+import org.decaywood.entity.Cube;
 import org.decaywood.entity.Industry;
 import org.decaywood.entity.Stock;
 
@@ -29,6 +30,14 @@ public class TestCaseGenerator {
         stocks.add(new Stock("利德曼","SZ300289"));
         stocks.add(new Stock("国元证券","SZ000728"));
         return stocks;
+    }
+
+    public static List<Cube> generateCube() {
+        List<Cube> cubes = new ArrayList<>();
+        cubes.add(new Cube("xxx", "xxx", "ZH128412")); //沪深组合
+        cubes.add(new Cube("xxx", "xxx", "ZH102164")); //港股组合
+        cubes.add(new Cube("xxx", "xxx", "ZH739627")); //美股组合
+        return cubes;
     }
 
 }

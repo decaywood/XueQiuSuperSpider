@@ -1,5 +1,6 @@
 package utilTest;
 
+import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.StringChecker;
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,6 +29,14 @@ public class StringCheckerTest {
         Assert.assertFalse(StringChecker.isNumeric(case5));
         Assert.assertFalse(StringChecker.isNumeric(null));
 
+    }
+
+    @Test
+    public void notNullOrEmptyCheckTest() {
+        Assert.assertFalse(StringChecker.nullOrEmpty("xx", null, "xxxx"));
+        Assert.assertFalse(StringChecker.nullOrEmpty("xx", null, EmptyObject.emptyString));
+        Assert.assertFalse(StringChecker.nullOrEmpty("xx", "", "xx"));
+        Assert.assertTrue(StringChecker.nullOrEmpty("xx", "xx", "xxx"));
     }
 
 }

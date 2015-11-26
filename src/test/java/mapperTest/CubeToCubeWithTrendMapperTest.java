@@ -6,7 +6,6 @@ import org.decaywood.mapper.cubeFirst.CubeToCubeWithTrendMapper;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -45,10 +44,7 @@ public class CubeToCubeWithTrendMapperTest {
 
         CubeFirst<Cube> cubeCubeFirst = new CubeToCubeWithTrendMapper(since, until);
 
-        List<Cube> cubes = new ArrayList<>();
-        cubes.add(new Cube("xxx", "xxx", "ZH128412", "xxx", "xxx", "xxx", "xxx")); //沪深组合
-        cubes.add(new Cube("xxx", "xxx", "ZH102164", "xxx", "xxx", "xxx", "xxx")); //港股组合
-        cubes.add(new Cube("xxx", "xxx", "ZH739627", "xxx", "xxx", "xxx", "xxx")); //美股组合
+        List<Cube> cubes = TestCaseGenerator.generateCube();
 
         cubes.stream()
                 .map(cubeCubeFirst)

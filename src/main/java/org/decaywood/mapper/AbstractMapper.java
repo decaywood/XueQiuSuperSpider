@@ -48,6 +48,7 @@ public abstract class AbstractMapper <T, R> implements Function<T, R> {
                     break;
                 } catch (Exception e) {
                     if(!(e instanceof IOException)) throw e;
+                    System.out.println("Network busy Retrying -> " + loopTime + " times");
                     HttpRequestHelper.updateCookie();
                     this.strategy.waiting(loopTime++);
                 }
