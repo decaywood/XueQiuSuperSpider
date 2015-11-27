@@ -54,6 +54,21 @@ public class Rebalancing extends Trend<Rebalancing.TrendBlock> implements DeepCo
             this.weight = weight;
             this.rebalancing_id = rebalancing_id;
         }
+
+        @Override
+        public String toString() {
+            return "TrendBlock{" +
+                    "stock_name='" + stock_name + '\'' +
+                    ", stock_symbol='" + stock_symbol + '\'' +
+                    ", created_at='" + created_at + '\'' +
+                    ", prev_price='" + prev_price + '\'' +
+                    ", price='" + price + '\'' +
+                    ", prev_weight='" + prev_weight + '\'' +
+                    ", target_weight='" + target_weight + '\'' +
+                    ", weight='" + weight + '\'' +
+                    ", rebalancing_id='" + rebalancing_id + '\'' +
+                    '}';
+        }
     }
 
 

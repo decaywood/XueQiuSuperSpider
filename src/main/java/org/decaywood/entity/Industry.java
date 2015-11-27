@@ -17,6 +17,7 @@ public class Industry implements DeepCopy<Industry> {
     }
 
 
+
     public String getIndustryName() {
         return industryName;
     }
@@ -26,10 +27,28 @@ public class Industry implements DeepCopy<Industry> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Industry industry = (Industry) o;
+
+        if (!industryName.equals(industry.industryName)) return false;
+        return industryInfo.equals(industry.industryInfo);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = industryName.hashCode();
+        result = 31 * result + industryInfo.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "industryName = " + industryName  + "  " + "industryInfo = " + industryInfo;
     }
-
 
     @Override
     public Industry copy() {

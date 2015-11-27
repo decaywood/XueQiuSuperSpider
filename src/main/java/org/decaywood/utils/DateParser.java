@@ -12,11 +12,9 @@ import java.util.Locale;
 public abstract class DateParser {
 
 
-    private static DateFormat dateFormat =
-            new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy", Locale.ENGLISH);
-
-
     public static Date parseToDate(String time) {
+        DateFormat dateFormat =
+                new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy", Locale.ENGLISH);
         try {
             return dateFormat.parse(time);
         } catch (Exception e) {
