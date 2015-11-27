@@ -46,6 +46,8 @@ public class Stock implements DeepCopy<Stock> {
     private String amount = EmptyObject.emptyString;//成交额
     private Date time = EmptyObject.emptyDate;//雪球系统时间
 
+    private Date stockQueryDate = EmptyObject.emptyDate;
+
     private StockTrend stockTrend = EmptyObject.emptyStockTrend;//股票走势
 
 
@@ -306,6 +308,14 @@ public class Stock implements DeepCopy<Stock> {
         this.amount = amount;
     }
 
+    public void setStockQueryDate(Date stockQueryDate) {
+        this.stockQueryDate = stockQueryDate;
+    }
+
+    public Date getStockQueryDate() {
+        return stockQueryDate;
+    }
+
     @Override
     public Stock copy() {
         Stock stock = new Stock(this.stockName, this.stockNo);
@@ -338,6 +348,7 @@ public class Stock implements DeepCopy<Stock> {
         stock.amount = amount;
         stock.turnover_rate = turnover_rate;
         stock.stockTrend = stockTrend.copy();
+        stock.stockQueryDate = stockQueryDate;
         return stock;
     }
 

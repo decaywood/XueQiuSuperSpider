@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.entity.Cube;
 import org.decaywood.entity.trend.Rebalancing;
 import org.decaywood.mapper.AbstractMapper;
-import org.decaywood.mapper.CubeFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.RequestParaBuilder;
@@ -18,8 +17,7 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/26 15:56
  */
-public class CubeToCubeWithLastBalancingMapper extends AbstractMapper<Cube, Cube>
-        implements CubeFirst <Cube> {
+public class CubeToCubeWithLastBalancingMapper extends AbstractMapper<Cube, Cube> {
 
 
 

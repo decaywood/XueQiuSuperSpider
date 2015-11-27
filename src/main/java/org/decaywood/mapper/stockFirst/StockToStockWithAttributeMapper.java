@@ -3,7 +3,6 @@ package org.decaywood.mapper.stockFirst;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.entity.Stock;
 import org.decaywood.mapper.AbstractMapper;
-import org.decaywood.mapper.StockFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.RequestParaBuilder;
@@ -15,7 +14,7 @@ import java.net.URL;
  * @author: decaywood
  * @date: 2015/11/23 21:25
  */
-public class StockToStockWithAttributeMapper extends AbstractMapper<Stock, Stock> implements StockFirst<Stock> {
+public class StockToStockWithAttributeMapper extends AbstractMapper<Stock, Stock> {
 
 
     public StockToStockWithAttributeMapper(TimeWaitingStrategy strategy) {

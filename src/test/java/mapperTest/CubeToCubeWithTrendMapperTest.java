@@ -1,7 +1,6 @@
 package mapperTest;
 
 import org.decaywood.entity.Cube;
-import org.decaywood.mapper.CubeFirst;
 import org.decaywood.mapper.cubeFirst.CubeToCubeWithTrendMapper;
 import org.junit.Assert;
 import org.junit.Test;
@@ -42,7 +41,7 @@ public class CubeToCubeWithTrendMapperTest {
         calendar.set(2015, Calendar.MAY, 28);
         Date until = calendar.getTime();
 
-        CubeFirst<Cube> cubeCubeFirst = new CubeToCubeWithTrendMapper(since, until);
+        CubeToCubeWithTrendMapper cubeCubeFirst = new CubeToCubeWithTrendMapper(since, until);
 
         List<Cube> cubes = TestCaseGenerator.generateCube();
 

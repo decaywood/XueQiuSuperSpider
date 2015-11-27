@@ -5,7 +5,6 @@ import org.decaywood.entity.Cube;
 import org.decaywood.entity.trend.CubeTrend;
 import org.decaywood.entity.trend.MarketIndexTrend;
 import org.decaywood.mapper.AbstractMapper;
-import org.decaywood.mapper.CubeFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.RequestParaBuilder;
@@ -20,7 +19,7 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/26 9:48
  */
-public class CubeToCubeWithTrendMapper extends AbstractMapper<Cube, Cube> implements CubeFirst<Cube> {
+public class CubeToCubeWithTrendMapper extends AbstractMapper<Cube, Cube> {
 
     private final long since;
     private final long until;

@@ -6,7 +6,6 @@ import org.decaywood.entity.trend.StockTrend;
 import org.decaywood.entity.trend.StockTrend.Period;
 import org.decaywood.entity.trend.StockTrend.TrendBlock;
 import org.decaywood.mapper.AbstractMapper;
-import org.decaywood.mapper.StockFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.RequestParaBuilder;
@@ -20,7 +19,7 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/24 15:23
  */
-public class StockToStockWithTrendMapper extends AbstractMapper<Stock, Stock> implements StockFirst<Stock> {
+public class StockToStockWithTrendMapper extends AbstractMapper<Stock, Stock> {
 
 
     private Period period;

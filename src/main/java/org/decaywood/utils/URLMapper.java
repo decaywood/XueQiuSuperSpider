@@ -10,6 +10,7 @@ public enum URLMapper {
     COMPREHENSIVE_PAGE("http://xueqiu.com/hq"),
 
 
+    LONGHUBANG_JSON("http://xueqiu.com/stock/f10/bizunittrdinfo.json"),
     CUBE_REBALANCING_JSON("http://xueqiu.com/cubes/rebalancing/history.json"),
     CUBE_TREND_JSON("http://xueqiu.com/cubes/nav_daily/all.json"),
     CUBES_RANK_JSON("http://xueqiu.com/cubes/discover/rank/cube/list.json"),

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.entity.Industry;
 import org.decaywood.entity.Stock;
 import org.decaywood.mapper.AbstractMapper;
-import org.decaywood.mapper.IndustryFirst;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.RequestParaBuilder;
@@ -19,8 +18,7 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/23 14:04
  */
-public class IndustryToIndustryWithStocksMapper extends AbstractMapper<Industry, Industry>
-implements IndustryFirst<Industry> {
+public class IndustryToIndustryWithStocksMapper extends AbstractMapper<Industry, Industry> {
 
 
     public IndustryToIndustryWithStocksMapper(TimeWaitingStrategy strategy) {
