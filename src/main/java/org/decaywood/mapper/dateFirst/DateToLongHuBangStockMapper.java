@@ -19,6 +19,9 @@ import java.util.List;
  */
 public class DateToLongHuBangStockMapper extends AbstractMapper<Date, List<Stock>> {
 
+    public DateToLongHuBangStockMapper() {
+        this(null);
+    }
 
     public DateToLongHuBangStockMapper(TimeWaitingStrategy strategy) {
         super(strategy);

@@ -27,6 +27,8 @@ public abstract class AbstractCollector<T> implements Supplier<T> {
     @Override
     public T get() {
 
+        System.out.println(getClass().getSimpleName() + " collecting...");
+
         this.strategy = this.strategy == null ? new DefaultTimeWaitingStrategy<>() : strategy;
 
         T res = null;

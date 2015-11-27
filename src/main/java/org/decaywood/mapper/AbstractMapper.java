@@ -36,6 +36,9 @@ public abstract class AbstractMapper <T, R> implements Function<T, R> {
     @Override
     public R apply(T t) {
 
+        if(t != null)
+            System.out.println(getClass().getSimpleName() + " mapping -> " + t.getClass().getSimpleName());
+
         this.strategy = this.strategy == null ? new DefaultTimeWaitingStrategy<>() : strategy;
 
         R res = null;

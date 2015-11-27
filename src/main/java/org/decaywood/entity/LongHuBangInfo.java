@@ -3,7 +3,7 @@ package org.decaywood.entity;
 import org.decaywood.utils.StringChecker;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author: decaywood
@@ -14,8 +14,8 @@ public class LongHuBangInfo implements DeepCopy<LongHuBangInfo> {
     private final Stock stock;
     private final Date date;
 
-    private final List<BizsunitInfo> topBuyList;
-    private final List<BizsunitInfo> topSaleList;
+    private final Set<BizsunitInfo> topBuyList;
+    private final Set<BizsunitInfo> topSaleList;
 
     public static class BizsunitInfo {
         private final String bizsunitcode; //营业部编号
@@ -35,9 +35,25 @@ public class LongHuBangInfo implements DeepCopy<LongHuBangInfo> {
             this.saleamt = saleamt;
             this.tradedate = tradedate;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            BizsunitInfo info = (BizsunitInfo) o;
+
+            return bizsunitname.equals(info.bizsunitname);
+
+        }
+
+        @Override
+        public int hashCode() {
+            return bizsunitname.hashCode();
+        }
     }
 
-    public LongHuBangInfo(Stock stock, Date date, List<BizsunitInfo> topBuyList, List<BizsunitInfo> topSaleList) {
+    public LongHuBangInfo(Stock stock, Date date, Set<BizsunitInfo> topBuyList, Set<BizsunitInfo> topSaleList) {
         this.stock = stock;
         this.date = date;
         this.topBuyList = topBuyList;
@@ -52,11 +68,21 @@ public class LongHuBangInfo implements DeepCopy<LongHuBangInfo> {
         return date;
     }
 
-    public List<BizsunitInfo> getTopBuyList() {
+    //龙虎榜买入是否有该营业部出现
+    public boolean bizsunitInBuyList(String name) {
+        return topBuyList.contains(new BizsunitInfo("xx", name, "xx", "xx", "xx"));
+    }
+
+    //龙虎榜卖出是否有该营业部出现
+    public boolean bizsunitInSaleList(String name) {
+        return topSaleList.contains(new BizsunitInfo("xx", name, "xx", "xx", "xx"));
+    }
+
+    public Set<BizsunitInfo> getTopBuyList() {
         return topBuyList;
     }
 
-    public List<BizsunitInfo> getTopSaleList() {
+    public Set<BizsunitInfo> getTopSaleList() {
         return topSaleList;
     }
 

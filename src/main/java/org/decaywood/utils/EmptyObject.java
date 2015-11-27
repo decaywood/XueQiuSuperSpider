@@ -8,6 +8,7 @@ import org.decaywood.entity.trend.StockTrend;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: decaywood

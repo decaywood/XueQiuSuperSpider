@@ -9,7 +9,6 @@ import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,21 +17,21 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/23 14:04
  */
-public class IndustryToIndustryWithStocksMapper extends AbstractMapper<Industry, Industry> {
+public class IndustryToStocksMapper extends AbstractMapper<Industry, List<Stock>> {
 
 
-    public IndustryToIndustryWithStocksMapper(TimeWaitingStrategy strategy) {
+    public IndustryToStocksMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }
 
-    public IndustryToIndustryWithStocksMapper() {
+    public IndustryToStocksMapper() {
         this(null);
     }
 
     @Override
-    public Industry mapLogic(Industry industry) throws Exception {
+    public List<Stock> mapLogic(Industry industry) throws Exception {
 
-        if(industry == null || industry == EmptyObject.emptyIndustry) return EmptyObject.emptyIndustry;
+        if(industry == null || industry == EmptyObject.emptyIndustry) return new ArrayList<>();
 
         Industry industryCopy = industry.copy();
         String target = URLMapper.INDUSTRY_JSON.toString();
@@ -49,27 +48,24 @@ public class IndustryToIndustryWithStocksMapper extends AbstractMapper<Industry,
         }
         URL url = new URL(builder.build());
         String json = request(url);
-        return parserJson(industryCopy, json);
+        JsonNode jsonNode = mapper.readTree(json);
+
+        return parserJson(industryCopy, jsonNode);
 
     }
 
 
-    private Industry parserJson(Industry industry, String jsonContent) {
+    private List<Stock> parserJson(Industry industry, JsonNode node) {
 
         List<Stock> stocks = new ArrayList<>();
-        try {
 
-            JsonNode root = mapper.readTree(jsonContent);
-            JsonNode node = root.get("data");
-            for (JsonNode jsonNode : node) {
-                Stock stock = new Stock(jsonNode.get("name").asText(), jsonNode.get("symbol").asText());
-                stocks.add(stock);
-            }
-            industry.setStocks(stocks);
-        } catch (IOException e) {
-            e.printStackTrace();
+        JsonNode data = node.get("data");
+        for (JsonNode jsonNode : data) {
+            Stock stock = new Stock(jsonNode.get("name").asText(), jsonNode.get("symbol").asText());
+            stock.setIndustry(industry);
+            stocks.add(stock);
         }
-        return industry;
+        return stocks;
 
     }
 

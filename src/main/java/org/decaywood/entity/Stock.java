@@ -49,7 +49,7 @@ public class Stock implements DeepCopy<Stock> {
     private Date stockQueryDate = EmptyObject.emptyDate;
 
     private StockTrend stockTrend = EmptyObject.emptyStockTrend;//股票走势
-
+    private Industry industry = EmptyObject.emptyIndustry;
 
 
 
@@ -316,6 +316,14 @@ public class Stock implements DeepCopy<Stock> {
         return stockQueryDate;
     }
 
+    public void setIndustry(Industry industry) {
+        this.industry = industry;
+    }
+
+    public Industry getIndustry() {
+        return industry;
+    }
+
     @Override
     public Stock copy() {
         Stock stock = new Stock(this.stockName, this.stockNo);
@@ -349,6 +357,7 @@ public class Stock implements DeepCopy<Stock> {
         stock.turnover_rate = turnover_rate;
         stock.stockTrend = stockTrend.copy();
         stock.stockQueryDate = stockQueryDate;
+        stock.industry = industry;
         return stock;
     }
 

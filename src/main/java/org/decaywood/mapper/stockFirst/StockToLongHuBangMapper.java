@@ -10,10 +10,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author: decaywood
@@ -66,8 +63,8 @@ public class StockToLongHuBangMapper extends AbstractMapper <Stock, LongHuBangIn
         JsonNode buyListNode = detail.get("tqQtBizunittrdinfoBuyList");
         JsonNode saleListNode = detail.get("tqQtBizunittrdinfoSaleList");
 
-        List<LongHuBangInfo.BizsunitInfo> buyList = new ArrayList<>();
-        List<LongHuBangInfo.BizsunitInfo> saleList = new ArrayList<>();
+        Set<LongHuBangInfo.BizsunitInfo> buyList = new HashSet<>();
+        Set<LongHuBangInfo.BizsunitInfo> saleList = new HashSet<>();
 
         for (JsonNode jsonNode : buyListNode) {
             LongHuBangInfo.BizsunitInfo info = composeInfo(jsonNode);
