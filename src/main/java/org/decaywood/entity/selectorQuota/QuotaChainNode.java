@@ -47,11 +47,13 @@ public interface QuotaChainNode {
     }
 
     default QuotaChainNode append(StringBuilder builder, String paramName, String param) {
+        if("ALL".equals(param)) return this;
         builder.append(paramName).append("=").append(param).append("&");
         return this;
     }
 
     default QuotaChainNode appendWithTimePrefix(StringBuilder builder, String paramName, String param) {
+        if("ALL".equals(param)) return this;
         builder.append(paramName.concat(getTimePrefix())).append("=").append(param).append("&");
         return this;
     }

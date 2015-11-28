@@ -42,16 +42,17 @@ public abstract class AbstractMapper <T, R> implements Function<T, R> {
         this.strategy = this.strategy == null ? new DefaultTimeWaitingStrategy<>() : strategy;
 
         R res = null;
+        int retryTime = this.strategy.retryTimes();
 
         try {
             int loopTime = 1;
-            while (true) {
+            while (retryTime > loopTime) {
                 try {
                     res = mapLogic(t);
                     break;
                 } catch (Exception e) {
                     if(!(e instanceof IOException)) throw e;
-                    System.out.println("Network busy Retrying -> " + loopTime + " times");
+                    System.out.println("Mapper: Network busy Retrying -> " + loopTime + " times");
                     HttpRequestHelper.updateCookie();
                     this.strategy.waiting(loopTime++);
                 }

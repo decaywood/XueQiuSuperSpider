@@ -52,7 +52,7 @@ public class QuotaHead extends AbstractQuotaNode {
         append(builder, "category", category);
         append(builder, "exchange", exchange);
         append(builder, "areacode", areacode);
-        append(builder, "incode", indcode);
+        append(builder, "indcode", indcode);
         append(builder, "orderby", orderby);
         append(builder, "order", order);
         append(builder, "page", page);

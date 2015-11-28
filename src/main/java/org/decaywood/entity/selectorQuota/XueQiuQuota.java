@@ -19,39 +19,39 @@ public class XueQiuQuota extends AbstractQuotaNode {
 
     private QuotaChainNode next;
 
-    public void setFollow(String from, String to) {
+    public void setFollow(double from, double to) {
         this.follow = from + "_" + to;
     }
 
-    public void setTweet(String from, String to) {
+    public void setTweet(double from, double to) {
         this.tweet = from + "_" + to;
     }
 
-    public void setDeal(String from, String to) {
+    public void setDeal(double from, double to) {
         this.deal = from + "_" + to;
     }
 
-    public void setFollow7d(String from, String to) {
+    public void setFollow7d(double from, double to) {
         this.follow7d = from + "_" + to;
     }
 
-    public void setTweet7d(String from, String to) {
+    public void setTweet7d(double from, double to) {
         this.tweet7d = from + "_" + to;
     }
 
-    public void setDeal7d(String from, String to) {
+    public void setDeal7d(double from, double to) {
         this.deal7d = from + "_" + to;
     }
 
-    public void setFollow7dpct(String from, String to) {
+    public void setFollow7dpct(double from, double to) {
         this.follow7dpct = from + "_" + to;
     }
 
-    public void setTweet7dpct(String from, String to) {
+    public void setTweet7dpct(double from, double to) {
         this.tweet7dpct = from + "_" + to;
     }
 
-    public void setDeal7dpct(String from, String to) {
+    public void setDeal7dpct(double from, double to) {
         this.deal7dpct = from + "_" + to;
     }
 

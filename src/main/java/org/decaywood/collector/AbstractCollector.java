@@ -32,15 +32,17 @@ public abstract class AbstractCollector<T> implements Supplier<T> {
         this.strategy = this.strategy == null ? new DefaultTimeWaitingStrategy<>() : strategy;
 
         T res = null;
+        int retryTime = this.strategy.retryTimes();
 
         try {
             int loopTime = 1;
-            while (true) {
+            while (retryTime > loopTime) {
                 try {
                     res = collectLogic();
                     break;
                 } catch (Exception e) {
                     if(!(e instanceof IOException)) throw e;
+                    System.out.println("Collector: Network busy Retrying -> " + loopTime + " times");
                     HttpRequestHelper.updateCookie();
                     this.strategy.waiting(loopTime++);
                 }

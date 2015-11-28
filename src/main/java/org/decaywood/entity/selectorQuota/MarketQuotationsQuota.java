@@ -26,84 +26,106 @@ public class MarketQuotationsQuota extends AbstractQuotaNode {
     private String tr20 = "ALL"; //前20日换手率(%)
     private String tr1m = "ALL"; //近1月换手率(%)
 
-    public void setCurrent(String from, String to) {
+    public void setCurrent(double from, double to) {
         this.current = from + "_" + to;
     }
 
-    public void setPct(String from, String to) {
+    public void setPct(double from, double to) {
         this.pct = from + "_" + to;
     }
 
-    public void setPct5(String from, String to) {
+    public void setPct5(double from, double to) {
         this.pct5 = from + "_" + to;
     }
 
-    public void setPct10(String from, String to) {
+    public void setPct10(double from, double to) {
         this.pct10 = from + "_" + to;
     }
 
-    public void setPct20(String from, String to) {
+    public void setPct20(double from, double to) {
         this.pct20 = from + "_" + to;
     }
 
-    public void setPct1m(String from, String to) {
+    public void setPct1m(double from, double to) {
         this.pct1m = from + "_" + to;
     }
 
-    public void setChgpct(String from, String to) {
+    public void setChgpct(double from, double to) {
         this.chgpct = from + "_" + to;
     }
 
-    public void setChgpct5(String from, String to) {
+    public void setChgpct5(double from, double to) {
         this.chgpct5 = from + "_" + to;
     }
 
-    public void setChgpct10(String from, String to) {
+    public void setChgpct10(double from, double to) {
         this.chgpct10 = from + "_" + to;
     }
 
-    public void setChgpct20(String from, String to) {
+    public void setChgpct20(double from, double to) {
         this.chgpct20 = from + "_" + to;
     }
 
-    public void setChgpct1m(String from, String to) {
+    public void setChgpct1m(double from, double to) {
         this.chgpct1m = from + "_" + to;
     }
 
-    public void setVolume(String from, String to) {
+    public void setVolume(double from, double to) {
         this.volume = from + "_" + to;
     }
 
-    public void setVolavg30(String from, String to) {
+    public void setVolavg30(double from, double to) {
         this.volavg30 = from + "_" + to;
     }
 
-    public void setAmount(String from, String to) {
+    public void setAmount(double from, double to) {
         this.amount = from + "_" + to;
     }
 
-    public void setTr(String from, String to) {
+    public void setTr(double from, double to) {
         this.tr = from + "_" + to;
     }
 
-    public void setTr5(String from, String to) {
+    public void setTr5(double from, double to) {
         this.tr5 = from + "_" + to;
     }
 
-    public void setTr10(String from, String to) {
+    public void setTr10(double from, double to) {
         this.tr10 = from + "_" + to;
     }
 
-    public void setTr20(String from, String to) {
+    public void setTr20(double from, double to) {
         this.tr20 = from + "_" + to;
     }
 
-    public void setTr1m(String from, String to) {
+    public void setTr1m(double from, double to) {
         this.tr1m = from + "_" + to;
     }
 
+
+
     @Override
     StringBuilder builderSelf() {
-        return null;
+        StringBuilder builder = new StringBuilder();
+        append(builder, "current", current);
+        append(builder, "pct", pct);
+        append(builder, "pct5", pct5);
+        append(builder, "pct10", pct10);
+        append(builder, "pct20", pct20);
+        append(builder, "pct1m", pct1m);
+        append(builder, "chgpct", chgpct);
+        append(builder, "chgpct5", chgpct5);
+        append(builder, "chgpct10", chgpct10);
+        append(builder, "chgpct20", chgpct20);
+        append(builder, "chgpct1m", chgpct1m);
+        append(builder, "volume", volume);
+        append(builder, "volavg30", volavg30);
+        append(builder, "amount", amount);
+        append(builder, "tr", tr);
+        append(builder, "tr5", tr5);
+        append(builder, "tr10", tr10);
+        append(builder, "tr20", tr20);
+        append(builder, "tr1m", tr1m);
+        return builder;
     }
 }

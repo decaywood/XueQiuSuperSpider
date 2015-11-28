@@ -9,13 +9,16 @@ public class DefaultTimeWaitingStrategy <T> implements TimeWaitingStrategy {
     private final long timeWaitingShreshold;
     private final long timeWaiting;
 
+    private final int retryTime;
+
     public DefaultTimeWaitingStrategy() {
-        this(100000, 500);
+        this(100000, 500, 15);
     }
 
-    public DefaultTimeWaitingStrategy(final long timeWaitingShreshold, long timeWaiting) {
+    public DefaultTimeWaitingStrategy(final long timeWaitingShreshold, long timeWaiting, int retryTime) {
         this.timeWaitingShreshold = timeWaitingShreshold;
         this.timeWaiting = timeWaiting;
+        this.retryTime = retryTime;
     }
 
 
@@ -30,5 +33,10 @@ public class DefaultTimeWaitingStrategy <T> implements TimeWaitingStrategy {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int retryTimes() {
+        return retryTime;
     }
 }

@@ -8,4 +8,6 @@ public interface TimeWaitingStrategy {
 
     void waiting(int loopTime);
 
+    int retryTimes();
+
 }

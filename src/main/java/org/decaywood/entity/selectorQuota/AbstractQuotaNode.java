@@ -17,7 +17,9 @@ public abstract class AbstractQuotaNode implements QuotaChainNode {
 
     @Override
     public void setNext(QuotaChainNode next) {
-        this.next = next == null ? EmptyObject.emptyQuotaChainNode : next;
+        if(next == null) return;
+        if(!end()) getNext().setNext(next);
+        else this.next = next;
     }
 
     @Override
