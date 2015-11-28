@@ -38,8 +38,8 @@ public class Stock implements DeepCopy<Stock> {
     private String totalShares = EmptyObject.emptyString;//总股本
     private String eps = EmptyObject.emptyString;//每股收益
     private String net_assets = EmptyObject.emptyString;//每股净资产
-    private String pe_ttm = EmptyObject.emptyString;//ttm = EmptyEntity.emptyString;
-    private String pe_lyr = EmptyObject.emptyString;//lyr = EmptyEntity.emptyString;
+    private String pe_ttm = EmptyObject.emptyString;//动态市盈率
+    private String pe_lyr = EmptyObject.emptyString;//静态市盈率
     private String dividend = EmptyObject.emptyString;//每股股息
     private String psr = EmptyObject.emptyString;//市销率
     private String turnover_rate = EmptyObject.emptyString;//换手

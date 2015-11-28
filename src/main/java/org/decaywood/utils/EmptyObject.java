@@ -1,6 +1,9 @@
 package org.decaywood.utils;
 
-import org.decaywood.entity.*;
+import org.decaywood.entity.Cube;
+import org.decaywood.entity.Industry;
+import org.decaywood.entity.Stock;
+import org.decaywood.entity.selectorQuota.QuotaChainNode;
 import org.decaywood.entity.trend.CubeTrend;
 import org.decaywood.entity.trend.MarketIndexTrend;
 import org.decaywood.entity.trend.Rebalancing;
@@ -8,13 +11,33 @@ import org.decaywood.entity.trend.StockTrend;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author: decaywood
  * @date: 2015/11/24 20:47
  */
 public abstract class EmptyObject {
+
+    private static class EmptyQuotaChainNode implements QuotaChainNode {
+
+        @Override
+        public QuotaChainNode getNext() {
+            return null;
+        }
+
+        @Override
+        public void setNext(QuotaChainNode quotaChainNode) {}
+
+        @Override
+        public String generateQuotaRequest() {
+            return "";
+        }
+
+        @Override
+        public boolean end() {
+            return true;
+        }
+    }
 
     private static class EmptyRebalancing extends Rebalancing {
 
@@ -116,4 +139,5 @@ public abstract class EmptyObject {
     public static CubeTrend emptyCubeTrend = new EmptyCubeTrend();
     public static MarketIndexTrend emptyMarketIndexTrend = new EmptyMarketIndexTrend();
     public static Rebalancing emptyRebalancing = new EmptyRebalancing();
+    public static EmptyQuotaChainNode emptyQuotaChainNode = new EmptyQuotaChainNode();
 }
