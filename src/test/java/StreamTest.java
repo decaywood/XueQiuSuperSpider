@@ -13,7 +13,7 @@ import org.decaywood.mapper.dateFirst.DateToLongHuBangStockMapper;
 import org.decaywood.mapper.industryFirst.IndustryToStocksMapper;
 import org.decaywood.mapper.stockFirst.StockToLongHuBangMapper;
 import org.decaywood.mapper.stockFirst.StockToStockWithAttributeMapper;
-import org.decaywood.mapper.stockFirst.StockToStockWithTrendMapper;
+import org.decaywood.mapper.stockFirst.StockToStockWithStockTrendMapper;
 import org.junit.Test;
 
 import java.util.*;
@@ -50,7 +50,7 @@ public class StreamTest {
     public void HotRankStockDetail() {
         StockScopeHotRankCollector collector = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.US_WITHIN_24_HOUR);
         StockToStockWithAttributeMapper mapper1 = new StockToStockWithAttributeMapper();
-        StockToStockWithTrendMapper mapper2 = new StockToStockWithTrendMapper(StockTrend.Period.ONE_DAY);
+        StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper(StockTrend.Period.ONE_DAY);
         List<Stock> stocks = collector.get().parallelStream().map(mapper1.andThen(mapper2)).collect(Collectors.toList());
         for (Stock stock : stocks) {
             System.out.print(stock.getStockName() + " -> ");
@@ -67,7 +67,7 @@ public class StreamTest {
         CommissionIndustryCollector collector = new CommissionIndustryCollector();
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
         StockToStockWithAttributeMapper mapper1 = new StockToStockWithAttributeMapper();
-        StockToStockWithTrendMapper mapper2 = new StockToStockWithTrendMapper();
+        StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper();
         Map<Industry, List<Stock>> res = collector.get()
                 .parallelStream()
                 .filter(x -> x.getIndustryName().equals("畜牧业"))

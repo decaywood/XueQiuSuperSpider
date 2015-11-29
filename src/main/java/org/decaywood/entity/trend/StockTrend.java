@@ -1,6 +1,5 @@
 package org.decaywood.entity.trend;
 
-import org.decaywood.entity.DeepCopy;
 import org.decaywood.utils.DateParser;
 import org.decaywood.utils.StringChecker;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/24 16:00
  */
-public class StockTrend extends Trend<StockTrend.TrendBlock> implements DeepCopy<StockTrend> {
+public class StockTrend extends Trend<StockTrend.TrendBlock, StockTrend> {
 
     public enum Period
 

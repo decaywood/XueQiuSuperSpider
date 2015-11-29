@@ -5,6 +5,7 @@ import org.decaywood.entity.LongHuBangInfo;
 import org.decaywood.entity.Stock;
 import org.decaywood.mapper.AbstractMapper;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
+import org.decaywood.utils.DateParser;
 import org.decaywood.utils.EmptyObject;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
@@ -36,14 +37,7 @@ public class StockToLongHuBangMapper extends AbstractMapper <Stock, LongHuBangIn
         if (date == EmptyObject.emptyDate)
             throw new IllegalArgumentException("lost parameter: stockQueryDate");
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-
-        int diff = 1 - Calendar.JANUARY;
-
-        String dateParam = new StringBuilder().append(format(calendar.get(Calendar.YEAR)))
-                .append(format(calendar.get(Calendar.MONTH) + diff))
-                .append(format(calendar.get(Calendar.DATE))).toString();
+        String dateParam = DateParser.getTimePrefix(date, false);
 
         String target = URLMapper.LONGHUBANG_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target)
@@ -90,8 +84,5 @@ public class StockToLongHuBangMapper extends AbstractMapper <Stock, LongHuBangIn
         return new LongHuBangInfo.BizsunitInfo(bizsunitcode, bizsunitname, buyamt, saleamt, tradedate);
     }
 
-    private String format(int val) {
-        return String.format("%02d", val);
-    }
 
 }

@@ -4,12 +4,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.entity.Stock;
 import org.decaywood.mapper.AbstractMapper;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
+import org.decaywood.utils.DateParser;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -30,14 +30,7 @@ public class DateToLongHuBangStockMapper extends AbstractMapper<Date, List<Stock
     @Override
     public List<Stock> mapLogic(Date date) throws Exception {
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-
-        int diff = 1 - Calendar.JANUARY;
-
-        String dateParam = new StringBuilder().append(format(calendar.get(Calendar.YEAR)))
-                .append(format(calendar.get(Calendar.MONTH) + diff))
-                .append(format(calendar.get(Calendar.DATE))).toString();
+        String dateParam = DateParser.getTimePrefix(date, false);
 
         String target = URLMapper.LONGHUBANG_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target)
@@ -64,8 +57,5 @@ public class DateToLongHuBangStockMapper extends AbstractMapper<Date, List<Stock
         return stocks;
     }
 
-    private String format(int val) {
-        return String.format("%02d", val);
-    }
 
 }

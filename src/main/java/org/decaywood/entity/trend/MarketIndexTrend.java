@@ -1,6 +1,5 @@
 package org.decaywood.entity.trend;
 
-import org.decaywood.entity.DeepCopy;
 import org.decaywood.utils.StringChecker;
 
 import java.util.List;
@@ -9,8 +8,7 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/26 10:03
  */
-public class MarketIndexTrend extends Trend<MarketIndexTrend.TrendBlock>
-        implements DeepCopy<MarketIndexTrend> {
+public class MarketIndexTrend extends Trend<MarketIndexTrend.TrendBlock, MarketIndexTrend> {
 
 
     private final String symbol;

@@ -1,6 +1,5 @@
 package org.decaywood.entity.trend;
 
-import org.decaywood.entity.DeepCopy;
 import org.decaywood.utils.StringChecker;
 
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/26 17:15
  */
-public class Rebalancing extends Trend<Rebalancing.TrendBlock> implements DeepCopy<Rebalancing> {
+public class Rebalancing extends Trend<Rebalancing.TrendBlock, Rebalancing> {
 
 
 

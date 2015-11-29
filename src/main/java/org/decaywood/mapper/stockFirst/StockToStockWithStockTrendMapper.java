@@ -19,20 +19,20 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/24 15:23
  */
-public class StockToStockWithTrendMapper extends AbstractMapper<Stock, Stock> {
+public class StockToStockWithStockTrendMapper extends AbstractMapper<Stock, Stock> {
 
 
     private Period period;
 
-    public StockToStockWithTrendMapper() {
+    public StockToStockWithStockTrendMapper() {
         this(Period.FIVE_DAY);
     }
 
-    public StockToStockWithTrendMapper(Period period) {
+    public StockToStockWithStockTrendMapper(Period period) {
         this(null, period);
     }
 
-    public StockToStockWithTrendMapper(TimeWaitingStrategy strategy, Period period) {
+    public StockToStockWithStockTrendMapper(TimeWaitingStrategy strategy, Period period) {
         super(strategy);
         this.period = period;
     }
