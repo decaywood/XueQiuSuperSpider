@@ -2,10 +2,7 @@ import org.decaywood.collector.CommissionIndustryCollector;
 import org.decaywood.collector.DateRangeCollector;
 import org.decaywood.collector.MostProfitableCubeCollector;
 import org.decaywood.collector.StockScopeHotRankCollector;
-import org.decaywood.entity.Cube;
-import org.decaywood.entity.Industry;
-import org.decaywood.entity.LongHuBangInfo;
-import org.decaywood.entity.Stock;
+import org.decaywood.entity.*;
 import org.decaywood.entity.trend.StockTrend;
 import org.decaywood.mapper.cubeFirst.CubeToCubeWithLastBalancingMapper;
 import org.decaywood.mapper.cubeFirst.CubeToCubeWithTrendMapper;
@@ -14,6 +11,7 @@ import org.decaywood.mapper.industryFirst.IndustryToStocksMapper;
 import org.decaywood.mapper.stockFirst.StockToLongHuBangMapper;
 import org.decaywood.mapper.stockFirst.StockToStockWithAttributeMapper;
 import org.decaywood.mapper.stockFirst.StockToStockWithStockTrendMapper;
+import org.decaywood.mapper.stockFirst.StockToVIPFollowerCountMapper;
 import org.junit.Test;
 
 import java.util.*;
@@ -24,6 +22,25 @@ import java.util.stream.Collectors;
  * @date: 2015/11/24 14:06
  */
 public class StreamTest {
+
+
+    @Test
+    public void getStocksWithVipFollowersCount() {
+        CommissionIndustryCollector collector = new CommissionIndustryCollector();
+        IndustryToStocksMapper mapper = new IndustryToStocksMapper();
+        StockToVIPFollowerCountMapper mapper1 = new StockToVIPFollowerCountMapper(5000);
+        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
+        List<Entry<Stock, Integer>> res = collector.get()
+                .parallelStream()
+                .map(mapper)
+                .flatMap(Collection::stream)
+                .map(x -> new Entry<>(x, mapper1.apply(x)))
+                .collect(Collectors.toList());
+        for (Entry<Stock, Integer> re : res) {
+            System.out.println(re.getKey().getStockName() + " -> 5000粉丝以上大V个数  " + re.getValue());
+        }
+
+    }
 
     //最赚钱组合最新持仓以及收益走势、大盘走势
     @Test
