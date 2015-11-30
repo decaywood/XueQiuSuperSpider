@@ -3,6 +3,7 @@ package org.decaywood.entity;
 import org.decaywood.utils.StringChecker;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -88,6 +89,6 @@ public class LongHuBangInfo implements DeepCopy<LongHuBangInfo> {
 
     @Override
     public LongHuBangInfo copy() {
-        return null;
+        return new LongHuBangInfo(stock.copy(), date, new HashSet<>(topBuyList), new HashSet<>(topBuyList));
     }
 }

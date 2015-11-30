@@ -31,7 +31,9 @@ public class StockToLongHuBangMapper extends AbstractMapper <Stock, LongHuBangIn
     @Override
     public LongHuBangInfo mapLogic(Stock stock) throws Exception {
 
+        if(stock == null || stock == EmptyObject.emptyStock) return EmptyObject.emptyLongHuBangInfo;
         Stock copyStock = stock.copy();
+
         Date date = copyStock.getStockQueryDate();
 
         if (date == EmptyObject.emptyDate)

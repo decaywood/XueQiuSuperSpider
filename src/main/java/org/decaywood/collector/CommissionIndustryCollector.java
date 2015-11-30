@@ -2,7 +2,6 @@ package org.decaywood.collector;
 
 import org.decaywood.entity.Industry;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
-import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -33,8 +32,8 @@ public class CommissionIndustryCollector extends AbstractCollector<List<Industry
         List<Industry> res = new ArrayList<>();
 
         String target = URLMapper.COMPREHENSIVE_PAGE.toString();
-        HttpRequestHelper requestHelper = new HttpRequestHelper();
-        String content = requestHelper.request(new URL(target));
+
+        String content = request(new URL(target));
         Document doc = Jsoup.parse(content);
         Elements element = doc.getElementsByClass("second-nav")
                 .get(1).children()

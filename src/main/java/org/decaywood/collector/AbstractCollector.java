@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.decaywood.timeWaitingStrategy.DefaultTimeWaitingStrategy;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
+import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.function.Supplier;
 
 /**
@@ -22,6 +24,12 @@ public abstract class AbstractCollector<T> implements Supplier<T> {
     public AbstractCollector(TimeWaitingStrategy strategy) {
         this.strategy = strategy == null ? new DefaultTimeWaitingStrategy<>() : strategy;
         this.mapper = new ObjectMapper();
+    }
+
+    protected String request(URL url) throws IOException {
+        return new HttpRequestHelper()
+                .addToHeader("Referer", URLMapper.MAIN_PAGE.toString())
+                .request(url);
     }
 
     @Override

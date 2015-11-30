@@ -25,8 +25,7 @@ public class TestCaseGenerator {
 
     public static List<Stock> generateStocks() {
         List<Stock> stocks = new ArrayList<>();
-        stocks.add(new Stock("新华龙","SH603399"));
-        stocks.add(new Stock("大湖股份","SH600257"));
+        stocks.add(new Stock("银之杰", "SZ300085"));
         stocks.add(new Stock("利德曼","SZ300289"));
         stocks.add(new Stock("国元证券","SZ000728"));
         return stocks;

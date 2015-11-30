@@ -3,7 +3,6 @@ package org.decaywood.collector;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.entity.Cube;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
-import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
@@ -89,7 +88,7 @@ public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> 
                 .addParameter("profit", order_by.toString());
 
         URL url = new URL(builder.build());
-        String json = new HttpRequestHelper().request(url);
+        String json = request(url);
         JsonNode node = mapper.readTree(json);
         return processNode(node);
     }

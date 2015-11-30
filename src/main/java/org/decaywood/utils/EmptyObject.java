@@ -2,12 +2,14 @@ package org.decaywood.utils;
 
 import org.decaywood.entity.Cube;
 import org.decaywood.entity.Industry;
+import org.decaywood.entity.LongHuBangInfo;
 import org.decaywood.entity.Stock;
 import org.decaywood.entity.selectorQuota.QuotaChainNode;
 import org.decaywood.entity.trend.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  * @author: decaywood
@@ -33,6 +35,18 @@ public abstract class EmptyObject {
         @Override
         public boolean end() {
             return true;
+        }
+    }
+
+    private static class EmptyLongHuBangInfo extends LongHuBangInfo {
+
+        public EmptyLongHuBangInfo() {
+            super(emptyStock, new Date(), new HashSet<>(), new HashSet<>());
+        }
+
+        @Override
+        public LongHuBangInfo copy() {
+            return this;
         }
     }
 
@@ -149,4 +163,5 @@ public abstract class EmptyObject {
     public static Rebalancing emptyRebalancing = new EmptyRebalancing();
     public static EmptyQuotaChainNode emptyQuotaChainNode = new EmptyQuotaChainNode();
     public static EmptyShareHoldersTrend emptyShareHoldersTrend = new EmptyShareHoldersTrend();
+    public static EmptyLongHuBangInfo emptyLongHuBangInfo = new EmptyLongHuBangInfo();
 }

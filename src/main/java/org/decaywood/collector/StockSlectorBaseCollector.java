@@ -2,9 +2,9 @@ package org.decaywood.collector;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.entity.Stock;
-import org.decaywood.entity.selectorQuota.*;
+import org.decaywood.entity.selectorQuota.QuotaChainNode;
+import org.decaywood.entity.selectorQuota.QuotaHead;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
-import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
@@ -37,7 +37,7 @@ public class StockSlectorBaseCollector extends AbstractCollector<List<Stock>> {
         String target = URLMapper.STOCK_SELECTOR_JSON.toString();
         URL url = new URL(target + head.generateQuotaRequest());
 
-        String json = new HttpRequestHelper().request(url);
+        String json = request(url);
         JsonNode node = mapper.readTree(json);
         return processNode(node);
 

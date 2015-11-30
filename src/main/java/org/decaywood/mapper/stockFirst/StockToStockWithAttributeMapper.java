@@ -30,8 +30,8 @@ public class StockToStockWithAttributeMapper extends AbstractMapper<Stock, Stock
     public Stock mapLogic(Stock stock) throws Exception {
 
         if(stock == null || stock == EmptyObject.emptyStock) return EmptyObject.emptyStock;
-
         Stock copyStock = stock.copy();
+
         String target = URLMapper.STOCK_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target)
                 .addParameter("code", copyStock.getStockNo());

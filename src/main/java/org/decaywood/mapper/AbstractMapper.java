@@ -19,8 +19,12 @@ public abstract class AbstractMapper <T, R> implements Function<T, R> {
     public abstract R mapLogic(T t) throws Exception;
 
     protected String request(URL url) throws IOException {
+        return request(url, URLMapper.MAIN_PAGE.toString());
+    }
+
+    protected String request(URL url, String referer) throws IOException {
         return new HttpRequestHelper()
-                .addToHeader("Referer", URLMapper.MAIN_PAGE.toString())
+                .addToHeader("Referer", referer)
                 .request(url);
     }
 

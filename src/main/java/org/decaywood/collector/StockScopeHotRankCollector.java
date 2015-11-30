@@ -3,7 +3,6 @@ package org.decaywood.collector;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.entity.Stock;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
-import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
@@ -79,9 +78,7 @@ public class StockScopeHotRankCollector extends AbstractCollector<List<Stock>> {
                 .addParameter("_type", scope.getScope())
                 .addParameter("type", scope.getTime());
         URL url = new URL(builder.build());
-        String json = new HttpRequestHelper()
-                .addToHeader("Referer", URLMapper.MAIN_PAGE.toString())
-                .request(url);
+        String json = request(url);
         JsonNode node = mapper.readTree(json);
         return processNode(node);
 

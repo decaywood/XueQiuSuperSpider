@@ -3,7 +3,6 @@ package org.decaywood.collector;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.entity.Stock;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
-import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
@@ -107,7 +106,7 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
                 .addParameter("page", 1)
                 .addParameter("column", "symbol%2Cname");
         URL url = new URL(builder.build());
-        String json = new HttpRequestHelper().request(url);
+        String json = request(url);
         JsonNode node = mapper.readTree(json);
         return processNode(node);
     }

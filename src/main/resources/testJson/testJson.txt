@@ -1,4 +1,0 @@
-http://xueqiu.com/stock/screener/screen.json?category=SH&exchange=&areacode=&indcode=&orderby=symbol&order=desc&current=ALL&pct=ALL&page=1&pettm=0_50&mc=0_16323.4066&pelyr=0_42445.8428&roediluted.20150930=-188.64_105.53&pb=0_20200&netprofit.20150930=-352662.8_22176100&eps.20150930=-3.39_9.09&fmc=0_13698.6073&bps.20150930=0.02_21&dy=0_12.27
-
-
-http://xueqiu.com/stock/screener/screen.json?category=SH&exchange=&areacode=&indcode=&orderby=symbol&order=desc&page=1
