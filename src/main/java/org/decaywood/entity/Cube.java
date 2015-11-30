@@ -41,8 +41,8 @@ public class Cube implements DeepCopy<Cube> {
         cube.setAnnualized_gain_rate(annualized_gain_rate);
         cube.setTotal_gain(total_gain);
 
-        cube.setCubeTrend(cubeTrend);
-        cube.setMarketIndexTrend(marketIndexTrend);
+        cube.setCubeTrend(cubeTrend.copy());
+        cube.setMarketIndexTrend(marketIndexTrend.copy());
         cube.setRebalancing(rebalancing);
 
         return cube;

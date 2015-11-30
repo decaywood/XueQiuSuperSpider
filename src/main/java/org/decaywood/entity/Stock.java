@@ -1,5 +1,6 @@
 package org.decaywood.entity;
 
+import org.decaywood.entity.trend.ShareHoldersTrend;
 import org.decaywood.entity.trend.StockTrend;
 import org.decaywood.utils.DateParser;
 import org.decaywood.utils.EmptyObject;
@@ -49,6 +50,7 @@ public class Stock implements DeepCopy<Stock> {
     private Date stockQueryDate = EmptyObject.emptyDate;
 
     private StockTrend stockTrend = EmptyObject.emptyStockTrend;//股票走势
+    private ShareHoldersTrend shareHoldersTrend = EmptyObject.emptyShareHoldersTrend;
     private Industry industry = EmptyObject.emptyIndustry;
 
 
@@ -324,6 +326,14 @@ public class Stock implements DeepCopy<Stock> {
         return industry;
     }
 
+    public ShareHoldersTrend getShareHoldersTrend() {
+        return shareHoldersTrend;
+    }
+
+    public void setShareHoldersTrend(ShareHoldersTrend shareHoldersTrend) {
+        this.shareHoldersTrend = shareHoldersTrend;
+    }
+
     @Override
     public Stock copy() {
         Stock stock = new Stock(this.stockName, this.stockNo);
@@ -356,6 +366,7 @@ public class Stock implements DeepCopy<Stock> {
         stock.amount = amount;
         stock.turnover_rate = turnover_rate;
         stock.stockTrend = stockTrend.copy();
+        stock.shareHoldersTrend = shareHoldersTrend.copy();
         stock.stockQueryDate = stockQueryDate;
         stock.industry = industry;
         return stock;

@@ -18,6 +18,8 @@ public abstract class DateParser {
     private static final Date quarter3;
     private static final Date quarter4;
 
+
+
     static {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -73,5 +75,25 @@ public abstract class DateParser {
         return time_prefix;
     }
 
+
+    public static Date parseDate(String yyyymmdd) {
+
+        if(yyyymmdd == null || yyyymmdd.length() != 8 || !isdigit(yyyymmdd))
+            throw new IllegalArgumentException();
+
+        Calendar calendar = Calendar.getInstance();
+        int diff = Calendar.JANUARY - 1;
+        int year = Integer.parseInt(yyyymmdd.substring(0, 4));
+        int month = Integer.parseInt(yyyymmdd.substring(4, 6));
+        int day = Integer.parseInt(yyyymmdd.substring(6, 8));
+        calendar.set(year, month + diff, day);
+        return calendar.getTime();
+
+    }
+
+    private static boolean isdigit(String str) {
+        for (char c : str.toCharArray()) if(!Character.isDigit(c)) return false;
+        return true;
+    }
 
 }

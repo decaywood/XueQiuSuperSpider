@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author: decaywood
@@ -14,7 +15,7 @@ public class DateParserTest {
 
 
     @Test
-    public void testFunc() {
+    public void testGetTimePrefixFunc() {
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(2015, Calendar.JANUARY, 31);
@@ -34,4 +35,30 @@ public class DateParserTest {
         calendar.set(2015, Calendar.DECEMBER, 30);
         Assert.assertEquals("20150930", DateParser.getTimePrefix(calendar.getTime(), true));
     }
+
+    @Test
+    public void testGetDateFunc() {
+
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(2015, Calendar.JANUARY, 31);
+
+        Calendar calendar2 = Calendar.getInstance();
+        Date date = DateParser.parseDate("20150131");
+        calendar2.setTime(date);
+
+        Assert.assertEquals(calendar1.get(Calendar.YEAR), calendar2.get(Calendar.YEAR));
+        Assert.assertEquals(calendar1.get(Calendar.MONTH), calendar2.get(Calendar.MONTH));
+        Assert.assertEquals(calendar1.get(Calendar.DATE), calendar2.get(Calendar.DATE));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void wrongArgumentTest1() {
+        DateParser.parseDate("2015730");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void wrongArgumentTest2() {
+        DateParser.parseDate("201x730");
+    }
+
 }

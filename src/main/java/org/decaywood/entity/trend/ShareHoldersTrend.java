@@ -1,5 +1,7 @@
 package org.decaywood.entity.trend;
 
+import org.decaywood.utils.StringChecker;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,18 @@ public class ShareHoldersTrend extends Trend<ShareHoldersTrend.TrendBlock, Share
                           String proportiongrq,
                           String avgholdsumgrhalfyear,
                           String avgholdsumgrq) {
+
+            if(StringChecker.nullOrEmpty(
+                    enddate,
+                    totalshamt,
+                    holdproportionpacc,
+                    totalshrto,
+                    proportionchg,
+                    proportiongrhalfyear,
+                    proportiongrq,
+                    avgholdsumgrhalfyear,
+                    avgholdsumgrq)) throw new IllegalArgumentException();
+
             this.enddate = enddate;
             this.totalshamt = totalshamt;
             this.holdproportionpacc = holdproportionpacc;
