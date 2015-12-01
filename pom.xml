@@ -12,9 +12,16 @@
         <jsoup-version>1.8.3</jsoup-version>
         <jackson-version>2.6.3</jackson-version>
         <junit-version>4.12</junit-version>
+        <jdbc-driver>5.1.37</jdbc-driver>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${jdbc-driver}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.jsoup</groupId>

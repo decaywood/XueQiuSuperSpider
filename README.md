@@ -1,0 +1,197 @@
+>#雪球超级爬虫
+
+>##前言
+>>雪球网或者东方财富或者同花顺目前已经提供了很多种股票筛选方式，但是筛选方式是根据个人操作
+>>风格来定义的，三个网站有限的筛选方式显然不能满足广大股民、程序员特别是数据分析控的要求，
+>>基于此，本人设计了一个可以任意拓展，实现任意数据搜集与分析的爬虫程序，满足股友们的需要，
+>>只要你能想到的数据搜集与分析策略它都能实现。
+
+>##结构
+>>如果把程序程序比作文学体裁，我想散文最能体现雪球超级爬虫的整体结构--形散而神不散。
+>>整个程序的所有组件互相没有任何依赖，包括参数，组件由接口定义成三大类：Collector、
+>>Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支信息）的组装、以及最终
+>>的数据分析。三个接口定义了整个数据抓取生命周期的三个阶段。Mapper组件可以进行多个
+>>嵌套，就像流水线一样，经过N个Mapper，完成一个组件的N种属性组装。在参数传递方面
+>>，模块在处理参数之前会对参数进行深度复制，确保不会出现多线程同步问题，模块内部
+>>参数严格定义为只读。变量只局限在方法范围内，完全避免了线程间数据共享。
+
+>##优势
+
+>>* 稳定
+>>>对模块内部数据的严格限制保证了无论是如何频繁的多线程操作都不会出现脏读，写覆盖等令人头
+>>>疼的并发问题，模块之间无依赖，非常容易进行单元测试，只要模块都通过严格的单元测试，
+>>>无论多么复杂的数据搜集以及分析逻辑，雪球超级爬虫都能稳定的工作，运行后不用死死的
+>>>盯着日志，安心睡觉。
+
+
+>>* 高性能
+>>>所有模块顶层实现了Java8的函数式接口，能够依靠Java8的并行流进行高并发操作，用户
+>>>可以轻易配置线程池缓存工作线程数量，充分发挥网络IO资源以及CPU资源。
+
+
+>>* 极易改造与拓展
+>>>散文式的结构决定了雪球超级爬虫是一个可以进行任意拓展的程序，任何人都可以稍作了解
+>>>后贡献自己的代码，你甚至可以爬取同花顺网站的数据然后结合东方财富的一些资料，再混合
+>>>雪球网站自己数据综合进行分析，你所做的只是添加几个Collector和Mapper而已，很多基础
+>>>的模块我已经提供好了。（是不是和Python有点像）
+
+>##贡献模块的一些注意事项
+
+>>* 参数对象请实现DeepCopy接口
+>>>对于你定义了在模块间传递的对象，请实现DeepCopy接口，就像我上面提到的，模块间是
+>>>不允许共享对象的，模块约定复制传入的参数。
+
+>>* 对于只读的域变量请定义为final
+>>>为了防止你对域的误写，请将域定义为final，这样更加保险
+
+>##一些例子
+
+
+>>*游资追踪
+>>>
+>>>
+>>>     @Test
+>>>     public void LongHuBangTracking() {
+>>>        Calendar calendar = Calendar.getInstance();
+>>>        calendar.set(2015, Calendar.NOVEMBER, 20);
+>>>        Date from = calendar.getTime();
+>>>        calendar.set(2015, Calendar.DECEMBER, 1);
+>>>        Date to = calendar.getTime();
+>>>       DateRangeCollector collector = new DateRangeCollector(from, to);
+>>>        DateToLongHuBangStockMapper mapper = new DateToLongHuBangStockMapper();
+>>>        StockToLongHuBangMapper mapper1 = new StockToLongHuBangMapper();
+>>>        List<LongHuBangInfo> s = collector.get()
+>>>                .parallelStream()
+>>>                .map(mapper)
+>>>                .flatMap(List::stream).map(mapper1)
+>>>                .filter(x -> x.bizsunitInBuyList("中信证券股份有限公司上海溧阳路证券营业部"))
+>>>                .sorted(Comparator.comparing(LongHuBangInfo::getDate))
+>>>                .collect(Collectors.toList());
+>>>        for (LongHuBangInfo info : s) {
+>>>            System.out.println(info.getDate() + " -> " + info.getStock().getStockName());
+>>>        }
+>>>
+>>>     }
+
+
+
+
+>>* 统计股票5000粉以上大V个数，并以行业分类股票
+>>>
+>>>
+>>>     @Test
+>>>     public void getStocksWithVipFollowersCount() {
+>>>        CommissionIndustryCollector collector = new CommissionIndustryCollector();//搜集所有行业
+>>>        IndustryToStocksMapper mapper = new IndustryToStocksMapper();//搜集每个行业所有股票
+>>>        StockToVIPFollowerCountMapper mapper1 = new StockToVIPFollowerCountMapper(5000, 20);//搜集每个股票的粉丝
+>>>        UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();//写入数据库
+>>>        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
+>>>
+>>>        List<Entry<Stock, Integer>> res = collector.get()
+>>>                .parallelStream() //并行流
+>>>                .map(mapper)
+>>>                .flatMap(Collection::stream)
+>>>                .map(x -> new Entry<>(x, mapper1.apply(x)))
+>>>                .peek(consumer)
+>>>                .collect(Collectors.toList());
+>>>        for (Entry<Stock, Integer> re : res) {
+>>>            System.out.println(re.getKey().getStockName() + " -> 5000粉丝以上大V个数  " + re.getValue());
+>>>        }
+>>>     }
+>>>      
+
+
+>>* 最赚钱组合最新持仓以及收益走势、大盘走势
+>>>
+>>>     @Test
+>>>     public void MostProfitableCubeDetail() {
+>>>
+>>>        Calendar calendar = Calendar.getInstance();
+>>>        calendar.set(2015, Calendar.OCTOBER, 20);
+>>>        Date from = calendar.getTime();
+>>>        calendar.set(2015, Calendar.NOVEMBER, 25);
+>>>        Date to = calendar.getTime();
+>>>        MostProfitableCubeCollector cubeCollector = new MostProfitableCubeCollector( MostProfitableCubeCollector.Market.CN,
+>>>                MostProfitableCubeCollector.ORDER_BY.DAILY);
+>>>        CubeToCubeWithLastBalancingMapper mapper = new CubeToCubeWithLastBalancingMapper();
+>>>        CubeToCubeWithTrendMapper mapper1 = new CubeToCubeWithTrendMapper(from, to);
+>>>        List<Cube> cubes = cubeCollector
+>>>                 .get()
+>>>                 .parallelStream()
+>>>                 .map(mapper.andThen(mapper1))
+>>>                 .collect(Collectors.toList());
+>>>        for (Cube cube : cubes) {
+>>>            System.out.print(cube.getName() + " 总收益: " + cube.getTotal_gain());
+>>>            System.out.println(" 最新持仓 " + cube.getRebalancing().getHistory().get(1).toString());
+>>>        }
+>>>     }
+
+>>*获取热股榜股票信息
+>>>
+>>>
+>>>     @Test
+>>>     public void HotRankStockDetail() {
+>>>        StockScopeHotRankCollector collector = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.US_WITHIN_24_HOUR);
+>>>        StockToStockWithAttributeMapper mapper1 = new StockToStockWithAttributeMapper();
+>>>        StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper(StockTrend.Period.ONE_DAY);
+>>>        List<Stock> stocks = collector.get().parallelStream().map(mapper1.andThen(mapper2)).collect(Collectors.toList());
+>>>        for (Stock stock : stocks) {
+>>>            System.out.print(stock.getStockName() + " -> ");
+>>>            System.out.print(stock.getAmplitude() + " " + stock.getOpen() + " " + stock.getHigh() + " and so on...");
+>>>            System.out.println(" trend size: " + stock.getStockTrend().getHistory().size());
+>>>        }
+>>>     }
+
+
+
+>>*获得某个行业所有股票的详细信息和历史走势 比如畜牧业
+>>>
+>>>     public void IndustryStockDetail() {
+>>> 
+>>>        CommissionIndustryCollector collector = new CommissionIndustryCollector();
+>>>        IndustryToStocksMapper mapper = new IndustryToStocksMapper();
+>>>        StockToStockWithAttributeMapper mapper1 = new StockToStockWithAttributeMapper();
+>>>        StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper();
+>>>        Map<Industry, List<Stock>> res = collector.get()
+>>>                .parallelStream()
+>>>                .filter(x -> x.getIndustryName().equals("畜牧业"))
+>>>                .map(mapper)
+>>>                .flatMap(Collection::stream)
+>>>                .map(mapper1.andThen(mapper2))
+>>>                .collect(Collectors.groupingBy(Stock::getIndustry));
+>>>
+>>>        for (Map.Entry<Industry, List<Stock>> entry : res.entrySet()) {
+>>>            for (Stock stock : entry.getValue()) {
+>>>                System.out.print(entry.getKey().getIndustryName() + " -> " + stock.getStockName() + " -> ");
+>>>                System.out.print(stock.getAmount() + " " + stock.getChange() + " " + stock.getDividend() + " and so on...");
+>>>                System.out.println(" trend size: " + stock.getStockTrend().getHistory().size());
+>>>           }
+>>>       }
+>>>
+>>>     }
+
+
+
+>>*按行业分类获取所有股票
+>>>
+>>>     @Test
+>>>     public void IndustryStockInfo() {
+>>>
+>>>        CommissionIndustryCollector collector = new CommissionIndustryCollector();
+>>>        IndustryToStocksMapper mapper = new IndustryToStocksMapper();
+>>>        Map<Industry, List<Stock>> res = collector.get()
+>>>                .parallelStream()
+>>>                .map(mapper)
+>>>                .flatMap(Collection::stream)
+>>>                .collect(Collectors.groupingBy(Stock::getIndustry));
+>>>
+>>>        for (Map.Entry<Industry, List<Stock>> entry : res.entrySet()) {
+>>>            for (Stock stock : entry.getValue()) {
+>>>                System.out.println(entry.getKey().getIndustryName() + " -> " + stock.getStockName());
+>>>            }
+>>>        }
+>>>
+>>>     }
+
+
+
