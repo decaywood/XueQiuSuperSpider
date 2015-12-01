@@ -25,17 +25,17 @@ import java.util.stream.Collectors;
 public class StreamTest {
 
 
-    //统计股票大V个数
+    //统计股票5000粉以上大V个数，并以行业分类股票
     @Test
     public void getStocksWithVipFollowersCount() {
-        CommissionIndustryCollector collector = new CommissionIndustryCollector();
-        IndustryToStocksMapper mapper = new IndustryToStocksMapper();
-        StockToVIPFollowerCountMapper mapper1 = new StockToVIPFollowerCountMapper(5000, 20);
-        UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();
+        CommissionIndustryCollector collector = new CommissionIndustryCollector();//搜集所有行业
+        IndustryToStocksMapper mapper = new IndustryToStocksMapper();//搜集每个行业所有股票
+        StockToVIPFollowerCountMapper mapper1 = new StockToVIPFollowerCountMapper(5000, 20);//搜集每个股票的粉丝
+        UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();//写入数据库
         System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
 
         List<Entry<Stock, Integer>> res = collector.get()
-                .parallelStream()
+                .parallelStream() //并行流
                 .map(mapper)
                 .flatMap(Collection::stream)
                 .map(x -> new Entry<>(x, mapper1.apply(x)))
@@ -44,7 +44,6 @@ public class StreamTest {
         for (Entry<Stock, Integer> re : res) {
             System.out.println(re.getKey().getStockName() + " -> 5000粉丝以上大V个数  " + re.getValue());
         }
-
     }
 
     //最赚钱组合最新持仓以及收益走势、大盘走势

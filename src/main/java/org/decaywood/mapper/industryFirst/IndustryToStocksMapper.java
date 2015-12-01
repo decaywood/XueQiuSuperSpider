@@ -62,7 +62,7 @@ public class IndustryToStocksMapper extends AbstractMapper<Industry, List<Stock>
         JsonNode data = node.get("data");
         for (JsonNode jsonNode : data) {
             Stock stock = new Stock(jsonNode.get("name").asText(), jsonNode.get("symbol").asText());
-            stock.setIndustry(industry);
+            stock.setIndustry(industry.copy());
             stocks.add(stock);
         }
         return stocks;
