@@ -16,6 +16,8 @@ import java.net.URL;
  * @author: decaywood
  * @date: 2015/11/30 16:39
  */
+
+//速度很慢，慎用
 public class StockToVIPFollowerCountMapper extends AbstractMapper <Stock, Integer> {
 
     private static final String REQUEST_PREFIX = URLMapper.MAIN_PAGE + "/S/";
@@ -23,19 +25,23 @@ public class StockToVIPFollowerCountMapper extends AbstractMapper <Stock, Intege
 
 
     private int VIPFriendsCountShreshold;
+    private int latestK_NewFollowers;
 
     public StockToVIPFollowerCountMapper() {
-        this(10000);
+        this(10000, 20);
     }
 
-    public StockToVIPFollowerCountMapper(int VIPFriendsCountShreshold) {
-        this(null, VIPFriendsCountShreshold);
+    public StockToVIPFollowerCountMapper(int VIPFriendsCountShreshold, int latestK_NewFollowers) {
+        this(null, VIPFriendsCountShreshold, latestK_NewFollowers);
     }
 
-    public StockToVIPFollowerCountMapper(TimeWaitingStrategy strategy, int VIPFriendsCountShreshold) {
+    public StockToVIPFollowerCountMapper(TimeWaitingStrategy strategy,
+                                         int VIPFriendsCountShreshold,
+                                         int latestK_NewFollowers) {
         super(strategy);
-        if(VIPFriendsCountShreshold < 0) throw new IllegalArgumentException();
+        if(VIPFriendsCountShreshold < 0 || latestK_NewFollowers < 0) throw new IllegalArgumentException();
         this.VIPFriendsCountShreshold = VIPFriendsCountShreshold;
+        this.latestK_NewFollowers = latestK_NewFollowers;
     }
 
     @Override
@@ -48,7 +54,7 @@ public class StockToVIPFollowerCountMapper extends AbstractMapper <Stock, Intege
 
         int count = 0;
 
-        for (int i = 1;; i++) {
+        for (int i = 1; i < latestK_NewFollowers; i++) {
 
             String reqUrl = REQUEST_PREFIX + stockNo + REQUEST_SUFFIX + i;
             URL url = new URL(reqUrl);

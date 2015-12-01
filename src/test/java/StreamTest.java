@@ -2,6 +2,7 @@ import org.decaywood.collector.CommissionIndustryCollector;
 import org.decaywood.collector.DateRangeCollector;
 import org.decaywood.collector.MostProfitableCubeCollector;
 import org.decaywood.collector.StockScopeHotRankCollector;
+import org.decaywood.consumer.UserInfoToDBConsumer;
 import org.decaywood.entity.*;
 import org.decaywood.entity.trend.StockTrend;
 import org.decaywood.mapper.cubeFirst.CubeToCubeWithLastBalancingMapper;
@@ -24,17 +25,21 @@ import java.util.stream.Collectors;
 public class StreamTest {
 
 
+    //统计股票大V个数
     @Test
     public void getStocksWithVipFollowersCount() {
         CommissionIndustryCollector collector = new CommissionIndustryCollector();
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
-        StockToVIPFollowerCountMapper mapper1 = new StockToVIPFollowerCountMapper(5000);
+        StockToVIPFollowerCountMapper mapper1 = new StockToVIPFollowerCountMapper(5000, 20);
+        UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();
         System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
+
         List<Entry<Stock, Integer>> res = collector.get()
                 .parallelStream()
                 .map(mapper)
                 .flatMap(Collection::stream)
                 .map(x -> new Entry<>(x, mapper1.apply(x)))
+                .peek(consumer)
                 .collect(Collectors.toList());
         for (Entry<Stock, Integer> re : res) {
             System.out.println(re.getKey().getStockName() + " -> 5000粉丝以上大V个数  " + re.getValue());
@@ -57,7 +62,7 @@ public class StreamTest {
         List<Cube> cubes = cubeCollector.get().parallelStream().map(mapper.andThen(mapper1)).collect(Collectors.toList());
         for (Cube cube : cubes) {
             System.out.print(cube.getName() + " 总收益: " + cube.getTotal_gain());
-            System.out.println(" 最新持仓 " + cube.getRebalancing().getHistory().get(0).toString());
+            System.out.println(" 最新持仓 " + cube.getRebalancing().getHistory().get(1).toString());
         }
     }
 
@@ -130,9 +135,9 @@ public class StreamTest {
     @Test
     public void LongHuBangTracking() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2015, Calendar.OCTOBER, 20);
+        calendar.set(2015, Calendar.NOVEMBER, 20);
         Date from = calendar.getTime();
-        calendar.set(2015, Calendar.NOVEMBER, 25);
+        calendar.set(2015, Calendar.DECEMBER, 1);
         Date to = calendar.getTime();
         DateRangeCollector collector = new DateRangeCollector(from, to);
         DateToLongHuBangStockMapper mapper = new DateToLongHuBangStockMapper();
@@ -141,8 +146,7 @@ public class StreamTest {
                 .parallelStream()
                 .map(mapper)
                 .flatMap(List::stream).map(mapper1)
-                .filter(x -> x.bizsunitInBuyList("中信证券股份有限公司上海溧阳路证券营业部")
-                || x.bizsunitInSaleList("中信证券股份有限公司上海溧阳路证券营业部"))
+                .filter(x -> x.bizsunitInBuyList("中信证券股份有限公司上海溧阳路证券营业部"))
                 .sorted(Comparator.comparing(LongHuBangInfo::getDate))
                 .collect(Collectors.toList());
         for (LongHuBangInfo info : s) {
