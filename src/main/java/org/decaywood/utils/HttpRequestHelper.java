@@ -20,10 +20,11 @@ public class HttpRequestHelper {
     private boolean post;
     private boolean gzip;
 
-    public HttpRequestHelper() {
+    public HttpRequestHelper(String webSite) {
         this.config = new HashMap<>();
         this.gzipDecode()
-                .addToHeader("Cookie", FileLoader.loadCookie())
+                .addToHeader("Referer", webSite)
+                .addToHeader("Cookie", FileLoader.loadCookie(webSite))
                 .addToHeader("Host", "xueqiu.com")
                 .addToHeader("Accept-Encoding", "gzip,deflate,sdch");
     }
@@ -74,12 +75,12 @@ public class HttpRequestHelper {
     }
 
 
-    public static void updateCookie() throws Exception {
-        URL url = new URL(URLMapper.MAIN_PAGE.toString());
+    public static void updateCookie(String website) throws Exception {
+        URL url = new URL(website);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
         String cookie = connection.getHeaderField("Set-Cookie");
-        FileLoader.updateCookie(cookie);
+        FileLoader.updateCookie(cookie, website);
     }
 
 

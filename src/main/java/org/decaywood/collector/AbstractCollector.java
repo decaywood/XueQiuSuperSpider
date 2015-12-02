@@ -16,20 +16,27 @@ import java.util.function.Supplier;
  */
 public abstract class AbstractCollector<T> implements Supplier<T> {
 
+    private String webSite;
+
     public abstract T collectLogic() throws Exception;
 
     private TimeWaitingStrategy strategy;
     protected ObjectMapper mapper;
 
     public AbstractCollector(TimeWaitingStrategy strategy) {
+        this(strategy, URLMapper.MAIN_PAGE.toString());
+    }
+
+    public AbstractCollector(TimeWaitingStrategy strategy, String webSite) {
+
+        this.webSite = webSite;
         this.strategy = strategy == null ? new DefaultTimeWaitingStrategy<>() : strategy;
         this.mapper = new ObjectMapper();
+
     }
 
     protected String request(URL url) throws IOException {
-        return new HttpRequestHelper()
-                .addToHeader("Referer", URLMapper.MAIN_PAGE.toString())
-                .request(url);
+        return new HttpRequestHelper(webSite).request(url);
     }
 
     @Override
@@ -51,7 +58,7 @@ public abstract class AbstractCollector<T> implements Supplier<T> {
                 } catch (Exception e) {
                     if(!(e instanceof IOException)) throw e;
                     System.out.println("Collector: Network busy Retrying -> " + loopTime + " times");
-                    HttpRequestHelper.updateCookie();
+                    HttpRequestHelper.updateCookie(webSite);
                     this.strategy.waiting(loopTime++);
                 }
             }

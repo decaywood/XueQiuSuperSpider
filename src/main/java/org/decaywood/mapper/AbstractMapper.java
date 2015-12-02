@@ -16,24 +16,26 @@ import java.util.function.Function;
  */
 public abstract class AbstractMapper <T, R> implements Function<T, R> {
 
+    private String webSite;
+
     public abstract R mapLogic(T t) throws Exception;
 
-    protected String request(URL url) throws IOException {
-        return request(url, URLMapper.MAIN_PAGE.toString());
-    }
 
-    protected String request(URL url, String referer) throws IOException {
-        return new HttpRequestHelper()
-                .addToHeader("Referer", referer)
-                .request(url);
+    protected String request(URL url) throws IOException {
+        return new HttpRequestHelper(webSite).request(url);
     }
 
     private TimeWaitingStrategy strategy;
     protected ObjectMapper mapper;
 
-
     public AbstractMapper(TimeWaitingStrategy strategy) {
+        this(strategy, URLMapper.MAIN_PAGE.toString());
+    }
+
+    public AbstractMapper(TimeWaitingStrategy strategy, String webSite) {
+
         this.strategy = strategy == null ? new DefaultTimeWaitingStrategy() : strategy;
+        this.webSite = webSite;
         this.mapper = new ObjectMapper();
     }
 
@@ -57,7 +59,7 @@ public abstract class AbstractMapper <T, R> implements Function<T, R> {
                 } catch (Exception e) {
                     if(!(e instanceof IOException)) throw e;
                     System.out.println("Mapper: Network busy Retrying -> " + loopTime + " times");
-                    HttpRequestHelper.updateCookie();
+                    HttpRequestHelper.updateCookie(webSite);
                     this.strategy.waiting(loopTime++);
                 }
             }

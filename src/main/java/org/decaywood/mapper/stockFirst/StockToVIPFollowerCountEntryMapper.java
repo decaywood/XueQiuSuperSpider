@@ -1,6 +1,7 @@
 package org.decaywood.mapper.stockFirst;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.decaywood.entity.Entry;
 import org.decaywood.entity.Stock;
 import org.decaywood.mapper.AbstractMapper;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
@@ -18,7 +19,7 @@ import java.net.URL;
  */
 
 //速度很慢，慎用
-public class StockToVIPFollowerCountMapper extends AbstractMapper <Stock, Integer> {
+public class StockToVIPFollowerCountEntryMapper extends AbstractMapper <Stock, Entry<Stock, Integer>> {
 
     private static final String REQUEST_PREFIX = URLMapper.MAIN_PAGE + "/S/";
     private static final String REQUEST_SUFFIX = "/follows?page=";
@@ -27,17 +28,17 @@ public class StockToVIPFollowerCountMapper extends AbstractMapper <Stock, Intege
     private int VIPFriendsCountShreshold;
     private int latestK_NewFollowers;
 
-    public StockToVIPFollowerCountMapper() {
+    public StockToVIPFollowerCountEntryMapper() {
         this(10000, 20);
     }
 
-    public StockToVIPFollowerCountMapper(int VIPFriendsCountShreshold, int latestK_NewFollowers) {
+    public StockToVIPFollowerCountEntryMapper(int VIPFriendsCountShreshold, int latestK_NewFollowers) {
         this(null, VIPFriendsCountShreshold, latestK_NewFollowers);
     }
 
-    public StockToVIPFollowerCountMapper(TimeWaitingStrategy strategy,
-                                         int VIPFriendsCountShreshold,
-                                         int latestK_NewFollowers) {
+    public StockToVIPFollowerCountEntryMapper(TimeWaitingStrategy strategy,
+                                              int VIPFriendsCountShreshold,
+                                              int latestK_NewFollowers) {
         super(strategy);
         if(VIPFriendsCountShreshold < 0 || latestK_NewFollowers < 0) throw new IllegalArgumentException();
         this.VIPFriendsCountShreshold = VIPFriendsCountShreshold;
@@ -45,9 +46,10 @@ public class StockToVIPFollowerCountMapper extends AbstractMapper <Stock, Intege
     }
 
     @Override
-    public Integer mapLogic(Stock stock) throws Exception {
+    public Entry<Stock, Integer> mapLogic(Stock stock) throws Exception {
 
-        if(stock == null || stock == EmptyObject.emptyStock) return 0;
+        if(stock == null || stock == EmptyObject.emptyStock)
+            return new Entry<>(EmptyObject.emptyStock, 0);
         Stock copyStock = stock.copy();
 
         String stockNo = copyStock.getStockNo();
@@ -82,7 +84,7 @@ public class StockToVIPFollowerCountMapper extends AbstractMapper <Stock, Intege
 
         }
 
-        return count;
+        return new Entry<>(stock, count);
     }
 
 
