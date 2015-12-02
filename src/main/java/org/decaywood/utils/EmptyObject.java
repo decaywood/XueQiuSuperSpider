@@ -1,9 +1,6 @@
 package org.decaywood.utils;
 
-import org.decaywood.entity.Cube;
-import org.decaywood.entity.Industry;
-import org.decaywood.entity.LongHuBangInfo;
-import org.decaywood.entity.Stock;
+import org.decaywood.entity.*;
 import org.decaywood.entity.selectorQuota.QuotaChainNode;
 import org.decaywood.entity.trend.*;
 
@@ -16,6 +13,26 @@ import java.util.HashSet;
  * @date: 2015/11/24 20:47
  */
 public abstract class EmptyObject {
+
+    private static class EmptyCapitalFlow extends CapitalFlow {
+
+        public EmptyCapitalFlow() {
+            super(  emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    new ArrayList<>());
+        }
+
+        @Override
+        public CapitalFlow copy() {
+            return this;
+        }
+    }
 
     private static class EmptyQuotaChainNode implements QuotaChainNode {
 
@@ -164,4 +181,5 @@ public abstract class EmptyObject {
     public static EmptyQuotaChainNode emptyQuotaChainNode = new EmptyQuotaChainNode();
     public static EmptyShareHoldersTrend emptyShareHoldersTrend = new EmptyShareHoldersTrend();
     public static EmptyLongHuBangInfo emptyLongHuBangInfo = new EmptyLongHuBangInfo();
+    public static EmptyCapitalFlow emptyCapitalFlow = new EmptyCapitalFlow();
 }

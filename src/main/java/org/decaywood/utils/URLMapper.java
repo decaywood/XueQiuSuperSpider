@@ -6,6 +6,8 @@ package org.decaywood.utils;
  */
 public enum URLMapper {
 
+    /*--------------------------------  Xue Qiu     --------------------------------------*/
+
     MAIN_PAGE("http://xueqiu.com"),
     COMPREHENSIVE_PAGE("http://xueqiu.com/hq"),
 
@@ -20,8 +22,12 @@ public enum URLMapper {
     SCOPE_STOCK_RANK_JSON("http://xueqiu.com/stock/rank.json"),
     STOCK_TREND_JSON("http://xueqiu.com/stock/forchart/stocklist.json"),
     STOCK_JSON("http://xueqiu.com/v4/stock/quote.json"),
-    INDUSTRY_JSON("http://xueqiu.com/industry/quote_order.json");
+    INDUSTRY_JSON("http://xueqiu.com/industry/quote_order.json"),
 
+    /*--------------------------------  NetEase     --------------------------------------*/
+
+    NETEASE_MAIN_PAGE("http://quotes.money.163.com/stock"),
+    STOCK_CAPITAL_FLOW("http://quotes.money.163.com/service/zjlx_chart.html");
 
 
     URLMapper(String URL) {

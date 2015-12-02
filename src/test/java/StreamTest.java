@@ -12,7 +12,7 @@ import org.decaywood.mapper.industryFirst.IndustryToStocksMapper;
 import org.decaywood.mapper.stockFirst.StockToLongHuBangMapper;
 import org.decaywood.mapper.stockFirst.StockToStockWithAttributeMapper;
 import org.decaywood.mapper.stockFirst.StockToStockWithStockTrendMapper;
-import org.decaywood.mapper.stockFirst.StockToVIPFollowerCountMapper;
+import org.decaywood.mapper.stockFirst.StockToVIPFollowerCountEntryMapper;
 import org.junit.Test;
 
 import java.util.*;
@@ -30,7 +30,7 @@ public class StreamTest {
     public void getStocksWithVipFollowersCount() {
         CommissionIndustryCollector collector = new CommissionIndustryCollector();//搜集所有行业
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();//搜集每个行业所有股票
-        StockToVIPFollowerCountMapper mapper1 = new StockToVIPFollowerCountMapper(5000, 20);//搜集每个股票的粉丝
+        StockToVIPFollowerCountEntryMapper mapper1 = new StockToVIPFollowerCountEntryMapper(5000, 20);//搜集每个股票的粉丝
         UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();//写入数据库
         System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
 
@@ -38,7 +38,7 @@ public class StreamTest {
                 .parallelStream() //并行流
                 .map(mapper)
                 .flatMap(Collection::stream)
-                .map(x -> new Entry<>(x, mapper1.apply(x)))
+                .map(mapper1)
                 .peek(consumer)
                 .collect(Collectors.toList());
         for (Entry<Stock, Integer> re : res) {
