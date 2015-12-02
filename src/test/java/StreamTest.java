@@ -53,7 +53,7 @@ public class StreamTest {
         calendar.set(2015, Calendar.OCTOBER, 20);
         Date from = calendar.getTime();
         calendar.set(2015, Calendar.NOVEMBER, 25);
-        Date to = calendar.getTime();
+        Date to = calendar.getTime(); //获取时间范围
         MostProfitableCubeCollector cubeCollector = new MostProfitableCubeCollector( MostProfitableCubeCollector.Market.CN,
                 MostProfitableCubeCollector.ORDER_BY.DAILY);
         CubeToCubeWithLastBalancingMapper mapper = new CubeToCubeWithLastBalancingMapper();

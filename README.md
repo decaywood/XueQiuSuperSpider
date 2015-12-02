@@ -210,4 +210,14 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
      }
 ```
 
+## 项目依赖
+
+依赖类库 | 介绍
+------- | -------
+[MySQL Driver](http://www.mysql.com/products/connector/) | 项目基于MySQL
+[Jsoup](http://jsoup.org/) | 一款基于Java语言的HTML解析器
+[Jackson](http://jackson-users.ning.com/) | 一款基于Java的用来处理JSON格式数据的类库。
+[JUnit](http://junit.org/) | 一款基于Java语言的单元测试框架。
+
+### LICENSE <a href="https://github.com/decaywood/XueQiuSuperSpider/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg?style=flat"></a>
 
