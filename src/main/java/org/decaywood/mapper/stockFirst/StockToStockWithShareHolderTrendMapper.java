@@ -46,7 +46,7 @@ public class StockToStockWithShareHolderTrendMapper extends AbstractMapper<Stock
         if(stock == null || stock == EmptyObject.emptyStock) return EmptyObject.emptyStock;
 
         Stock copyStock = stock.copy();
-        String target = URLMapper.STKCK_SHAREHOLDERS_JSON.toString();
+        String target = URLMapper.STOCK_SHAREHOLDERS_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target)
                 .addParameter("symbol", copyStock.getStockNo())
                 .addParameter("page", 1)

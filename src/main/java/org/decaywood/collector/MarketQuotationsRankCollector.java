@@ -23,7 +23,7 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
     public static final String ORDER_BY_TURNOVER_RATE = "turnover_rate";
 
 
-    public static final int TOPK_MAX_SHRESHOLD = 20;
+    public static final int TOPK_MAX_SHRESHOLD = 500;
 
     public enum StockType {
         SH_A("sha"),
@@ -106,6 +106,7 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
                 .addParameter("page", 1)
                 .addParameter("column", "symbol%2Cname");
         URL url = new URL(builder.build());
+
         String json = request(url);
         JsonNode node = mapper.readTree(json);
         return processNode(node);
