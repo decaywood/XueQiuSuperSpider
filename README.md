@@ -1,5 +1,8 @@
 #雪球超级爬虫
-
+<a href="http://junit.org/"><img src="https://img.shields.io/badge/Test-junit-orange.svg?style=flat"></a>
+<a href="http://jsoup.org/"><img src="https://img.shields.io/badge/Dependency-Jsoup-yellow.svg?style=flat"></a>
+<a href="http://jackson-users.ning.com/"><img src="https://img.shields.io/badge/Dependency-Jackson-blue.svg?style=flat"></a>
+<a href="http://dev.mysql.com/"><img src="https://img.shields.io/badge/Database-MySQL-red.svg?style=flat"></a>
 ##前言
 
 雪球网或者东方财富或者同花顺目前已经提供了很多种股票筛选方式，但是筛选方式是根据个人操作
@@ -17,6 +20,8 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
 要某些属性，你完全可以跳过某些mapper，这样可以节省许多抓取时间。在参数传递方面
 ，模块在处理参数之前会对参数进行深度复制，确保不会出现多线程同步问题，模块内部
 参数严格定义为只读。变量只局限在方法范围内，完全避免了线程间数据共享。
+
+![](https://github.com/decaywood/XueQiuSuperSpider/blob/master/info/structure.png)
 
 ##优势
 
@@ -51,6 +56,22 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
 * 对于只读的域变量请定义为final
 
 为了防止你对域的误写，请将域定义为final，这样更加保险
+
+* 完善的单元测试
+
+完成一个模块后，请进行完善的单元测试，包括初始化参数合法性。
+输入输出的正确性。
+
+* 具备交换律
+
+特别注意的是，mapper与mapper之间如果输入与输出如果相同，请保证遵守交换律，
+即 M1.andThen(M2) equals M2.andThen(M1)
+
+* 推荐继承模块模版
+
+每个生命周期对应的接口皆有对应的抽象模板类，他们通过了单元测试，封装了实用的功能，
+包括网络请求、Exception捕获，网络IO异常重新请求以及Cookie更新保存等有用的功能，
+除非有必要，否则推荐继承模版模块，它们以Abstract开头，支持泛型。
 
 ##一些例子
 
@@ -210,14 +231,6 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
      }
 ```
 
-## 项目依赖
-
-依赖类库 | 介绍
-------- | -------
-[MySQL Driver](http://www.mysql.com/products/connector/) | 项目基于MySQL
-[Jsoup](http://jsoup.org/) | 一款基于Java语言的HTML解析器
-[Jackson](http://jackson-users.ning.com/) | 一款基于Java的用来处理JSON格式数据的类库。
-[JUnit](http://junit.org/) | 一款基于Java语言的单元测试框架。
 
 ### LICENSE <a href="https://github.com/decaywood/XueQiuSuperSpider/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg?style=flat"></a>
 
