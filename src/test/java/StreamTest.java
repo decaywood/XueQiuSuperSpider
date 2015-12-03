@@ -23,6 +23,37 @@ import java.util.stream.Collectors;
  */
 public class StreamTest {
 
+    //按关键字过滤页面
+    @Test
+    public void findNewsUcareAbout() {
+        List<URL> news = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 2).get();
+        List<URL> res = news.parallelStream().filter(new PageKeyFilter("万孚生物", false)).collect(Collectors.toList());
+
+        List<URL> regexRes = news.parallelStream().filter(new PageKeyFilter("万孚生物", true)).collect(Collectors.toList());
+        for (URL re : regexRes) {
+            System.out.println("Regex : " + re);
+        }
+        for (URL re : res) {
+            System.out.println("nonRegex : " + re);
+        }
+    }
+
+
+    //创业板股票大V统计
+    @Test
+    public void getMarketStockFundTrend() {
+        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
+        MarketQuotationsRankCollector collector = new MarketQuotationsRankCollector(
+                MarketQuotationsRankCollector.StockType.GROWTH_ENTERPRISE_BOARD,
+                MarketQuotationsRankCollector.ORDER_BY_VOLUME, 500);
+        StockToVIPFollowerCountEntryMapper mapper1 = new StockToVIPFollowerCountEntryMapper(3000, 300);//搜集每个股票的粉丝
+        UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();//写入数据库
+        collector.get()
+                .parallelStream() //并行流
+                .map(mapper1)
+                .forEach(consumer);//结果写入数据库
+    }
+
 
     //根据关键字获取最近新闻
     @Test
