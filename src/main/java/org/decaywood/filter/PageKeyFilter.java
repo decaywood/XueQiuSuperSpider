@@ -37,7 +37,7 @@ public class PageKeyFilter extends AbstractFilter<URL> {
         if(regex) {
             Pattern pattern = Pattern.compile(key);
             Matcher matcher = pattern.matcher(pageContent);
-            res = matcher.matches();
+            res = matcher.find();
         } else res = pageContent.contains(key);
 
         return res;

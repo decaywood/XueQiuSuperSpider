@@ -23,15 +23,19 @@ import java.util.stream.Collectors;
  */
 public class StreamTest {
 
-
+    //按关键字过滤页面
     @Test
     public void findNewsUcareAbout() {
-        List<URL> news = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 5).get();
-        List<URL> res = news.stream().filter(new PageKeyFilter("万孚生物", false)).collect(Collectors.toList());
-        for (URL re : res) {
-            System.out.println(re);
-        }
+        List<URL> news = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 2).get();
+        List<URL> res = news.parallelStream().filter(new PageKeyFilter("万孚生物", false)).collect(Collectors.toList());
 
+        List<URL> regexRes = news.parallelStream().filter(new PageKeyFilter("万孚生物", true)).collect(Collectors.toList());
+        for (URL re : regexRes) {
+            System.out.println("Regex : " + re);
+        }
+        for (URL re : res) {
+            System.out.println("nonRegex : " + re);
+        }
     }
 
 
