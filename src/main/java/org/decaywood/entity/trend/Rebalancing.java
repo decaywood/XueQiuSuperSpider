@@ -1,6 +1,6 @@
 package org.decaywood.entity.trend;
 
-import org.decaywood.utils.StringChecker;
+import org.decaywood.utils.StringUtils;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class Rebalancing extends Trend<Rebalancing.TrendBlock, Rebalancing> {
                           String rebalancing_id
         ) {
 
-            if(StringChecker.nullOrEmpty(stock_name, stock_symbol, created_at
+            if(StringUtils.nullOrEmpty(stock_name, stock_symbol, created_at
                     , prev_price, price, prev_weight, target_weight, weight, rebalancing_id))
                 throw new IllegalArgumentException();
 

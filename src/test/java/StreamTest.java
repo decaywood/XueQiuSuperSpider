@@ -1,10 +1,8 @@
-import org.decaywood.collector.CommissionIndustryCollector;
-import org.decaywood.collector.DateRangeCollector;
-import org.decaywood.collector.MostProfitableCubeCollector;
-import org.decaywood.collector.StockScopeHotRankCollector;
-import org.decaywood.consumer.UserInfoToDBConsumer;
+import org.decaywood.collector.*;
+import org.decaywood.consumer.entryFirst.UserInfoToDBConsumer;
 import org.decaywood.entity.*;
 import org.decaywood.entity.trend.StockTrend;
+import org.decaywood.filter.PageKeyFilter;
 import org.decaywood.mapper.cubeFirst.CubeToCubeWithLastBalancingMapper;
 import org.decaywood.mapper.cubeFirst.CubeToCubeWithTrendMapper;
 import org.decaywood.mapper.dateFirst.DateToLongHuBangStockMapper;
@@ -15,6 +13,7 @@ import org.decaywood.mapper.stockFirst.StockToStockWithStockTrendMapper;
 import org.decaywood.mapper.stockFirst.StockToVIPFollowerCountEntryMapper;
 import org.junit.Test;
 
+import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,6 +22,38 @@ import java.util.stream.Collectors;
  * @date: 2015/11/24 14:06
  */
 public class StreamTest {
+
+
+    //根据关键字获取最近新闻
+    @Test
+    public void findNewsUcareAbout() {
+        List<URL> news = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 2).get();
+        List<URL> res = news.parallelStream().filter(new PageKeyFilter("万孚生物", false)).collect(Collectors.toList());
+
+        List<URL> regexRes = news.parallelStream().filter(new PageKeyFilter("万孚生物", true)).collect(Collectors.toList());
+        for (URL re : regexRes) {
+            System.out.println("Regex : " + re);
+        }
+        for (URL re : res) {
+            System.out.println("nonRegex : " + re);
+        }
+    }
+
+
+    //创业板股票大V统计
+    @Test
+    public void getMarketStockFundTrend() {
+        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
+        MarketQuotationsRankCollector collector = new MarketQuotationsRankCollector(
+                MarketQuotationsRankCollector.StockType.GROWTH_ENTERPRISE_BOARD,
+                MarketQuotationsRankCollector.ORDER_BY_VOLUME, 500);
+        StockToVIPFollowerCountEntryMapper mapper1 = new StockToVIPFollowerCountEntryMapper(3000, 300);//搜集每个股票的粉丝
+        UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();//写入数据库
+        collector.get()
+                .parallelStream() //并行流
+                .map(mapper1)
+                .forEach(consumer);//结果写入数据库
+    }
 
 
     //统计股票5000粉以上大V个数，并以行业分类股票

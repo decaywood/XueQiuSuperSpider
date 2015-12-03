@@ -1,6 +1,6 @@
 package org.decaywood.entity;
 
-import org.decaywood.utils.StringChecker;
+import org.decaywood.utils.StringUtils;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -27,7 +27,7 @@ public class LongHuBangInfo implements DeepCopy<LongHuBangInfo> {
 
         public BizsunitInfo(String bizsunitcode, String bizsunitname, String buyamt, String saleamt, String tradedate) {
 
-            if(StringChecker.nullOrEmpty(bizsunitcode, bizsunitname, buyamt, saleamt, tradedate))
+            if(StringUtils.nullOrEmpty(bizsunitcode, bizsunitname, buyamt, saleamt, tradedate))
                 throw new IllegalArgumentException();
 
             this.bizsunitcode = bizsunitcode;

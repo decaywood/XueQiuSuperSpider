@@ -75,6 +75,21 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
 
 ##一些例子
 
+* 简单的根据关键字获取近期新闻
+
+```java
+
+    @Test
+    public void findNewsUcareAbout() {
+        List<URL> news = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 5).get();
+        List<URL> res = news.stream().filter(new PageKeyFilter("万孚生物", false)).collect(Collectors.toList());
+        for (URL re : res) {
+            System.out.println(re);
+        }
+
+    }
+
+```
 
 * 游资追踪
 

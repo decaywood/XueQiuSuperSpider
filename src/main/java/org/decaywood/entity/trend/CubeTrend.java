@@ -1,6 +1,6 @@
 package org.decaywood.entity.trend;
 
-import org.decaywood.utils.StringChecker;
+import org.decaywood.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class CubeTrend extends Trend<CubeTrend.TrendBlock, CubeTrend> {
         private final String percent;
 
         public TrendBlock(String time, String date, String value, String percent) {
-            if(StringChecker.nullOrEmpty(time, date, value, percent))
+            if(StringUtils.nullOrEmpty(time, date, value, percent))
                 throw new IllegalArgumentException();
             this.time = time;
             this.date = date;
