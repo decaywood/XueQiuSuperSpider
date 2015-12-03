@@ -18,7 +18,7 @@ public abstract class AbstractMapper <T, R> implements Function<T, R> {
 
     private String webSite;
 
-    public abstract R mapLogic(T t) throws Exception;
+    protected abstract R mapLogic(T t) throws Exception;
 
 
     protected String request(URL url) throws IOException {

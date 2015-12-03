@@ -1,4 +1,4 @@
-package org.decaywood.collector;
+package org.decaywood.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.decaywood.timeWaitingStrategy.DefaultTimeWaitingStrategy;
@@ -8,26 +8,26 @@ import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.function.Supplier;
+import java.util.function.Predicate;
 
 /**
  * @author: decaywood
- * @date: 2015/11/23 13:51
+ * @date: 2015/12/3 10:01
  */
-public abstract class AbstractCollector<T> implements Supplier<T> {
+public abstract class AbstractFilter<T> implements Predicate<T> {
 
-    protected String webSite;
+    private String webSite;
 
-    protected abstract T collectLogic() throws Exception;
+    protected abstract boolean filterLogic(T t) throws Exception;
 
-    protected TimeWaitingStrategy strategy;
+    private TimeWaitingStrategy strategy;
     protected ObjectMapper mapper;
 
-    public AbstractCollector(TimeWaitingStrategy strategy) {
+    public AbstractFilter(TimeWaitingStrategy strategy) {
         this(strategy, URLMapper.MAIN_PAGE.toString());
     }
 
-    public AbstractCollector(TimeWaitingStrategy strategy, String webSite) {
+    public AbstractFilter(TimeWaitingStrategy strategy, String webSite) {
 
         this.webSite = webSite;
         this.strategy = strategy == null ? new DefaultTimeWaitingStrategy<>() : strategy;
@@ -39,25 +39,27 @@ public abstract class AbstractCollector<T> implements Supplier<T> {
         return new HttpRequestHelper(webSite).request(url);
     }
 
-    @Override
-    public T get() {
 
-        System.out.println(getClass().getSimpleName() + " collecting...");
+
+    @Override
+    public boolean test(T t) {
+
+        System.out.println(getClass().getSimpleName() + " filtering...");
 
         this.strategy = this.strategy == null ? new DefaultTimeWaitingStrategy<>() : strategy;
 
-        T res = null;
+        boolean res = false;
         int retryTime = this.strategy.retryTimes();
 
         try {
             int loopTime = 1;
             while (retryTime > loopTime) {
                 try {
-                    res = collectLogic();
+                    res = filterLogic(t);
                     break;
                 } catch (Exception e) {
                     if(!(e instanceof IOException)) throw e;
-                    System.out.println("Collector: Network busy Retrying -> " + loopTime + " times");
+                    System.out.println("Filter: Network busy Retrying -> " + loopTime + " times");
                     HttpRequestHelper.updateCookie(webSite);
                     this.strategy.waiting(loopTime++);
                 }
@@ -68,4 +70,5 @@ public abstract class AbstractCollector<T> implements Supplier<T> {
         return res;
 
     }
+
 }

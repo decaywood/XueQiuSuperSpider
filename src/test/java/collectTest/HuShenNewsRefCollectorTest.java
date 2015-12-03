@@ -1,9 +1,10 @@
-package mapperTest;
+package collectTest;
 
 import org.decaywood.collector.HuShenNewsRefCollector;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -14,25 +15,18 @@ public class HuShenNewsRefCollectorTest {
 
     @Test
     public void testCorrectArg() {
-        new HuShenNewsRefCollector(5, 3);
+        new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 3);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testWrongArgument1() {
-        new HuShenNewsRefCollector(4, 3);
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testWrongArgument2() {
-        new HuShenNewsRefCollector(5, 0);
+        new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 0);
     }
 
     @Test
     public void testFunc() {
-        List<String> res = new HuShenNewsRefCollector().get();
-        for (String re : res) {
-            System.out.println(re);
-        }
+        List<URL> res = new HuShenNewsRefCollector().get();
         Assert.assertFalse(res.isEmpty());
     }
 }

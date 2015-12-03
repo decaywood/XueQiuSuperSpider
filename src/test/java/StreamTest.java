@@ -2,6 +2,7 @@ import org.decaywood.collector.*;
 import org.decaywood.consumer.entryFirst.UserInfoToDBConsumer;
 import org.decaywood.entity.*;
 import org.decaywood.entity.trend.StockTrend;
+import org.decaywood.filter.PageKeyFilter;
 import org.decaywood.mapper.cubeFirst.CubeToCubeWithLastBalancingMapper;
 import org.decaywood.mapper.cubeFirst.CubeToCubeWithTrendMapper;
 import org.decaywood.mapper.dateFirst.DateToLongHuBangStockMapper;
@@ -12,6 +13,7 @@ import org.decaywood.mapper.stockFirst.StockToStockWithStockTrendMapper;
 import org.decaywood.mapper.stockFirst.StockToVIPFollowerCountEntryMapper;
 import org.junit.Test;
 
+import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,18 @@ import java.util.stream.Collectors;
  * @date: 2015/11/24 14:06
  */
 public class StreamTest {
+
+
+    @Test
+    public void findNewsUcareAbout() {
+        List<URL> news = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 5).get();
+        List<URL> res = news.stream().filter(new PageKeyFilter("万孚生物", false)).collect(Collectors.toList());
+        for (URL re : res) {
+            System.out.println(re);
+        }
+
+    }
+
 
     //创业板股票大V统计
     @Test
