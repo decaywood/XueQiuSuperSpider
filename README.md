@@ -1,5 +1,5 @@
 #雪球超级爬虫
-<a href="http://junit.org/"><img src="https://img.shields.io/badge/Test-junit-orange.svg?style=flat"></a>
+<a href="http://junit.org/"><img src="https://img.shields.io/badge/Test-JUnit-orange.svg?style=flat"></a>
 <a href="http://jsoup.org/"><img src="https://img.shields.io/badge/Dependency-Jsoup-yellow.svg?style=flat"></a>
 <a href="http://jackson-users.ning.com/"><img src="https://img.shields.io/badge/Dependency-Jackson-blue.svg?style=flat"></a>
 <a href="http://dev.mysql.com/"><img src="https://img.shields.io/badge/Database-MySQL-red.svg?style=flat"></a>
@@ -77,16 +77,20 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
 
 * 简单的根据关键字获取近期新闻
 
-```java
+```java 
 
     @Test
     public void findNewsUcareAbout() {
-        List<URL> news = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 5).get();
-        List<URL> res = news.stream().filter(new PageKeyFilter("万孚生物", false)).collect(Collectors.toList());
-        for (URL re : res) {
-            System.out.println(re);
-        }
+        List<URL> news = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 2).get();
+        List<URL> res = news.parallelStream().filter(new PageKeyFilter("万孚生物", false)).collect(Collectors.toList());
 
+        List<URL> regexRes = news.parallelStream().filter(new PageKeyFilter("万孚生物", true)).collect(Collectors.toList());
+        for (URL re : regexRes) {
+            System.out.println("Regex : " + re);
+        }
+        for (URL re : res) {
+            System.out.println("nonRegex : " + re);
+        }
     }
 
 ```
