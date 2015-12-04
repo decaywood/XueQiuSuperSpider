@@ -42,18 +42,17 @@ public class StockToStockWithStockTrendMapper extends AbstractMapper<Stock, Stoc
 
         if(stock == null || stock == EmptyObject.emptyStock) return EmptyObject.emptyStock;
 
-        Stock copyStock = stock.copy();
         String target = URLMapper.STOCK_TREND_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target)
-                .addParameter("symbol", copyStock.getStockNo())
+                .addParameter("symbol", stock.getStockNo())
                 .addParameter("period", period.toString());
         URL url = new URL(builder.build());
 
         String json = request(url);
 
         JsonNode node = mapper.readTree(json).get("chartlist");
-        processStock(copyStock, node);
-        return copyStock;
+        processStock(stock, node);
+        return stock;
 
     }
 

@@ -38,6 +38,30 @@ public class MarketIndexTrend extends Trend<MarketIndexTrend.TrendBlock, MarketI
             this.value = value;
             this.percent = percent;
         }
+
+        public String getTime() {
+            return time;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public String getPercent() {
+            return percent;
+        }
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

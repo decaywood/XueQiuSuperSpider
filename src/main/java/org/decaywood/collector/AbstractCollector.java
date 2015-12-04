@@ -1,43 +1,31 @@
 package org.decaywood.collector;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.decaywood.AbstractService;
 import org.decaywood.timeWaitingStrategy.DefaultTimeWaitingStrategy;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.function.Supplier;
 
 /**
  * @author: decaywood
  * @date: 2015/11/23 13:51
  */
-public abstract class AbstractCollector<T> implements Supplier<T> {
+public abstract class AbstractCollector<T> extends AbstractService implements Supplier<T> {
 
-    protected String webSite;
 
     protected abstract T collectLogic() throws Exception;
-
-    protected TimeWaitingStrategy strategy;
-    protected ObjectMapper mapper;
 
     public AbstractCollector(TimeWaitingStrategy strategy) {
         this(strategy, URLMapper.MAIN_PAGE.toString());
     }
 
     public AbstractCollector(TimeWaitingStrategy strategy, String webSite) {
-
-        this.webSite = webSite;
-        this.strategy = strategy == null ? new DefaultTimeWaitingStrategy<>() : strategy;
-        this.mapper = new ObjectMapper();
-
+        super(strategy, webSite);
     }
 
-    protected String request(URL url) throws IOException {
-        return new HttpRequestHelper(webSite).request(url);
-    }
 
     @Override
     public T get() {

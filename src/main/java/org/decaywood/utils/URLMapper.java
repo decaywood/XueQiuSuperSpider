@@ -15,6 +15,7 @@ public enum URLMapper {
     STOCK_SHAREHOLDERS_JSON("http://xueqiu.com/stock/f10/shareholdernum.json"),
     STOCK_SELECTOR_JSON("http://xueqiu.com/stock/screener/screen.json"),
     LONGHUBANG_JSON("http://xueqiu.com/stock/f10/bizunittrdinfo.json"),
+    STOCK_INDUSTRY_JSON("http://xueqiu.com/stock/f10/compinfo.json"),
     CUBE_REBALANCING_JSON("http://xueqiu.com/cubes/rebalancing/history.json"),
     CUBE_TREND_JSON("http://xueqiu.com/cubes/nav_daily/all.json"),
     CUBES_RANK_JSON("http://xueqiu.com/cubes/discover/rank/cube/list.json"),

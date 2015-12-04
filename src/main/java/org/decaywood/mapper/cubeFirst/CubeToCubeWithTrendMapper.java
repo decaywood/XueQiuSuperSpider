@@ -47,10 +47,9 @@ public class CubeToCubeWithTrendMapper extends AbstractMapper<Cube, Cube> {
     public Cube mapLogic(Cube cube) throws Exception {
         if(cube == null || cube == EmptyObject.emptyCube) return EmptyObject.emptyCube;
 
-        Cube copyCube = cube.copy();
         String target = URLMapper.CUBE_TREND_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target)
-                .addParameter("cube_symbol", copyCube.getSymbol())
+                .addParameter("cube_symbol", cube.getSymbol())
                 .addParameter("since", since)
                 .addParameter("until", until);
 
@@ -59,8 +58,8 @@ public class CubeToCubeWithTrendMapper extends AbstractMapper<Cube, Cube> {
         String json = request(url);
 
         JsonNode node = mapper.readTree(json);
-        processCube(copyCube, node);
-        return copyCube;
+        processCube(cube, node);
+        return cube;
 
     }
 

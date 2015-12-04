@@ -44,6 +44,7 @@ public class CapitalFlow implements DeepCopy<CapitalFlow> {
     }
 
 
+
     public String getCapitalInflow() {
         return capitalInflow;
     }

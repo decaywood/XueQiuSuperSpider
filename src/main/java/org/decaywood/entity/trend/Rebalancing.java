@@ -54,6 +54,42 @@ public class Rebalancing extends Trend<Rebalancing.TrendBlock, Rebalancing> {
             this.rebalancing_id = rebalancing_id;
         }
 
+        public String getStock_name() {
+            return stock_name;
+        }
+
+        public String getStock_symbol() {
+            return stock_symbol;
+        }
+
+        public String getCreated_at() {
+            return created_at;
+        }
+
+        public String getPrev_price() {
+            return prev_price;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        public String getPrev_weight() {
+            return prev_weight;
+        }
+
+        public String getTarget_weight() {
+            return target_weight;
+        }
+
+        public String getWeight() {
+            return weight;
+        }
+
+        public String getRebalancing_id() {
+            return rebalancing_id;
+        }
+
         @Override
         public String toString() {
             return "TrendBlock{" +
@@ -69,6 +105,7 @@ public class Rebalancing extends Trend<Rebalancing.TrendBlock, Rebalancing> {
                     '}';
         }
     }
+
 
 
     @Override

@@ -51,6 +51,22 @@ public class StockTrend extends Trend<StockTrend.TrendBlock, StockTrend> {
             this.current = current;
             this.time = DateParser.parseToDate(time);
         }
+
+        public String getVolume() {
+            return volume;
+        }
+
+        public String getAvg_price() {
+            return avg_price;
+        }
+
+        public String getCurrent() {
+            return current;
+        }
+
+        public Date getTime() {
+            return time;
+        }
     }
 
 

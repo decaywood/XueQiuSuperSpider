@@ -14,6 +14,19 @@ import java.util.HashSet;
  */
 public abstract class EmptyObject {
 
+    private static class EmptyCompanyInfo extends CompanyInfo {
+
+        public EmptyCompanyInfo() {
+            super(
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    emptyString,
+                    new ArrayList<>());
+        }
+    }
     private static class EmptyCapitalFlow extends CapitalFlow {
 
         public EmptyCapitalFlow() {
@@ -182,4 +195,5 @@ public abstract class EmptyObject {
     public static EmptyShareHoldersTrend emptyShareHoldersTrend = new EmptyShareHoldersTrend();
     public static EmptyLongHuBangInfo emptyLongHuBangInfo = new EmptyLongHuBangInfo();
     public static EmptyCapitalFlow emptyCapitalFlow = new EmptyCapitalFlow();
+    public static EmptyCompanyInfo emptyCompanyInfo = new EmptyCompanyInfo();
 }

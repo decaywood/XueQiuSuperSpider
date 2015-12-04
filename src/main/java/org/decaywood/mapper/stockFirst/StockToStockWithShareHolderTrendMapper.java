@@ -45,10 +45,9 @@ public class StockToStockWithShareHolderTrendMapper extends AbstractMapper<Stock
     public Stock mapLogic(Stock stock) throws Exception {
         if(stock == null || stock == EmptyObject.emptyStock) return EmptyObject.emptyStock;
 
-        Stock copyStock = stock.copy();
         String target = URLMapper.STOCK_SHAREHOLDERS_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target)
-                .addParameter("symbol", copyStock.getStockNo())
+                .addParameter("symbol", stock.getStockNo())
                 .addParameter("page", 1)
                 .addParameter("size", 500);
 
@@ -56,8 +55,8 @@ public class StockToStockWithShareHolderTrendMapper extends AbstractMapper<Stock
         String json = request(url);
 
         JsonNode node = mapper.readTree(json).get("list");
-        processStock(copyStock, node);
-        return copyStock;
+        processStock(stock, node);
+        return stock;
 
     }
 
