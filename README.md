@@ -3,6 +3,11 @@
 <a href="http://jsoup.org/"><img src="https://img.shields.io/badge/Dependency-Jsoup-yellow.svg?style=flat"></a>
 <a href="http://jackson-users.ning.com/"><img src="https://img.shields.io/badge/Dependency-Jackson-blue.svg?style=flat"></a>
 <a href="http://dev.mysql.com/"><img src="https://img.shields.io/badge/Database-MySQL-red.svg?style=flat"></a>
+
+##更新日志
+
+12.4 -- 增加根据股票获取公司信息功能（公司名称、组织形式、成立日期、经营范围、主营业务、地区代码、所属板块）
+
 ##前言
 
 雪球网或者东方财富或者同花顺目前已经提供了很多种股票筛选方式，但是筛选方式是根据个人操作
@@ -12,14 +17,14 @@
 
 ##结构
 
-如果把程序程序比作文学体裁，我想散文最能体现雪球超级爬虫的整体结构--形散而神不散。
-整个程序的所有组件互相没有任何依赖，包括参数，组件由接口定义成三大类：Collector、
-Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支信息）的组装、以及最终
-的数据分析。三个接口定义了整个数据抓取生命周期的三个阶段。Mapper组件可以进行多个
-嵌套，就像流水线一样，经过N个Mapper，完成一个组件的N种属性组装，当然，如果你不需
-要某些属性，你完全可以跳过某些mapper，这样可以节省许多抓取时间。在参数传递方面
-，模块在处理参数之前会对参数进行深度复制，确保不会出现多线程同步问题，模块内部
-参数严格定义为只读。变量只局限在方法范围内，完全避免了线程间数据共享。
+雪球超级爬虫的所有组件互相没有任何依赖，包括参数。整体架构由Collector、Mapper
+以及Consumer三个接口支撑。功能分别为数据搜集、数据相关信息（分支信息）的组装、以及最终
+的数据分析，三个接口定义了整个数据抓取生命周期的三个阶段。Mapper组件可以进行多次
+嵌套，就像流水线一样，不同的Mapper负责自己对应的组装任务，经过N个Mapper，
+完成一个对象的N种属性组装，当然，如果你不需要某些属性，你完全可以跳过某些mapper，
+这样可以节省许多抓取时间。在参数传递方面，模块在处理参数之前会对参数进行深度复制，
+确保不会出现多线程同步问题，模块内部参数严格定义为只读。变量只局限在方法范围内，
+完全避免了线程间数据共享。
 
 ![](https://github.com/decaywood/XueQiuSuperSpider/blob/master/info/structure.png)
 
@@ -53,6 +58,14 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
 对于你定义了在模块间传递的对象，请实现DeepCopy接口，就像我上面提到的，模块间是
 不允许共享对象的，模块约定复制传入的参数。
 
+```java
+
+    public interface DeepCopy <R> {
+        R copy();
+    }
+    
+```
+
 * 对于只读的域变量请定义为final
 
 为了防止你对域的误写，请将域定义为final，这样更加保险
@@ -64,7 +77,7 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
 
 * 具备交换律
 
-特别注意的是，mapper与mapper之间如果输入与输出如果相同，请保证遵守交换律，
+特别注意的是，mapper与mapper之间输入与输出参数类型如果相同，请保证遵守交换律，
 即 M1.andThen(M2) equals M2.andThen(M1)
 
 * 推荐继承模块模版
