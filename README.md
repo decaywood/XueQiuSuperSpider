@@ -109,7 +109,7 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
         DateRangeCollector collector = new DateRangeCollector(from, to);
         DateToLongHuBangStockMapper mapper = new DateToLongHuBangStockMapper();
         StockToLongHuBangMapper mapper1 = new StockToLongHuBangMapper();
-        List<LongHuBangInfo s = collector.get()
+        List<LongHuBangInfo> s = collector.get()
                 .parallelStream()
                 .map(mapper)
                 .flatMap(List::stream).map(mapper1)
@@ -138,14 +138,14 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
         UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();//写入数据库
         System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
         
-        List<Entry<Stock, Integer res = collector.get()
+        List<Entry<Stock, Integer>> res = collector.get()
                 .parallelStream() //并行流
                 .map(mapper)
                 .flatMap(Collection::stream)
-                .map(x - new Entry<(x, mapper1.apply(x)))
+                .map(x - new Entry<>(x, mapper1.apply(x)))
                 .peek(consumer)
                 .collect(Collectors.toList());
-        for (Entry<Stock, Integer re : res) {
+        for (Entry<Stock, Integer> re : res) {
             System.out.println(re.getKey().getStockName() + " - 5000粉丝以上大V个数  " + re.getValue());
         }
      }
@@ -167,7 +167,7 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
                 MostProfitableCubeCollector.ORDER_BY.DAILY);
         CubeToCubeWithLastBalancingMapper mapper = new CubeToCubeWithLastBalancingMapper();
         CubeToCubeWithTrendMapper mapper1 = new CubeToCubeWithTrendMapper(from, to);
-        List<Cube cubes = cubeCollector
+        List<Cube> cubes = cubeCollector
                  .get()
                  .parallelStream()
                  .map(mapper.andThen(mapper1))
@@ -189,7 +189,7 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
         StockScopeHotRankCollector collector = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.US_WITHIN_24_HOUR);
         StockToStockWithAttributeMapper mapper1 = new StockToStockWithAttributeMapper();
         StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper(StockTrend.Period.ONE_DAY);
-        List<Stock stocks = collector.get().parallelStream().map(mapper1.andThen(mapper2)).collect(Collectors.toList());
+        List<Stock> stocks = collector.get().parallelStream().map(mapper1.andThen(mapper2)).collect(Collectors.toList());
         for (Stock stock : stocks) {
             System.out.print(stock.getStockName() + " - ");
             System.out.print(stock.getAmplitude() + " " + stock.getOpen() + " " + stock.getHigh() + " and so on...");
@@ -209,7 +209,7 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
         StockToStockWithAttributeMapper mapper1 = new StockToStockWithAttributeMapper();
         StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper();
-        Map<Industry, List<Stock res = collector.get()
+        Map<Industry, List<Stock>> res = collector.get()
                 .parallelStream()
                 .filter(x - x.getIndustryName().equals("畜牧业"))
                 .map(mapper)
@@ -217,7 +217,7 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
                 .map(mapper1.andThen(mapper2))
                 .collect(Collectors.groupingBy(Stock::getIndustry));
         
-        for (Map.Entry<Industry, List<Stock entry : res.entrySet()) {
+        for (Map.Entry<Industry, List<Stock>> entry : res.entrySet()) {
             for (Stock stock : entry.getValue()) {
                 System.out.print(entry.getKey().getIndustryName() + " - " + stock.getStockName() + " - ");
                 System.out.print(stock.getAmount() + " " + stock.getChange() + " " + stock.getDividend() + " and so on...");
@@ -236,13 +236,13 @@ Mapper以及Consumer，功能分别为数据搜集、数据相关信息（分支
       
         CommissionIndustryCollector collector = new CommissionIndustryCollector();
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
-        Map<Industry, List<Stock res = collector.get()
+        Map<Industry, List<Stock>> res = collector.get()
                 .parallelStream()
                 .map(mapper)
                 .flatMap(Collection::stream)
                 .collect(Collectors.groupingBy(Stock::getIndustry));
       
-        for (Map.Entry<Industry, List<Stock entry : res.entrySet()) {
+        for (Map.Entry<Industry, List<Stock>> entry : res.entrySet()) {
             for (Stock stock : entry.getValue()) {
                 System.out.println(entry.getKey().getIndustryName() + " - " + stock.getStockName());
             }
