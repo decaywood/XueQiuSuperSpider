@@ -33,14 +33,13 @@ public class IndustryToStocksMapper extends AbstractMapper<Industry, List<Stock>
 
         if(industry == null || industry == EmptyObject.emptyIndustry) return new ArrayList<>();
 
-        Industry industryCopy = industry.copy();
         String target = URLMapper.INDUSTRY_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target);
         builder.addParameter("page", 1)
                 .addParameter("size", 500)
                 .addParameter("order", "desc")
                 .addParameter("orderBy", "percent");
-        String info = industryCopy.getIndustryInfo();
+        String info = industry.getIndustryInfo();
         if (info.startsWith("#")) info = info.substring(1);
         for (String s : info.split("&")) {
             String[] keyAndVal = s.split("=");
@@ -50,19 +49,18 @@ public class IndustryToStocksMapper extends AbstractMapper<Industry, List<Stock>
         String json = request(url);
         JsonNode jsonNode = mapper.readTree(json);
 
-        return parserJson(industryCopy, jsonNode);
+        return parserJson(jsonNode);
 
     }
 
 
-    private List<Stock> parserJson(Industry industry, JsonNode node) {
+    private List<Stock> parserJson(JsonNode node) {
 
         List<Stock> stocks = new ArrayList<>();
 
         JsonNode data = node.get("data");
         for (JsonNode jsonNode : data) {
             Stock stock = new Stock(jsonNode.get("name").asText(), jsonNode.get("symbol").asText());
-            stock.setIndustry(industry.copy());
             stocks.add(stock);
         }
         return stocks;

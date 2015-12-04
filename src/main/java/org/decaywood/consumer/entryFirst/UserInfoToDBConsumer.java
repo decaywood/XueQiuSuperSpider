@@ -15,6 +15,8 @@ import java.sql.PreparedStatement;
  */
 public class UserInfoToDBConsumer extends AbstractConsumer<Entry<Stock, Integer>> {
 
+
+
     @Override
     protected void consumLogic(Entry<Stock, Integer> entry) throws Exception{
         Stock stock = entry.getKey();

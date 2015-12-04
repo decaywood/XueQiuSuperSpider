@@ -44,19 +44,17 @@ public class CubeToCubeWithLastBalancingMapper extends AbstractMapper<Cube, Cube
 
         if(cube == null || cube == EmptyObject.emptyCube) return EmptyObject.emptyCube;
 
-
-        Cube copyCube = cube.copy();
         String target = URLMapper.CUBE_REBALANCING_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target)
-                .addParameter("cube_symbol", copyCube.getSymbol())
+                .addParameter("cube_symbol", cube.getSymbol())
                 .addParameter("count", count)
                 .addParameter("page", 1);
         URL url = new URL(builder.build());
         String json = request(url);
 
         JsonNode node = mapper.readTree(json);
-        processCube(copyCube, node);
-        return copyCube;
+        processCube(cube, node);
+        return cube;
 
     }
 

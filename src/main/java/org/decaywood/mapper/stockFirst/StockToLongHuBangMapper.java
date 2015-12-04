@@ -32,9 +32,8 @@ public class StockToLongHuBangMapper extends AbstractMapper <Stock, LongHuBangIn
     public LongHuBangInfo mapLogic(Stock stock) throws Exception {
 
         if(stock == null || stock == EmptyObject.emptyStock) return EmptyObject.emptyLongHuBangInfo;
-        Stock copyStock = stock.copy();
 
-        Date date = copyStock.getStockQueryDate();
+        Date date = stock.getStockQueryDate();
 
         if (date == EmptyObject.emptyDate)
             throw new IllegalArgumentException("lost parameter: stockQueryDate");
@@ -44,12 +43,12 @@ public class StockToLongHuBangMapper extends AbstractMapper <Stock, LongHuBangIn
         String target = URLMapper.LONGHUBANG_JSON.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target)
                 .addParameter("date", dateParam)
-                .addParameter("symbol", copyStock.getStockNo());
+                .addParameter("symbol", stock.getStockNo());
         URL url = new URL(builder.build());
 
         String json = request(url);
         JsonNode node = mapper.readTree(json);
-        return processNode(copyStock, node);
+        return processNode(stock, node);
 
     }
 

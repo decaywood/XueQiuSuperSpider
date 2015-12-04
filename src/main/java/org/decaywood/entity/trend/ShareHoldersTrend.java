@@ -98,6 +98,7 @@ public class ShareHoldersTrend extends Trend<ShareHoldersTrend.TrendBlock, Share
     }
 
 
+
     @Override
     public ShareHoldersTrend copy() {
         return new ShareHoldersTrend(new ArrayList<>(history));

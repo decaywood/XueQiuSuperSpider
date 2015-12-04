@@ -51,9 +51,8 @@ public class Stock implements DeepCopy<Stock> {
 
     private StockTrend stockTrend = EmptyObject.emptyStockTrend;//股票走势
     private ShareHoldersTrend shareHoldersTrend = EmptyObject.emptyShareHoldersTrend;
+    private CompanyInfo companyInfo = EmptyObject.emptyCompanyInfo;
     private Industry industry = EmptyObject.emptyIndustry;
-
-
 
     public Stock(final String stockName, final String stockNo) {
         this.stockName = stockName;
@@ -318,20 +317,28 @@ public class Stock implements DeepCopy<Stock> {
         return stockQueryDate;
     }
 
-    public void setIndustry(Industry industry) {
-        this.industry = industry;
-    }
-
-    public Industry getIndustry() {
-        return industry;
-    }
-
     public ShareHoldersTrend getShareHoldersTrend() {
         return shareHoldersTrend;
     }
 
     public void setShareHoldersTrend(ShareHoldersTrend shareHoldersTrend) {
         this.shareHoldersTrend = shareHoldersTrend;
+    }
+
+    public CompanyInfo getCompanyInfo() {
+        return companyInfo;
+    }
+
+    public void setCompanyInfo(CompanyInfo companyInfo) {
+        this.companyInfo = companyInfo;
+    }
+
+    public Industry getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(Industry industry) {
+        this.industry = industry;
     }
 
     @Override
@@ -368,6 +375,7 @@ public class Stock implements DeepCopy<Stock> {
         stock.stockTrend = stockTrend.copy();
         stock.shareHoldersTrend = shareHoldersTrend.copy();
         stock.stockQueryDate = stockQueryDate;
+        stock.companyInfo = companyInfo;
         stock.industry = industry;
         return stock;
     }

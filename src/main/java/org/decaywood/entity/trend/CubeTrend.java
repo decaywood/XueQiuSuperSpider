@@ -28,7 +28,21 @@ public class CubeTrend extends Trend<CubeTrend.TrendBlock, CubeTrend> {
         this.to = to;
     }
 
+    public String getSymbol() {
+        return symbol;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
 
     public static class TrendBlock {
 

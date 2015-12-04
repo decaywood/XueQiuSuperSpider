@@ -35,8 +35,7 @@ public class StockToCapitalFlowEntryMapper extends AbstractMapper<Stock, Entry<S
         if(stock == null || stock == EmptyObject.emptyStock)
             return new Entry<>(EmptyObject.emptyStock, EmptyObject.emptyCapitalFlow);
 
-        Stock copyStock = stock.copy();
-        String no = copyStock.getStockNo().substring(2);
+        String no = stock.getStockNo().substring(2);
 
         String target = URLMapper.STOCK_CAPITAL_FLOW.toString();
         RequestParaBuilder builder = new RequestParaBuilder(target)
@@ -45,7 +44,7 @@ public class StockToCapitalFlowEntryMapper extends AbstractMapper<Stock, Entry<S
 
         String json = request(url);
         JsonNode node = mapper.readTree(json);
-        return processNode(copyStock, node);
+        return processNode(stock, node);
 
     }
 

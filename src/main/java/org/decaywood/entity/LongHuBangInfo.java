@@ -37,6 +37,26 @@ public class LongHuBangInfo implements DeepCopy<LongHuBangInfo> {
             this.tradedate = tradedate;
         }
 
+        public String getBizsunitcode() {
+            return bizsunitcode;
+        }
+
+        public String getBizsunitname() {
+            return bizsunitname;
+        }
+
+        public String getBuyamt() {
+            return buyamt;
+        }
+
+        public String getSaleamt() {
+            return saleamt;
+        }
+
+        public String getTradedate() {
+            return tradedate;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -60,6 +80,8 @@ public class LongHuBangInfo implements DeepCopy<LongHuBangInfo> {
         this.topBuyList = topBuyList;
         this.topSaleList = topSaleList;
     }
+
+
 
     public Stock getStock() {
         return stock;

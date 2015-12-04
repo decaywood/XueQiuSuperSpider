@@ -50,9 +50,8 @@ public class StockToVIPFollowerCountEntryMapper extends AbstractMapper <Stock, E
 
         if(stock == null || stock == EmptyObject.emptyStock)
             return new Entry<>(EmptyObject.emptyStock, 0);
-        Stock copyStock = stock.copy();
 
-        String stockNo = copyStock.getStockNo();
+        String stockNo = stock.getStockNo();
 
         int count = 0;
 
