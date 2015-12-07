@@ -7,6 +7,7 @@
 ##更新日志
 
 12.4 -- 增加根据股票获取公司信息功能（公司名称、组织形式、成立日期、经营范围、主营业务、地区代码、所属板块）
+12.7 -- 游资追踪增加模糊匹配特性
 
 ##前言
 
@@ -126,11 +127,11 @@
                 .parallelStream()
                 .map(mapper)
                 .flatMap(List::stream).map(mapper1)
-                .filter(x - x.bizsunitInBuyList("中信证券股份有限公司上海溧阳路证券营业部"))
+                .filter(x -> x.bizsunitInBuyList("中信证券股份有限公司上海溧阳路证券营业部"))
                 .sorted(Comparator.comparing(LongHuBangInfo::getDate))
                 .collect(Collectors.toList());
         for (LongHuBangInfo info : s) {
-            System.out.println(info.getDate() + " - " + info.getStock().getStockName());
+            System.out.println(info.getDate() + " -> " + info.getStock().getStockName());
         }
 
      }
@@ -155,11 +156,11 @@
                 .parallelStream() //并行流
                 .map(mapper)
                 .flatMap(Collection::stream)
-                .map(x - new Entry<>(x, mapper1.apply(x)))
+                .map(x -> new Entry<>(x, mapper1.apply(x)))
                 .peek(consumer)
                 .collect(Collectors.toList());
         for (Entry<Stock, Integer> re : res) {
-            System.out.println(re.getKey().getStockName() + " - 5000粉丝以上大V个数  " + re.getValue());
+            System.out.println(re.getKey().getStockName() + " -> 5000粉丝以上大V个数  " + re.getValue());
         }
      }
 ```
@@ -204,7 +205,7 @@
         StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper(StockTrend.Period.ONE_DAY);
         List<Stock> stocks = collector.get().parallelStream().map(mapper1.andThen(mapper2)).collect(Collectors.toList());
         for (Stock stock : stocks) {
-            System.out.print(stock.getStockName() + " - ");
+            System.out.print(stock.getStockName() + " -> ");
             System.out.print(stock.getAmplitude() + " " + stock.getOpen() + " " + stock.getHigh() + " and so on...");
             System.out.println(" trend size: " + stock.getStockTrend().getHistory().size());
         }
@@ -224,7 +225,7 @@
         StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper();
         Map<Industry, List<Stock>> res = collector.get()
                 .parallelStream()
-                .filter(x - x.getIndustryName().equals("畜牧业"))
+                .filter(x -> x.getIndustryName().equals("畜牧业"))
                 .map(mapper)
                 .flatMap(Collection::stream)
                 .map(mapper1.andThen(mapper2))
@@ -232,7 +233,7 @@
         
         for (Map.Entry<Industry, List<Stock>> entry : res.entrySet()) {
             for (Stock stock : entry.getValue()) {
-                System.out.print(entry.getKey().getIndustryName() + " - " + stock.getStockName() + " - ");
+                System.out.print(entry.getKey().getIndustryName() + " -> " + stock.getStockName() + " -> ");
                 System.out.print(stock.getAmount() + " " + stock.getChange() + " " + stock.getDividend() + " and so on...");
                 System.out.println(" trend size: " + stock.getStockTrend().getHistory().size());
            }
@@ -257,7 +258,7 @@
       
         for (Map.Entry<Industry, List<Stock>> entry : res.entrySet()) {
             for (Stock stock : entry.getValue()) {
-                System.out.println(entry.getKey().getIndustryName() + " - " + stock.getStockName());
+                System.out.println(entry.getKey().getIndustryName() + " -> " + stock.getStockName());
             }
         }
      }
