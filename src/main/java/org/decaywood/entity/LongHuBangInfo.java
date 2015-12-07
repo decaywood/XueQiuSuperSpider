@@ -91,8 +91,18 @@ public class LongHuBangInfo implements DeepCopy<LongHuBangInfo> {
         return date;
     }
 
-    //龙虎榜买入是否有该营业部出现
     public boolean bizsunitInBuyList(String name) {
+        return bizsunitInBuyList(name, false);
+    }
+
+    //龙虎榜买入是否有该营业部出现
+    public boolean bizsunitInBuyList(String name, boolean partlySearch) {
+        if (partlySearch) {
+            for (BizsunitInfo info : topBuyList) {
+                if (info.getBizsunitname().contains(name)) return true;
+            }
+            return false;
+        }
         return topBuyList.contains(new BizsunitInfo("xx", name, "xx", "xx", "xx"));
     }
 
