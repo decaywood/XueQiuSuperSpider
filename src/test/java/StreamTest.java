@@ -164,9 +164,9 @@ public class StreamTest {
     @Test
     public void LongHuBangTracking() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2015, Calendar.NOVEMBER, 20);
-        Date from = calendar.getTime();
         calendar.set(2015, Calendar.DECEMBER, 1);
+        Date from = calendar.getTime();
+        calendar.set(2015, Calendar.DECEMBER, 7);
         Date to = calendar.getTime();
         DateRangeCollector collector = new DateRangeCollector(from, to);
         DateToLongHuBangStockMapper mapper = new DateToLongHuBangStockMapper();
@@ -175,7 +175,7 @@ public class StreamTest {
                 .parallelStream()
                 .map(mapper)
                 .flatMap(List::stream).map(mapper1)
-                .filter(x -> x.bizsunitInBuyList("中信证券股份有限公司上海溧阳路证券营业部"))
+                .filter(x -> x.bizsunitInBuyList("溧阳路", true))
                 .sorted(Comparator.comparing(LongHuBangInfo::getDate))
                 .collect(Collectors.toList());
         for (LongHuBangInfo info : s) {
