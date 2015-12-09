@@ -7,6 +7,10 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/12/4 14:38
  */
+
+/**
+ * 公司信息
+ */
 public class CompanyInfo implements DeepCopy<CompanyInfo> {
 
     private final String compsname;//公司名称
@@ -17,6 +21,17 @@ public class CompanyInfo implements DeepCopy<CompanyInfo> {
     private final String region;//地区代码
     private final List<Industry> tqCompIndustryList;//所属板块
 
+
+    /**
+     *
+     * @param compsname 公司名称
+     * @param orgtype 组织形式
+     * @param founddate 成立日期
+     * @param bizscope 经营范围
+     * @param majorbiz 主营业务
+     * @param region 地区代码
+     * @param tqCompIndustryList 所属板块
+     */
     public CompanyInfo(String compsname,
                        String orgtype,
                        String founddate,

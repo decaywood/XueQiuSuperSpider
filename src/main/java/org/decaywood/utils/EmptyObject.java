@@ -12,6 +12,11 @@ import java.util.HashSet;
  * @author: decaywood
  * @date: 2015/11/24 20:47
  */
+
+/**
+ * 默认对象类，保存进行复用的默认对象
+ * 有效防止空指针错误
+ */
 public abstract class EmptyObject {
 
     private static class EmptyCompanyInfo extends CompanyInfo {
@@ -106,7 +111,7 @@ public abstract class EmptyObject {
     private static class EmptyMarketIndexTrend extends MarketIndexTrend {
 
         public EmptyMarketIndexTrend() {
-            super(emptyString, emptyString, new ArrayList<>());
+            super(emptyString, emptyString, emptyString, emptyString, new ArrayList<>());
         }
 
         @Override
@@ -118,7 +123,7 @@ public abstract class EmptyObject {
     private static class EmptyStockTrend extends StockTrend {
 
         public EmptyStockTrend() {
-            super(emptyString, Period.ALL, new ArrayList<>());
+            super(emptyString, Period.DAY, new ArrayList<>());
         }
 
         @Override

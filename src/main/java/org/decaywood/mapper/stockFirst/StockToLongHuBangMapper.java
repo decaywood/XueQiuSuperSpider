@@ -17,6 +17,10 @@ import java.util.*;
  * @author: decaywood
  * @date: 2015/11/27 14:40
  */
+
+/**
+ * 股票 -> 龙虎榜数据 映射器
+ */
 public class StockToLongHuBangMapper extends AbstractMapper <Stock, LongHuBangInfo> {
 
 
@@ -24,6 +28,10 @@ public class StockToLongHuBangMapper extends AbstractMapper <Stock, LongHuBangIn
         this(null);
     }
 
+
+    /**
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     */
     public StockToLongHuBangMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }

@@ -19,6 +19,10 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/26 9:48
  */
+
+/**
+ * 股票组合历史走势装配器
+ */
 public class CubeToCubeWithTrendMapper extends AbstractMapper<Cube, Cube> {
 
     private final long since;
@@ -28,6 +32,13 @@ public class CubeToCubeWithTrendMapper extends AbstractMapper<Cube, Cube> {
         this(null, since, until);
     }
 
+
+    /**
+     *
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     * @param since 走线计算起始时间
+     * @param until 走线计算结束时间
+     */
     public CubeToCubeWithTrendMapper(
             TimeWaitingStrategy strategy,
             Date since,
@@ -127,6 +138,8 @@ public class CubeToCubeWithTrendMapper extends AbstractMapper<Cube, Cube> {
         return new MarketIndexTrend(
                 node.get("symbol").asText(),
                 node.get("name").asText(),
+                blocks.get(0).getTime(),
+                blocks.get(blocks.size() - 1).getTime(),
                 blocks);
     }
 

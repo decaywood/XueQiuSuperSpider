@@ -7,17 +7,27 @@ import org.decaywood.utils.EmptyObject;
  * @author: decaywood
  * @date: 2015/11/28 13:03
  */
+
+/**
+ * 股票选择指标统一接口
+ */
 public interface QuotaChainNode {
+
+
+    //获取下一个指标节点
+    QuotaChainNode getNext();
+    //设置指标节点
+    void setNext(QuotaChainNode next);
+    //生成请求字符串
+    String generateQuotaRequest();
+
+
+    //------------------------------------ 以下为系统方法 ---------------------------------------------
+
 
     default String getTimePrefix() {
         return "." + DateParser.getTimePrefix(true);
     }
-
-    QuotaChainNode getNext();
-
-    void setNext(QuotaChainNode next);
-
-    String generateQuotaRequest();
 
     default boolean end() {
         return getNext() == EmptyObject.emptyQuotaChainNode;

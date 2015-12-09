@@ -18,12 +18,20 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/12/2 10:08
  */
+
+/**
+ * 股票资金流向装配器
+ */
 public class StockToCapitalFlowEntryMapper extends AbstractMapper<Stock, Entry<Stock, CapitalFlow>> {
 
     public StockToCapitalFlowEntryMapper() {
         this(null);
     }
 
+
+    /**
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     */
     public StockToCapitalFlowEntryMapper(TimeWaitingStrategy strategy) {
         super(strategy, URLMapper.NETEASE_MAIN_PAGE.toString());
     }

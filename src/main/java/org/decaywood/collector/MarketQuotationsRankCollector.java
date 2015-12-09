@@ -14,26 +14,34 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/25 13:05
  */
+
+/**
+ * 当日热点股票排行榜
+ */
 public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>> {
 
-    // it can order not only by these four... you can have a try
-    public static final String ORDER_BY_PERCENT = "percent";
-    public static final String ORDER_BY_VOLUME = "volume";
-    public static final String ORDER_BY_AMOUNT = "amount";
-    public static final String ORDER_BY_TURNOVER_RATE = "turnover_rate";
+    // 排序规则，待更多拓展....
+    public static final String ORDER_BY_PERCENT = "percent";//按涨幅排序
+    public static final String ORDER_BY_VOLUME = "volume";//按成交量排序
+    public static final String ORDER_BY_AMOUNT = "amount";//成交额
+    public static final String ORDER_BY_TURNOVER_RATE = "turnover_rate";//按换手排序
 
 
     public static final int TOPK_MAX_SHRESHOLD = 500;
 
+
+    /**
+     * 股票类型
+     */
     public enum StockType {
-        SH_A("sha"),
-        SH_B("shb"),
-        SZ_A("sza"),
-        SZ_B("szb"),
-        GROWTH_ENTERPRISE_BOARD("cyb"),
-        SMALL_MEDIUM_ENTERPRISE_BOARD("zxb"),
-        HK("hk"),
-        US("us");
+        SH_A("sha"),//沪市A
+        SH_B("shb"),//沪市B
+        SZ_A("sza"),//深市A
+        SZ_B("szb"),//深市B
+        GROWTH_ENTERPRISE_BOARD("cyb"),//创业板
+        SMALL_MEDIUM_ENTERPRISE_BOARD("zxb"),//中小板
+        HK("hk"),//港股
+        US("us");//美股
 
         private String val;
 
@@ -56,6 +64,14 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
         this(null, stockType, orderPattern, topK);
     }
 
+
+    /**
+     *
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     * @param stockType 股票类型
+     * @param orderPattern 排序规则
+     * @param topK 取排名前K
+     */
     public MarketQuotationsRankCollector(
             TimeWaitingStrategy strategy,
             StockType stockType,
