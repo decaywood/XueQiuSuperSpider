@@ -1,13 +1,13 @@
 package org.decaywood.filter;
 
 import org.decaywood.AbstractService;
+import org.decaywood.Filter;
 import org.decaywood.timeWaitingStrategy.DefaultTimeWaitingStrategy;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
-import java.util.function.Predicate;
 
 /**
  * @author: decaywood
@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 /**
  * 过滤器，特别是要访问网页的过滤器，可以继承此抽象类
  */
-public abstract class AbstractFilter<T> extends AbstractService implements Predicate<T> {
+public abstract class AbstractFilter<T> extends AbstractService implements Filter<T> {
 
 
     protected abstract boolean filterLogic(T t) throws Exception;

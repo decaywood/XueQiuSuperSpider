@@ -76,28 +76,28 @@ public class StreamTest {
 
 
     //创业板股票大V统计 （耗时过长）
- /*   @Test
+/*    @Test
     public void getMarketStockFundTrend() {
         System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
         MarketQuotationsRankCollector collector = new MarketQuotationsRankCollector(
                 MarketQuotationsRankCollector.StockType.GROWTH_ENTERPRISE_BOARD,
                 MarketQuotationsRankCollector.ORDER_BY_VOLUME, 500);
         StockToVIPFollowerCountEntryMapper mapper1 = new StockToVIPFollowerCountEntryMapper(3000, 300);//搜集每个股票的粉丝
-        UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();//写入数据库
+        UserInfoToDBAcceptor acceptor = new UserInfoToDBAcceptor();//写入数据库
         collector.get()
                 .parallelStream() //并行流
                 .map(mapper1)
-                .forEach(consumer);//结果写入数据库
+                .forEach(acceptor);//结果写入数据库
     }*/
 
 
     //统计股票5000粉以上大V个数，并以行业分类股票 （耗时过长）
-   /* @Test
+ /*   @Test
     public void getStocksWithVipFollowersCount() {
         CommissionIndustryCollector collector = new CommissionIndustryCollector();//搜集所有行业
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();//搜集每个行业所有股票
         StockToVIPFollowerCountEntryMapper mapper1 = new StockToVIPFollowerCountEntryMapper(5000, 300);//搜集每个股票的粉丝
-        UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();//写入数据库
+        UserInfoToDBAcceptor acceptor = new UserInfoToDBAcceptor();//写入数据库
         System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
 
         List<Entry<Stock, Integer>> res = collector.get()
@@ -105,7 +105,7 @@ public class StreamTest {
                 .map(mapper)
                 .flatMap(Collection::stream)
                 .map(mapper1)
-                .peek(consumer)
+                .peek(acceptor)
                 .collect(Collectors.toList());
         for (Entry<Stock, Integer> re : res) {
             System.out.println(re.getKey().getStockName() + " -> 5000粉丝以上大V个数  " + re.getValue());

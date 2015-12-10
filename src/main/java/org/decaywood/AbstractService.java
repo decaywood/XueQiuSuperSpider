@@ -7,12 +7,13 @@ import org.decaywood.utils.HttpRequestHelper;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.server.RemoteObject;
 
 /**
  * @author: decaywood
  * @date: 2015/12/4 13:35
  */
-public abstract class AbstractService {
+public abstract class AbstractService extends RemoteObject {
 
 
     protected String webSite;

@@ -1,13 +1,13 @@
 package org.decaywood.collector;
 
 import org.decaywood.AbstractService;
+import org.decaywood.Collector;
 import org.decaywood.timeWaitingStrategy.DefaultTimeWaitingStrategy;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
-import java.util.function.Supplier;
 
 /**
  * @author: decaywood
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
  * 如果要贡献模块，强烈建议继承此类，它有进行数据收集所需的API
  * 供调用。有完备的超时重传机制以及等待策略
  */
-public abstract class AbstractCollector<T> extends AbstractService implements Supplier<T> {
+public abstract class AbstractCollector<T> extends AbstractService implements Collector<T> {
 
     /**
      * 收集器收集逻辑,由子类实现

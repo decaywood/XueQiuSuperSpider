@@ -1,6 +1,6 @@
 package entryFirst;
 
-import org.decaywood.consumer.AbstractConsumer;
+import org.decaywood.acceptor.AbstractAcceptor;
 import org.decaywood.entity.Entry;
 import org.decaywood.entity.Stock;
 import org.decaywood.utils.DatabaseAccessor;
@@ -17,7 +17,7 @@ import java.sql.PreparedStatement;
 /**
  * 示例类， 接收信息放入数据库
  */
-public class UserInfoToDBConsumer extends AbstractConsumer<Entry<Stock, Integer>> {
+public class UserInfoToDBAcceptor extends AbstractAcceptor<Entry<Stock, Integer>> {
 
     /**
 

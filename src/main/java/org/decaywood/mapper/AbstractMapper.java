@@ -1,6 +1,7 @@
 package org.decaywood.mapper;
 
 import org.decaywood.AbstractService;
+import org.decaywood.Mapper;
 import org.decaywood.entity.DeepCopy;
 import org.decaywood.timeWaitingStrategy.DefaultTimeWaitingStrategy;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
@@ -8,14 +9,13 @@ import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
-import java.util.function.Function;
 
 /**
  * @author: decaywood
  * @date: 2015/11/24 16:56
  */
 
-public abstract class AbstractMapper <T, R> extends AbstractService implements Function<T, R> {
+public abstract class AbstractMapper <T, R> extends AbstractService implements Mapper<T, R> {
 
 
     protected abstract R mapLogic(T t) throws Exception;
