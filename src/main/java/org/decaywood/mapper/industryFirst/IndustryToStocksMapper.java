@@ -17,9 +17,15 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/23 14:04
  */
+
+/**
+ * 行业 -> 该行业股票 映射器
+ */
 public class IndustryToStocksMapper extends AbstractMapper<Industry, List<Stock>> {
 
-
+    /**
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     */
     public IndustryToStocksMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }
@@ -46,6 +52,7 @@ public class IndustryToStocksMapper extends AbstractMapper<Industry, List<Stock>
             builder.addParameter(keyAndVal[0], keyAndVal[1]);
         }
         URL url = new URL(builder.build());
+
         String json = request(url);
         JsonNode jsonNode = mapper.readTree(json);
 

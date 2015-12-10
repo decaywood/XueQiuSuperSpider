@@ -8,15 +8,24 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/26 17:15
  */
+
+/**
+ * 股票组合调仓记录
+ */
 public class Rebalancing extends Trend<Rebalancing.TrendBlock, Rebalancing> {
 
 
-
+    /**
+     * @param history 调仓历史
+     */
     public Rebalancing(List<TrendBlock> history) {
         super(history);
     }
 
 
+    /**
+     * 历史节点
+     */
     public static class TrendBlock {
         private final String stock_name;
         private final String stock_symbol;
@@ -28,6 +37,18 @@ public class Rebalancing extends Trend<Rebalancing.TrendBlock, Rebalancing> {
         private final String weight;
         private final  String rebalancing_id;
 
+        /**
+         *
+         * @param stock_name 股票名称
+         * @param stock_symbol 股票代码
+         * @param created_at 调仓时间
+         * @param prev_price 上一次调仓价格
+         * @param price 当前价格
+         * @param prev_weight 上一次持仓比例
+         * @param target_weight 期望持仓比例
+         * @param weight 实际持仓比例
+         * @param rebalancing_id 调仓节点ID
+         */
         public TrendBlock(String stock_name,
                           String stock_symbol,
                           String created_at,

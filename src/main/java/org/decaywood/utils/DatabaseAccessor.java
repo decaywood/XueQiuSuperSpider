@@ -11,6 +11,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author: decaywood
  * @date: 2015/12/1 10:06
  */
+
+
+/**
+ * 数据库线程池
+ */
 public class DatabaseAccessor {
 
     public static class Holder {

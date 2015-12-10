@@ -16,12 +16,19 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/23 10:50
  */
+
+/**
+ * 板块收集器，收集证监会所有板块类型编号以及名称
+ */
 public class CommissionIndustryCollector extends AbstractCollector<List<Industry>> {
 
     public CommissionIndustryCollector() {
         this(null);
     }
 
+    /**
+     *@param strategy 超时等待策略（null则设置为默认等待策略）
+     */
     public CommissionIndustryCollector(TimeWaitingStrategy strategy) {
         super(strategy);
     }

@@ -91,6 +91,7 @@ public class LongHuBangInfo implements DeepCopy<LongHuBangInfo> {
         return date;
     }
 
+    //龙虎榜买入是否有该营业部出现
     public boolean bizsunitInBuyList(String name) {
         return bizsunitInBuyList(name, false);
     }
@@ -98,17 +99,30 @@ public class LongHuBangInfo implements DeepCopy<LongHuBangInfo> {
     //龙虎榜买入是否有该营业部出现
     public boolean bizsunitInBuyList(String name, boolean partlySearch) {
         if (partlySearch) {
-            for (BizsunitInfo info : topBuyList) {
-                if (info.getBizsunitname().contains(name)) return true;
-            }
-            return false;
+            contains(topBuyList, name);
         }
         return topBuyList.contains(new BizsunitInfo("xx", name, "xx", "xx", "xx"));
     }
 
+
     //龙虎榜卖出是否有该营业部出现
     public boolean bizsunitInSaleList(String name) {
+        return bizsunitInSaleList(name, false);
+    }
+
+    //龙虎榜卖出是否有该营业部出现
+    public boolean bizsunitInSaleList(String name, boolean partlySearch) {
+        if (partlySearch) {
+           contains(topSaleList, name);
+        }
         return topSaleList.contains(new BizsunitInfo("xx", name, "xx", "xx", "xx"));
+    }
+
+    private boolean contains(Set<BizsunitInfo> set, String name) {
+        for (BizsunitInfo info : set) {
+            if (info.getBizsunitname().contains(name)) return true;
+        }
+        return false;
     }
 
     public Set<BizsunitInfo> getTopBuyList() {

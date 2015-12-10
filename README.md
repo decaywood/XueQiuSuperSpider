@@ -10,6 +10,12 @@
 
 12.7 -- 游资追踪增加模糊匹配特性
 
+12.10 -- 添加了必要的代码注释，添加了统计一阳穿三线个股的example，另外：雪球网貌似因为我大量抓取数据已经采取反爬虫措施
+各位用的时候最好修改一下抓取频率，或者不要一次性抓取太多信息，对于雪球网的输入验证码，应对措施如下：
+
+当日志超时重试次数达到上次时，很可能雪球封住了你的IP，这时候人工登录雪球网输入验证码后，代码经过重试等待时间后会自动恢复
+抓取数据流程。
+
 ##前言
 
 雪球网或者东方财富或者同花顺目前已经提供了很多种股票筛选方式，但是筛选方式是根据个人操作
@@ -72,6 +78,11 @@
 
 为了防止你对域的误写，请将域定义为final，这样更加保险
 
+* 定义可变变量默认值
+
+对于可变变量，初始化时请使用EmptyObject类定义默认值，如果是Entity，请按规范定义好EmptyXX子类，
+遵守此规范能够很好的防止空指针异常。
+
 * 完善的单元测试
 
 完成一个模块后，请进行完善的单元测试，包括初始化参数合法性。
@@ -89,6 +100,46 @@
 除非有必要，否则推荐继承模版模块，它们以Abstract开头，支持泛型。
 
 ##一些例子
+
+* 统计一阳穿三线个股
+```java
+
+
+    @Test
+    public void yiyinsanyang() {
+        List<Stock> stocks = TestCaseGenerator.generateStocks();
+
+        StockToStockWithAttributeMapper attributeMapper = new StockToStockWithAttributeMapper();
+        StockToStockWithStockTrendMapper trendMapper = new StockToStockWithStockTrendMapper();
+
+        Predicate<Entry<String, Stock>> predicate = x -> {
+
+            if(x.getValue().getStockTrend().getHistory().isEmpty()) return false;
+            List<StockTrend.TrendBlock> history = x.getValue().getStockTrend().getHistory();
+            StockTrend.TrendBlock block = history.get(history.size() - 1);
+            double close = Double.parseDouble(block.getClose());
+            double open = Double.parseDouble(block.getOpen());
+            double ma5 = Double.parseDouble(block.getMa5());
+            double ma10 = Double.parseDouble(block.getMa10());
+            double ma30 = Double.parseDouble(block.getMa30());
+
+            double max = Math.max(close, open);
+            double min = Math.min(close, open);
+
+            return close > open && max >= MathUtils.max(ma5, ma10, ma30) && min <= MathUtils.min(ma5, ma10, ma30);
+
+        };
+
+        stocks.parallelStream()
+                .map(x -> new Entry<>(x.getStockName(), attributeMapper.andThen(trendMapper).apply(x)))
+                .filter(predicate)
+                .map(Entry::getKey)
+                .forEach(System.out::println);
+
+    }    
+
+```
+
 
 * 简单的根据关键字获取近期新闻
 

@@ -13,6 +13,10 @@ import java.util.function.Predicate;
  * @author: decaywood
  * @date: 2015/12/3 10:01
  */
+
+/**
+ * 过滤器，特别是要访问网页的过滤器，可以继承此抽象类
+ */
 public abstract class AbstractFilter<T> extends AbstractService implements Predicate<T> {
 
 

@@ -15,19 +15,34 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/28 12:40
  */
+
+/**
+ * 股票指标选择收集器，根据具体指标对股票进行选择。
+ */
 public class StockSlectorBaseCollector extends AbstractCollector<List<Stock>> {
 
+    /**
+     * 指标链，指标分多种类型，不同类型可挂靠在指标链头节点上
+     * 收集器会根据指标链的指标进行统计并收集符合指标链所有指标的个股
+     */
     QuotaChainNode head;
 
     public StockSlectorBaseCollector() {
         this(null);
     }
 
+    /**
+     *
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     */
     public StockSlectorBaseCollector(TimeWaitingStrategy strategy) {
         super(strategy);
         head = new QuotaHead();
     }
 
+    /**
+     * @param node 需要添加到指标链上的股票指标
+     */
     public void addQuotaChainNode(QuotaChainNode node) {
         head.setNext(node);
     }

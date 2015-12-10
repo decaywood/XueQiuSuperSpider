@@ -4,11 +4,15 @@ package org.decaywood.entity;
  * @author: decaywood
  * @date: 2015/11/23 13:42
  */
+
+/**
+ * 行业板块
+ */
 public class Industry implements DeepCopy<Industry> {
 
-    private final String industryName;
+    private final String industryName;//板块名字
 
-    private final String industryInfo;
+    private final String industryInfo;//板块代码
 
 
     public Industry(final String industryName, final String industrySiteURL) {
@@ -33,8 +37,7 @@ public class Industry implements DeepCopy<Industry> {
 
         Industry industry = (Industry) o;
 
-        if (!industryName.equals(industry.industryName)) return false;
-        return industryInfo.equals(industry.industryInfo);
+        return industryName.equals(industry.industryName) && industryInfo.equals(industry.industryInfo);
 
     }
 

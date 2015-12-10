@@ -17,12 +17,20 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/27 10:48
  */
+
+
+/**
+ * 当前日期 -> 龙虎榜映射器
+ */
 public class DateToLongHuBangStockMapper extends AbstractMapper<Date, List<Stock>> {
 
     public DateToLongHuBangStockMapper() {
         this(null);
     }
 
+    /**
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     */
     public DateToLongHuBangStockMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }

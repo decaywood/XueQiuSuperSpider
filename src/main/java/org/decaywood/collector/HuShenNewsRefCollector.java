@@ -16,16 +16,23 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/12/2 21:37.
  */
+
+
+/**
+ * 收集沪深板块热点新闻URL
+ */
 public class HuShenNewsRefCollector extends AbstractCollector<List<URL>> {
 
+    //新闻内容阈值
     private static final int MAX_PAGE_SIZE = 5;
 
+    //新闻主题
     public enum Topic {
 
-        TOTAL("5"),
-        MARKET("6"),
-        ANALISIS("7"),
-        IDEA("8");
+        TOTAL("5"),//全部新闻
+        MARKET("6"),//市场动态
+        ANALISIS("7"),//投资分析
+        IDEA("8");//投资理念
 
         private String topic;
         Topic(String str) {
@@ -49,6 +56,12 @@ public class HuShenNewsRefCollector extends AbstractCollector<List<URL>> {
         this(null, topicType, pageEndTo);
     }
 
+    /**
+     *
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     * @param topicType 主题类型
+     * @param pageEndTo 搜索页面数 从1到pageEndTo
+     */
     public HuShenNewsRefCollector(TimeWaitingStrategy strategy, Topic topicType, int pageEndTo) {
         super(strategy);
         if(pageEndTo < 1)

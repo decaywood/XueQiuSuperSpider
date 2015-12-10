@@ -1,5 +1,5 @@
+import mapperTest.TestCaseGenerator;
 import org.decaywood.collector.*;
-import org.decaywood.consumer.entryFirst.UserInfoToDBConsumer;
 import org.decaywood.entity.*;
 import org.decaywood.entity.trend.StockTrend;
 import org.decaywood.filter.PageKeyFilter;
@@ -10,11 +10,12 @@ import org.decaywood.mapper.industryFirst.IndustryToStocksMapper;
 import org.decaywood.mapper.stockFirst.StockToLongHuBangMapper;
 import org.decaywood.mapper.stockFirst.StockToStockWithAttributeMapper;
 import org.decaywood.mapper.stockFirst.StockToStockWithStockTrendMapper;
-import org.decaywood.mapper.stockFirst.StockToVIPFollowerCountEntryMapper;
+import org.decaywood.utils.MathUtils;
 import org.junit.Test;
 
 import java.net.URL;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -23,6 +24,40 @@ import java.util.stream.Collectors;
  */
 public class StreamTest {
 
+
+    //一阳穿三线个股
+    @Test
+    public void yiyinsanyang() {
+        List<Stock> stocks = TestCaseGenerator.generateStocks();
+
+        StockToStockWithAttributeMapper attributeMapper = new StockToStockWithAttributeMapper();
+        StockToStockWithStockTrendMapper trendMapper = new StockToStockWithStockTrendMapper();
+
+        Predicate<Entry<String, Stock>> predicate = x -> {
+
+            if(x.getValue().getStockTrend().getHistory().isEmpty()) return false;
+            List<StockTrend.TrendBlock> history = x.getValue().getStockTrend().getHistory();
+            StockTrend.TrendBlock block = history.get(history.size() - 1);
+            double close = Double.parseDouble(block.getClose());
+            double open = Double.parseDouble(block.getOpen());
+            double ma5 = Double.parseDouble(block.getMa5());
+            double ma10 = Double.parseDouble(block.getMa10());
+            double ma30 = Double.parseDouble(block.getMa30());
+
+            double max = Math.max(close, open);
+            double min = Math.min(close, open);
+
+            return close > open && max >= MathUtils.max(ma5, ma10, ma30) && min <= MathUtils.min(ma5, ma10, ma30);
+
+        };
+
+        stocks.parallelStream()
+                .map(x -> new Entry<>(x.getStockName(), attributeMapper.andThen(trendMapper).apply(x)))
+                .filter(predicate)
+                .map(Entry::getKey)
+                .forEach(System.out::println);
+
+    }
 
     //根据关键字获取最近新闻
     @Test
@@ -40,8 +75,8 @@ public class StreamTest {
     }
 
 
-    //创业板股票大V统计
-    @Test
+    //创业板股票大V统计 （耗时过长）
+ /*   @Test
     public void getMarketStockFundTrend() {
         System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
         MarketQuotationsRankCollector collector = new MarketQuotationsRankCollector(
@@ -53,15 +88,15 @@ public class StreamTest {
                 .parallelStream() //并行流
                 .map(mapper1)
                 .forEach(consumer);//结果写入数据库
-    }
+    }*/
 
 
-    //统计股票5000粉以上大V个数，并以行业分类股票
-    @Test
+    //统计股票5000粉以上大V个数，并以行业分类股票 （耗时过长）
+   /* @Test
     public void getStocksWithVipFollowersCount() {
         CommissionIndustryCollector collector = new CommissionIndustryCollector();//搜集所有行业
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();//搜集每个行业所有股票
-        StockToVIPFollowerCountEntryMapper mapper1 = new StockToVIPFollowerCountEntryMapper(5000, 5);//搜集每个股票的粉丝
+        StockToVIPFollowerCountEntryMapper mapper1 = new StockToVIPFollowerCountEntryMapper(5000, 300);//搜集每个股票的粉丝
         UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();//写入数据库
         System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
 
@@ -75,7 +110,7 @@ public class StreamTest {
         for (Entry<Stock, Integer> re : res) {
             System.out.println(re.getKey().getStockName() + " -> 5000粉丝以上大V个数  " + re.getValue());
         }
-    }
+    }*/
 
     //最赚钱组合最新持仓以及收益走势、大盘走势
     @Test
@@ -102,7 +137,7 @@ public class StreamTest {
     public void HotRankStockDetail() {
         StockScopeHotRankCollector collector = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.US_WITHIN_24_HOUR);
         StockToStockWithAttributeMapper mapper1 = new StockToStockWithAttributeMapper();
-        StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper(StockTrend.Period.ONE_DAY);
+        StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper();
         List<Stock> stocks = collector.get().parallelStream().map(mapper1.andThen(mapper2)).collect(Collectors.toList());
         for (Stock stock : stocks) {
             System.out.print(stock.getStockName() + " -> ");

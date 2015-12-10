@@ -19,6 +19,10 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/29 22:01.
  */
+
+/**
+ * 上司公司股东变动信息装配器
+ */
 public class StockToStockWithShareHolderTrendMapper extends AbstractMapper<Stock, Stock> {
 
     private Date from;
@@ -32,6 +36,13 @@ public class StockToStockWithShareHolderTrendMapper extends AbstractMapper<Stock
         this(null, from, to);
     }
 
+
+    /**
+     *
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     * @param from 查询起始时间
+     * @param to 查询结束时间
+     */
     public StockToStockWithShareHolderTrendMapper(TimeWaitingStrategy strategy, Date from, Date to) {
         super(strategy);
         if(from.after(to)) throw new IllegalArgumentException();

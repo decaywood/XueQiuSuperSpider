@@ -14,9 +14,16 @@ import java.net.URL;
  * @author: decaywood
  * @date: 2015/11/23 21:25
  */
+
+/**
+ * 股票属性装配器
+ */
 public class StockToStockWithAttributeMapper extends AbstractMapper<Stock, Stock> {
 
 
+    /**
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     */
     public StockToStockWithAttributeMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }

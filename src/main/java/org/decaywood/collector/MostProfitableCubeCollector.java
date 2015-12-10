@@ -14,12 +14,19 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/25 21:45.
  */
+
+/**
+ * 雪球最赚钱组合（Cube）收集器
+ */
 public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> {
 
+    /**
+     * 组合所在股市
+     */
     public enum Market {
-        CN("cn"),
-        US("us"),
-        HK("hk");
+        CN("cn"),//沪深组合
+        US("us"),//美股组合
+        HK("hk");//港股组合
 
         private String val;
 
@@ -33,10 +40,13 @@ public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> 
         }
     }
 
+    /**
+     * 收益排序规则
+     */
     public enum ORDER_BY {
-        DAILY("daily_gain"),
-        MONTHLY("monthly_gain"),
-        YEARLY("annualized_gain_rate");
+        DAILY("daily_gain"),//按日收益排序
+        MONTHLY("monthly_gain"),//按月收益排序
+        YEARLY("annualized_gain_rate");//按年收益
 
         private String val;
 
@@ -50,7 +60,8 @@ public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> 
         }
     }
 
-    public static final int CUBE_SIZE_SHRESHOLD = 400;
+
+    public static final int CUBE_SIZE_SHRESHOLD = 400; //topK阈值
     private Market market;
     private ORDER_BY order_by;
     private int topK;
@@ -67,6 +78,14 @@ public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> 
         this(null, market, order_by, 10);
     }
 
+
+    /**
+     *
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     * @param market 组合所在市场
+     * @param order_by 收益排序规则
+     * @param topK 排名前K的组合
+     */
     public MostProfitableCubeCollector(TimeWaitingStrategy strategy, Market market, ORDER_BY order_by, int topK) {
         super(strategy);
 

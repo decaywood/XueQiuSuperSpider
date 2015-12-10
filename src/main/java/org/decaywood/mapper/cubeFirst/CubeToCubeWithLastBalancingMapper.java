@@ -17,6 +17,11 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/26 15:56
  */
+
+
+/**
+ * 股票组合最近持仓装配器
+ */
 public class CubeToCubeWithLastBalancingMapper extends AbstractMapper<Cube, Cube> {
 
 
@@ -33,6 +38,11 @@ public class CubeToCubeWithLastBalancingMapper extends AbstractMapper<Cube, Cube
         this(null, i);
     }
 
+    /**
+     *
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     * @param count 调仓记录数
+     */
     public CubeToCubeWithLastBalancingMapper(TimeWaitingStrategy strategy, int count) {
         super(strategy);
         if(count <= 0) throw new IllegalArgumentException();

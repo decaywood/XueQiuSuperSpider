@@ -1,10 +1,6 @@
 package org.decaywood.entity.trend;
 
-import org.decaywood.utils.DateParser;
-import org.decaywood.utils.StringUtils;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,13 +12,9 @@ public class StockTrend extends Trend<StockTrend.TrendBlock, StockTrend> {
     public enum Period
 
     {
-        ONE_DAY("1d"),
-        FIVE_DAY("5d"),
-        ONE_MONTH("1m"),
-        SIX_MONTH("6m"),
-        ONE_YEAR("1y"),
-        THREE_YEAR("3y"),
-        ALL("all");
+        DAY("1day"),
+        WEEK("1week"),
+        MONTH("1month");
 
         private String val;
 
@@ -37,34 +29,139 @@ public class StockTrend extends Trend<StockTrend.TrendBlock, StockTrend> {
     }
 
     public static class TrendBlock {
+        private final String volume;//成交量
+        private final String open;//开盘价
+        private final String high;//最高
+        private final String close;//收盘价
+        private final String low;//最低
+        private final String chg;//涨跌额
+        private final String percent;//涨跌幅
+        private final String turnrate;//换手率
+        private final String ma5;//5日线
+        private final String ma10;//10日线
+        private final String ma20;//20日线
+        private final String ma30;//30日线
+        private final String dif;//DIF
+        private final String dea;//DEA
+        private final String macd;//MACD
+        private final String time;//时间节点
 
-        private final String volume;
-        private final String avg_price;
-        private final String current;
-        private final Date time;
 
-        public TrendBlock(String volume, String avg_price, String current, String time) {
-            if(StringUtils.nullOrEmpty(volume, avg_price, current, time))
-                throw new IllegalArgumentException();
+        /**
+         *
+         * @param volume 成交量
+         * @param open 开盘价
+         * @param high 最高
+         * @param close 收盘价
+         * @param low 最低
+         * @param chg 涨跌额
+         * @param percent 涨跌幅
+         * @param turnrate 换手率
+         * @param ma5 5日线
+         * @param ma10 10日线
+         * @param ma20 20日线
+         * @param ma30 30日线
+         * @param dif DIF
+         * @param dea DEA
+         * @param macd MACD
+         * @param time 时间节点
+         */
+        public TrendBlock(String volume,
+                          String open,
+                          String high,
+                          String close,
+                          String low,
+                          String chg,
+                          String percent,
+                          String turnrate,
+                          String ma5,
+                          String ma10,
+                          String ma20,
+                          String ma30,
+                          String dif,
+                          String dea,
+                          String macd,
+                          String time) {
             this.volume = volume;
-            this.avg_price = avg_price;
-            this.current = current;
-            this.time = DateParser.parseToDate(time);
+            this.open = open;
+            this.high = high;
+            this.close = close;
+            this.low = low;
+            this.chg = chg;
+            this.percent = percent;
+            this.turnrate = turnrate;
+            this.ma5 = ma5;
+            this.ma10 = ma10;
+            this.ma20 = ma20;
+            this.ma30 = ma30;
+            this.dif = dif;
+            this.dea = dea;
+            this.macd = macd;
+            this.time = time;
         }
+
 
         public String getVolume() {
             return volume;
         }
 
-        public String getAvg_price() {
-            return avg_price;
+        public String getOpen() {
+            return open;
         }
 
-        public String getCurrent() {
-            return current;
+        public String getHigh() {
+            return high;
         }
 
-        public Date getTime() {
+        public String getClose() {
+            return close;
+        }
+
+        public String getLow() {
+            return low;
+        }
+
+        public String getChg() {
+            return chg;
+        }
+
+        public String getPercent() {
+            return percent;
+        }
+
+        public String getTurnrate() {
+            return turnrate;
+        }
+
+        public String getMa5() {
+            return ma5;
+        }
+
+        public String getMa10() {
+            return ma10;
+        }
+
+        public String getMa20() {
+            return ma20;
+        }
+
+        public String getMa30() {
+            return ma30;
+        }
+
+        public String getDif() {
+            return dif;
+        }
+
+        public String getDea() {
+            return dea;
+        }
+
+        public String getMacd() {
+            return macd;
+        }
+
+        public String getTime() {
             return time;
         }
     }

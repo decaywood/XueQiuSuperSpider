@@ -6,6 +6,10 @@ import org.decaywood.utils.EmptyObject;
  * @author: decaywood
  * @date: 2015/11/28 15:36
  */
+
+/**
+ * 股票指标节点抽象类，负责对指标参数的组装
+ */
 public abstract class AbstractQuotaNode implements QuotaChainNode {
 
     private QuotaChainNode next = EmptyObject.emptyQuotaChainNode;

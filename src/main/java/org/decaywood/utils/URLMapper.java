@@ -21,7 +21,7 @@ public enum URLMapper {
     CUBES_RANK_JSON("http://xueqiu.com/cubes/discover/rank/cube/list.json"),
     MARKET_QUOTATIONS_RANK_JSON("http://xueqiu.com/stock/quote_order.json"),
     SCOPE_STOCK_RANK_JSON("http://xueqiu.com/stock/rank.json"),
-    STOCK_TREND_JSON("http://xueqiu.com/stock/forchart/stocklist.json"),
+    STOCK_TREND_JSON("http://xueqiu.com/stock/forchartk/stocklist.json"),
     STOCK_JSON("http://xueqiu.com/v4/stock/quote.json"),
     INDUSTRY_JSON("http://xueqiu.com/industry/quote_order.json"),
 

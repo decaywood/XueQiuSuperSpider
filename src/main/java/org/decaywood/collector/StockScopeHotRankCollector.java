@@ -14,18 +14,25 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/25 9:58
  */
+
+/**
+ * 热股榜收集器
+ */
 public class StockScopeHotRankCollector extends AbstractCollector<List<Stock>> {
 
+    /**
+     * 热股关注范围
+     */
     public enum Scope {
 
-        GLOBAL_WITHIN_1_HOUR("10", "10"),
-        GLOBAL_WITHIN_24_HOUR("10", "20"),
-        US_WITHIN_1_HOUR("11", "11"),
-        US_WITHIN_24_HOUR("11", "21"),
-        SH_SZ_WITHIN_1_HOUR("12", "12"),
-        SH_SZ_WITHIN_24_HOUR("12", "22"),
-        HK_WITHIN_1_HOUR("13", "13"),
-        HK_WITHIN_24_HOUR("13", "23");
+        GLOBAL_WITHIN_1_HOUR("10", "10"),//全球1小时内
+        GLOBAL_WITHIN_24_HOUR("10", "20"),//全球24小时内
+        US_WITHIN_1_HOUR("11", "11"),//美股1小时内
+        US_WITHIN_24_HOUR("11", "21"),//美股24小时内
+        SH_SZ_WITHIN_1_HOUR("12", "12"),//沪深1小时内
+        SH_SZ_WITHIN_24_HOUR("12", "22"),//沪深24小时内
+        HK_WITHIN_1_HOUR("13", "13"),//港股1小时内
+        HK_WITHIN_24_HOUR("13", "23");//港股24小时内
 
 
         private String scope;
@@ -45,6 +52,7 @@ public class StockScopeHotRankCollector extends AbstractCollector<List<Stock>> {
         }
     }
 
+    //排名前K阈值
     public static final int PAGE_SIZE_SHRESHOLD = 20;
     private Scope scope;
     private int topK;
@@ -61,6 +69,13 @@ public class StockScopeHotRankCollector extends AbstractCollector<List<Stock>> {
         this(null, Scope.SH_SZ_WITHIN_1_HOUR, topK);
     }
 
+
+    /**
+     *
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     * @param scope 热股关注范围
+     * @param topK 排名前K个股
+     */
     public StockScopeHotRankCollector(TimeWaitingStrategy strategy, Scope scope, int topK) {
         super(strategy);
         if(topK <= 0) throw new IllegalArgumentException();

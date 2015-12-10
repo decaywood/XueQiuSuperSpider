@@ -4,6 +4,10 @@ package org.decaywood.entity.selectorQuota;
  * @author: decaywood
  * @date: 2015/11/28 15:17
  */
+
+/**
+ * 雪球指标节点
+ */
 public class XueQiuQuota extends AbstractQuotaNode {
 
 
@@ -19,41 +23,51 @@ public class XueQiuQuota extends AbstractQuotaNode {
 
     private QuotaChainNode next;
 
+    //设置累计关注人数范围
     public void setFollow(double from, double to) {
         this.follow = from + "_" + to;
     }
 
+    //设置累计讨论次数范围
     public void setTweet(double from, double to) {
         this.tweet = from + "_" + to;
     }
 
+    //设置累计交易分享数范围
     public void setDeal(double from, double to) {
         this.deal = from + "_" + to;
     }
 
+    //设置一周新增关注范围
     public void setFollow7d(double from, double to) {
         this.follow7d = from + "_" + to;
     }
 
+    //设置一周新增讨论数范围
     public void setTweet7d(double from, double to) {
         this.tweet7d = from + "_" + to;
     }
 
+    //设置一周新增交易分享数范围
     public void setDeal7d(double from, double to) {
         this.deal7d = from + "_" + to;
     }
 
+    //设置一周关注增长率范围
     public void setFollow7dpct(double from, double to) {
         this.follow7dpct = from + "_" + to;
     }
 
+    //设置一周讨论增长率范围
     public void setTweet7dpct(double from, double to) {
         this.tweet7dpct = from + "_" + to;
     }
 
+    //设置一周交易分享增长率范围
     public void setDeal7dpct(double from, double to) {
         this.deal7dpct = from + "_" + to;
     }
+
 
 
     @Override

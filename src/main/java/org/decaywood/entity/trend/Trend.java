@@ -8,6 +8,11 @@ import java.util.List;
  * @author: decaywood
  * @date: 2015/11/26 9:57
  */
+
+
+/**
+ * 抽象类， 保存历史趋势
+ */
 public abstract class Trend <T, C> implements DeepCopy<C> {
 
     protected final List<T> history;

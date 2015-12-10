@@ -18,7 +18,10 @@ import java.net.URL;
  * @date: 2015/11/30 16:39
  */
 
-//速度很慢，慎用
+/**
+ * 股票 -> 股票+雪球大V数量 映射器
+ * 速度很慢，慎用
+ */
 public class StockToVIPFollowerCountEntryMapper extends AbstractMapper <Stock, Entry<Stock, Integer>> {
 
     private static final String REQUEST_PREFIX = URLMapper.MAIN_PAGE + "/S/";
@@ -29,13 +32,20 @@ public class StockToVIPFollowerCountEntryMapper extends AbstractMapper <Stock, E
     private int latestK_NewFollowers;
 
     public StockToVIPFollowerCountEntryMapper() {
-        this(10000, 20);
+        this(10000, 5);
     }
 
     public StockToVIPFollowerCountEntryMapper(int VIPFriendsCountShreshold, int latestK_NewFollowers) {
         this(null, VIPFriendsCountShreshold, latestK_NewFollowers);
     }
 
+
+    /**
+     *
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     * @param VIPFriendsCountShreshold 是否为大V的粉丝阈值（超过这个阈值视为大V）
+     * @param latestK_NewFollowers 只将最近K个新增用户纳入计算范围
+     */
     public StockToVIPFollowerCountEntryMapper(TimeWaitingStrategy strategy,
                                               int VIPFriendsCountShreshold,
                                               int latestK_NewFollowers) {

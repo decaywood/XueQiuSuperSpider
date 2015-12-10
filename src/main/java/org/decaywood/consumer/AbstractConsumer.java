@@ -11,6 +11,10 @@ import java.util.function.Function;
  * @author: decaywood
  * @date: 2015/11/30 22:22.
  */
+
+/**
+ * 接受处理完的数据流并进行分析，既可以当作整个生命周期的中点也可以当作中间组件使用
+ */
 public abstract class AbstractConsumer<T> extends AbstractService implements Consumer<T>, Function<T, T> {
 
     public AbstractConsumer() {

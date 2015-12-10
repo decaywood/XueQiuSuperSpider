@@ -21,6 +21,12 @@ public class PageKeyFilter extends AbstractFilter<URL> {
         this(null, key, regex);
     }
 
+
+    /**
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     * @param key 关键字
+     * @param regex 是否启用正则表达式
+     */
     public PageKeyFilter(TimeWaitingStrategy strategy, String key, boolean regex) {
         super(strategy);
         this.key = key;

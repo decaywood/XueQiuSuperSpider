@@ -12,7 +12,9 @@ import java.util.List;
  * @date: 2015/11/27 0:27
  */
 
-
+/**
+ * 时间范围收集器，获取一段时间的Date
+ */
 public class DateRangeCollector extends AbstractCollector <List<Date>> {
 
     private final Date from;
@@ -22,6 +24,13 @@ public class DateRangeCollector extends AbstractCollector <List<Date>> {
         this(null, from, to);
     }
 
+
+    /**
+     *
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     * @param from 起始时间
+     * @param to 结束时间
+     */
     public DateRangeCollector(TimeWaitingStrategy strategy, Date from, Date to) {
         super(strategy);
         if(from == null || to == null || from.after(to)) throw new IllegalArgumentException();

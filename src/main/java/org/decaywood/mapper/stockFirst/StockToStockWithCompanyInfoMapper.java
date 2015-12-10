@@ -24,6 +24,10 @@ import java.util.Map;
  * @author: decaywood
  * @date: 2015/11/30 16:13
  */
+
+/**
+ * 股票公司信息装配器
+ */
 public class StockToStockWithCompanyInfoMapper extends AbstractMapper <Stock, Stock> {
 
     private Map<String, Industry> industryMap;
@@ -33,6 +37,9 @@ public class StockToStockWithCompanyInfoMapper extends AbstractMapper <Stock, St
         this(null);
     }
 
+    /**
+     * @param strategy 超时等待策略（null则设置为默认等待策略）
+     */
     public StockToStockWithCompanyInfoMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }

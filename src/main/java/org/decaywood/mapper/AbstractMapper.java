@@ -14,6 +14,7 @@ import java.util.function.Function;
  * @author: decaywood
  * @date: 2015/11/24 16:56
  */
+
 public abstract class AbstractMapper <T, R> extends AbstractService implements Function<T, R> {
 
 
