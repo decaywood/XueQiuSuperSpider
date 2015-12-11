@@ -8,7 +8,7 @@ package org.decaywood.timeWaitingStrategy;
 /**
  * 默认超时等待策略
  */
-public class DefaultTimeWaitingStrategy <T> implements TimeWaitingStrategy {
+public class DefaultTimeWaitingStrategy implements TimeWaitingStrategy {
 
     private final long timeWaitingShreshold;
     private final long timeWaiting;
@@ -16,7 +16,7 @@ public class DefaultTimeWaitingStrategy <T> implements TimeWaitingStrategy {
     private final int retryTime;
 
     public DefaultTimeWaitingStrategy() {
-        this(100000, 500, 15);
+        this(10000, 500, 10);
     }
 
 

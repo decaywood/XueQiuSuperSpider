@@ -78,7 +78,6 @@ public class StreamTest {
     //创业板股票大V统计 （耗时过长）
 /*    @Test
     public void getMarketStockFundTrend() {
-        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
         MarketQuotationsRankCollector collector = new MarketQuotationsRankCollector(
                 MarketQuotationsRankCollector.StockType.GROWTH_ENTERPRISE_BOARD,
                 MarketQuotationsRankCollector.ORDER_BY_VOLUME, 500);
@@ -98,7 +97,6 @@ public class StreamTest {
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();//搜集每个行业所有股票
         StockToVIPFollowerCountEntryMapper mapper1 = new StockToVIPFollowerCountEntryMapper(5000, 300);//搜集每个股票的粉丝
         UserInfoToDBAcceptor acceptor = new UserInfoToDBAcceptor();//写入数据库
-        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
 
         List<Entry<Stock, Integer>> res = collector.get()
                 .parallelStream() //并行流

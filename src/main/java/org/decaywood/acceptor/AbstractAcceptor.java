@@ -4,7 +4,11 @@ import org.decaywood.AbstractService;
 import org.decaywood.Acceptor;
 import org.decaywood.Mapper;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
+import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
+
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author: decaywood
@@ -32,11 +36,38 @@ public abstract class AbstractAcceptor<T> extends AbstractService implements Acc
 
     @Override
     public void accept(T t) {
+
+        System.out.println(getClass().getSimpleName() + " accepting...");
+
+        int retryTime = this.strategy.retryTimes();
+
         try {
-            consumLogic(t);
+            int loopTime = 1;
+            boolean needRMI = true;
+
+            while (retryTime > loopTime) {
+                try {
+                    consumLogic(t);
+                    needRMI = false;
+                    break;
+                } catch (Exception e) {
+                    if(!(e instanceof IOException)) throw e;
+                    System.out.println("Acceptor: Network busy Retrying -> " + loopTime + " times");
+                    HttpRequestHelper.updateCookie(webSite);
+                    this.strategy.waiting(loopTime++);
+                }
+            }
+
+            if (needRMI && rmiClient) {
+                AbstractAcceptor proxy = (AbstractAcceptor) getRMIProxy();
+                //noinspection unchecked
+                proxy.accept(t);
+            } else throw new TimeoutException("Request Time Out, You've been Possibly Banned");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @Override

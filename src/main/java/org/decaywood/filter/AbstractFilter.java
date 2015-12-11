@@ -2,12 +2,12 @@ package org.decaywood.filter;
 
 import org.decaywood.AbstractService;
 import org.decaywood.Filter;
-import org.decaywood.timeWaitingStrategy.DefaultTimeWaitingStrategy;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author: decaywood
@@ -37,16 +37,18 @@ public abstract class AbstractFilter<T> extends AbstractService implements Filte
 
         System.out.println(getClass().getSimpleName() + " filtering...");
 
-        this.strategy = this.strategy == null ? new DefaultTimeWaitingStrategy<>() : strategy;
 
         boolean res = false;
         int retryTime = this.strategy.retryTimes();
 
         try {
             int loopTime = 1;
+            boolean needRMI = true;
+
             while (retryTime > loopTime) {
                 try {
                     res = filterLogic(t);
+                    needRMI = false;
                     break;
                 } catch (Exception e) {
                     if(!(e instanceof IOException)) throw e;
@@ -55,6 +57,13 @@ public abstract class AbstractFilter<T> extends AbstractService implements Filte
                     this.strategy.waiting(loopTime++);
                 }
             }
+
+            if (needRMI && rmiClient) {
+                AbstractFilter proxy = (AbstractFilter) getRMIProxy();
+                //noinspection unchecked
+                res = proxy.test(t);
+            } else throw new TimeoutException("Request Time Out, You've been Possibly Banned");
+
         } catch (Exception e) {
             e.printStackTrace();
         }

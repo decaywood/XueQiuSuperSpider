@@ -1,0 +1,9 @@
+## JVM配置文件
+## '##' 为注释符号，代表此行被忽略
+## 此文件为RMI配置文件
+
+## 本地IP 必须严格定义为 xxx.xxx.xxx.xxx形式 不能为localhost
+server_ip = 192.168.1.168
+
+## 端口号
+server_port = 7779
