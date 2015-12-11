@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +23,14 @@ import java.util.List;
  */
 public class CommissionIndustryCollector extends AbstractCollector<List<Industry>> {
 
-    public CommissionIndustryCollector() {
+    public CommissionIndustryCollector() throws RemoteException {
         this(null);
     }
 
     /**
      *@param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public CommissionIndustryCollector(TimeWaitingStrategy strategy) {
+    public CommissionIndustryCollector(TimeWaitingStrategy strategy) throws RemoteException {
         super(strategy);
     }
 

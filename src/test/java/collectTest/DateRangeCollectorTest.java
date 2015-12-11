@@ -4,6 +4,7 @@ import org.decaywood.collector.DateRangeCollector;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 public class DateRangeCollectorTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWrongArgument() {
+    public void testWrongArgument() throws RemoteException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2015, Calendar.SEPTEMBER, 21);
         Date from = calendar.getTime();
@@ -27,7 +28,7 @@ public class DateRangeCollectorTest {
 
 
     @Test
-    public void functionTest() {
+    public void functionTest() throws RemoteException {
 
         Calendar calendar = Calendar.getInstance();
 

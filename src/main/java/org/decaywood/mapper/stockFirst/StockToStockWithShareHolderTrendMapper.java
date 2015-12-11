@@ -11,6 +11,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,11 +29,11 @@ public class StockToStockWithShareHolderTrendMapper extends AbstractMapper<Stock
     private Date from;
     private Date to;
 
-    public StockToStockWithShareHolderTrendMapper() {
+    public StockToStockWithShareHolderTrendMapper() throws RemoteException {
         this(new Date(0), new Date());
     }
 
-    public StockToStockWithShareHolderTrendMapper(Date from, Date to) {
+    public StockToStockWithShareHolderTrendMapper(Date from, Date to) throws RemoteException {
         this(null, from, to);
     }
 
@@ -43,7 +44,7 @@ public class StockToStockWithShareHolderTrendMapper extends AbstractMapper<Stock
      * @param from 查询起始时间
      * @param to 查询结束时间
      */
-    public StockToStockWithShareHolderTrendMapper(TimeWaitingStrategy strategy, Date from, Date to) {
+    public StockToStockWithShareHolderTrendMapper(TimeWaitingStrategy strategy, Date from, Date to) throws RemoteException {
         super(strategy);
         if(from.after(to)) throw new IllegalArgumentException();
         this.from = from;

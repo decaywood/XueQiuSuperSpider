@@ -3,6 +3,7 @@ package org.decaywood.filter;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,7 +18,7 @@ public class PageKeyFilter extends AbstractFilter<URL> {
 
 
 
-    public PageKeyFilter(String key, boolean regex) {
+    public PageKeyFilter(String key, boolean regex) throws RemoteException {
         this(null, key, regex);
     }
 
@@ -27,7 +28,7 @@ public class PageKeyFilter extends AbstractFilter<URL> {
      * @param key 关键字
      * @param regex 是否启用正则表达式
      */
-    public PageKeyFilter(TimeWaitingStrategy strategy, String key, boolean regex) {
+    public PageKeyFilter(TimeWaitingStrategy strategy, String key, boolean regex) throws RemoteException {
         super(strategy);
         this.key = key;
         this.regex = regex;

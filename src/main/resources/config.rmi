@@ -3,7 +3,7 @@
 ## 此文件为RMI配置文件
 
 ## 本地IP 必须严格定义为 xxx.xxx.xxx.xxx形式 不能为localhost
-server_ip = 192.168.1.168
+server_ip = 192.168.1.155
 
 ## 端口号
 server_port = 7779

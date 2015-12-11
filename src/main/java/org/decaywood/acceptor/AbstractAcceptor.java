@@ -1,14 +1,15 @@
 package org.decaywood.acceptor;
 
-import org.decaywood.AbstractService;
-import org.decaywood.Acceptor;
-import org.decaywood.Mapper;
+import org.decaywood.AbstractRemoteService;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * @author: decaywood
@@ -18,17 +19,17 @@ import java.util.concurrent.TimeoutException;
 /**
  * 接受处理完的数据流并进行分析，既可以当作整个生命周期的中点也可以当作中间组件使用
  */
-public abstract class AbstractAcceptor<T> extends AbstractService implements Acceptor<T>, Mapper<T, T> {
+public abstract class AbstractAcceptor<T> extends AbstractRemoteService implements Consumer<T>, Function<T, T> {
 
-    public AbstractAcceptor() {
+    public AbstractAcceptor() throws RemoteException {
         this(null);
     }
 
-    public AbstractAcceptor(TimeWaitingStrategy strategy) {
+    public AbstractAcceptor(TimeWaitingStrategy strategy) throws RemoteException {
         this(strategy, URLMapper.MAIN_PAGE.toString());
     }
 
-    public AbstractAcceptor(TimeWaitingStrategy strategy, String webSite) {
+    public AbstractAcceptor(TimeWaitingStrategy strategy, String webSite) throws RemoteException {
         super(strategy, webSite);
     }
 

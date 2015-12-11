@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 
 /**
  * @author: decaywood
@@ -31,11 +32,11 @@ public class StockToVIPFollowerCountEntryMapper extends AbstractMapper <Stock, E
     private int VIPFriendsCountShreshold;
     private int latestK_NewFollowers;
 
-    public StockToVIPFollowerCountEntryMapper() {
+    public StockToVIPFollowerCountEntryMapper() throws RemoteException {
         this(10000, 5);
     }
 
-    public StockToVIPFollowerCountEntryMapper(int VIPFriendsCountShreshold, int latestK_NewFollowers) {
+    public StockToVIPFollowerCountEntryMapper(int VIPFriendsCountShreshold, int latestK_NewFollowers) throws RemoteException {
         this(null, VIPFriendsCountShreshold, latestK_NewFollowers);
     }
 
@@ -48,7 +49,7 @@ public class StockToVIPFollowerCountEntryMapper extends AbstractMapper <Stock, E
      */
     public StockToVIPFollowerCountEntryMapper(TimeWaitingStrategy strategy,
                                               int VIPFriendsCountShreshold,
-                                              int latestK_NewFollowers) {
+                                              int latestK_NewFollowers) throws RemoteException {
         super(strategy);
         if(VIPFriendsCountShreshold < 0 || latestK_NewFollowers < 0) throw new IllegalArgumentException();
         this.VIPFriendsCountShreshold = VIPFriendsCountShreshold;

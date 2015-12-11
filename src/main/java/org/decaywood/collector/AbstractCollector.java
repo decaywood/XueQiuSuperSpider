@@ -1,13 +1,14 @@
 package org.decaywood.collector;
 
-import org.decaywood.AbstractService;
-import org.decaywood.Collector;
+import org.decaywood.AbstractRemoteService;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Supplier;
 
 /**
  * @author: decaywood
@@ -20,7 +21,7 @@ import java.util.concurrent.TimeoutException;
  * 如果要贡献模块，强烈建议继承此类，它有进行数据收集所需的API
  * 供调用。有完备的超时重传机制以及等待策略
  */
-public abstract class AbstractCollector<T> extends AbstractService implements Collector<T> {
+public abstract class AbstractCollector<T> extends AbstractRemoteService implements Supplier<T> {
 
     /**
      * 收集器收集逻辑,由子类实现
@@ -28,7 +29,7 @@ public abstract class AbstractCollector<T> extends AbstractService implements Co
     protected abstract T collectLogic() throws Exception;
 
 
-    public AbstractCollector(TimeWaitingStrategy strategy) {
+    public AbstractCollector(TimeWaitingStrategy strategy) throws RemoteException {
         this(strategy, URLMapper.MAIN_PAGE.toString());
     }
 
@@ -37,7 +38,7 @@ public abstract class AbstractCollector<T> extends AbstractService implements Co
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      * @param webSite 站点（默认为雪球网首页，可拓展其他财经网站--作用为获取cookie）
      */
-    public AbstractCollector(TimeWaitingStrategy strategy, String webSite) {
+    public AbstractCollector(TimeWaitingStrategy strategy, String webSite) throws RemoteException {
         super(strategy, webSite);
     }
 
@@ -80,4 +81,5 @@ public abstract class AbstractCollector<T> extends AbstractService implements Co
         return res;
 
     }
+
 }

@@ -7,6 +7,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,15 +58,15 @@ public class StockScopeHotRankCollector extends AbstractCollector<List<Stock>> {
     private Scope scope;
     private int topK;
 
-    public StockScopeHotRankCollector() {
+    public StockScopeHotRankCollector() throws RemoteException {
         this(PAGE_SIZE_SHRESHOLD);
     }
 
-    public StockScopeHotRankCollector(Scope scope) {
+    public StockScopeHotRankCollector(Scope scope) throws RemoteException {
         this(null, scope, PAGE_SIZE_SHRESHOLD);
     }
 
-    public StockScopeHotRankCollector(int topK) {
+    public StockScopeHotRankCollector(int topK) throws RemoteException {
         this(null, Scope.SH_SZ_WITHIN_1_HOUR, topK);
     }
 
@@ -76,7 +77,7 @@ public class StockScopeHotRankCollector extends AbstractCollector<List<Stock>> {
      * @param scope 热股关注范围
      * @param topK 排名前K个股
      */
-    public StockScopeHotRankCollector(TimeWaitingStrategy strategy, Scope scope, int topK) {
+    public StockScopeHotRankCollector(TimeWaitingStrategy strategy, Scope scope, int topK) throws RemoteException {
         super(strategy);
         if(topK <= 0) throw new IllegalArgumentException();
         this.topK = Math.min(topK, PAGE_SIZE_SHRESHOLD);

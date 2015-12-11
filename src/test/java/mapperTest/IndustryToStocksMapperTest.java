@@ -6,6 +6,7 @@ import org.decaywood.utils.EmptyObject;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public class IndustryToStocksMapperTest {
 
 
     @Test
-    public void testFunction() {
+    public void testFunction() throws RemoteException {
         List<Industry> industries = TestCaseGenerator.generateIndustries();
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
         Assert.assertTrue(industries.stream()
@@ -25,7 +26,7 @@ public class IndustryToStocksMapperTest {
     }
 
     @Test
-    public void testNull() {
+    public void testNull() throws RemoteException {
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
         Assert.assertNotNull(mapper.apply(null));
         Assert.assertNotNull(mapper.apply(EmptyObject.emptyIndustry));

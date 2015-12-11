@@ -5,6 +5,7 @@ import org.decaywood.entity.Entry;
 import org.decaywood.entity.Stock;
 import org.decaywood.utils.DatabaseAccessor;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -18,6 +19,8 @@ import java.sql.PreparedStatement;
  * 示例类， 接收信息放入数据库
  */
 public class UserInfoToDBAcceptor extends AbstractAcceptor<Entry<Stock, Integer>> {
+
+    public UserInfoToDBAcceptor() throws RemoteException {}
 
     /**
 

@@ -6,6 +6,7 @@ import org.decaywood.mapper.stockFirst.StockToStockWithShareHolderTrendMapper;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class StockToStockWithShareHolderTrendMapperTest {
 
     @Test
-    public void testFunc() {
+    public void testFunc() throws RemoteException {
 
         List<Stock> stocks = TestCaseGenerator.generateStocks();
         StockToStockWithShareHolderTrendMapper mapper = new StockToStockWithShareHolderTrendMapper();
@@ -31,7 +32,7 @@ public class StockToStockWithShareHolderTrendMapperTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWrongArgument() {
+    public void testWrongArgument() throws RemoteException {
 
         Calendar calendar = Calendar.getInstance();
 
@@ -47,7 +48,7 @@ public class StockToStockWithShareHolderTrendMapperTest {
     }
 
     @Test
-    public void testRangeFunc() {
+    public void testRangeFunc() throws RemoteException {
         List<Stock> stocks = TestCaseGenerator.generateStocks();
         StockToStockWithShareHolderTrendMapper mapper = new StockToStockWithShareHolderTrendMapper();
 
@@ -63,7 +64,12 @@ public class StockToStockWithShareHolderTrendMapperTest {
         Date until = calendar.getTime();
 
         StockToStockWithShareHolderTrendMapper rangeMapper =
-                new StockToStockWithShareHolderTrendMapper(since, until);
+                null;
+        try {
+            rangeMapper = new StockToStockWithShareHolderTrendMapper(since, until);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
         int count2 = stocks.stream()
                 .map(rangeMapper.andThen(Stock::getShareHoldersTrend).andThen(Trend::getHistory))

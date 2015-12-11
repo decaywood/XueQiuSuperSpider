@@ -9,6 +9,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,14 +25,14 @@ import java.util.List;
  */
 public class DateToLongHuBangStockMapper extends AbstractMapper<Date, List<Stock>> {
 
-    public DateToLongHuBangStockMapper() {
+    public DateToLongHuBangStockMapper() throws RemoteException {
         this(null);
     }
 
     /**
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public DateToLongHuBangStockMapper(TimeWaitingStrategy strategy) {
+    public DateToLongHuBangStockMapper(TimeWaitingStrategy strategy) throws RemoteException {
         super(strategy);
     }
 

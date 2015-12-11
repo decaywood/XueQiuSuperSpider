@@ -9,6 +9,7 @@ import org.decaywood.utils.URLMapper;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,11 +49,11 @@ public class HuShenNewsRefCollector extends AbstractCollector<List<URL>> {
     private Topic topicType = Topic.TOTAL;
     private int pageEndTo = 1;
 
-    public HuShenNewsRefCollector() {
+    public HuShenNewsRefCollector() throws RemoteException {
         this(Topic.TOTAL, 1);
     }
 
-    public HuShenNewsRefCollector(Topic topicType, int pageEndTo) {
+    public HuShenNewsRefCollector(Topic topicType, int pageEndTo) throws RemoteException {
         this(null, topicType, pageEndTo);
     }
 
@@ -62,7 +63,7 @@ public class HuShenNewsRefCollector extends AbstractCollector<List<URL>> {
      * @param topicType 主题类型
      * @param pageEndTo 搜索页面数 从1到pageEndTo
      */
-    public HuShenNewsRefCollector(TimeWaitingStrategy strategy, Topic topicType, int pageEndTo) {
+    public HuShenNewsRefCollector(TimeWaitingStrategy strategy, Topic topicType, int pageEndTo) throws RemoteException {
         super(strategy);
         if(pageEndTo < 1)
             throw new IllegalArgumentException();

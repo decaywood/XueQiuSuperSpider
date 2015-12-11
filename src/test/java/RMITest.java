@@ -4,6 +4,7 @@ import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.junit.Test;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
 public class RMITest {
 
     @Test
-    public void RMICollectorClientTest() {
+    public void RMICollectorClientTest() throws RemoteException {
         TimeWaitingStrategy strategy = new DefaultTimeWaitingStrategy(1,1,0);
         HuShenNewsRefCollector collector = new HuShenNewsRefCollector(
                 strategy,
@@ -26,12 +27,8 @@ public class RMITest {
     }
 
     @Test
-    public void RMICollectorServerTest() {
+    public void RMICollectorServerTest() throws RemoteException {
         HuShenNewsRefCollector collector = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 1);
-        collector.asRMIClient();
-        List<URL> urls = collector.get();
-        for (URL url : urls) {
-            System.out.println(url);
-        }
+        collector.asRMIServer();
     }
 }

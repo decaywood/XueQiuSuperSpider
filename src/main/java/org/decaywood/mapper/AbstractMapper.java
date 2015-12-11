@@ -1,31 +1,32 @@
 package org.decaywood.mapper;
 
-import org.decaywood.AbstractService;
-import org.decaywood.Mapper;
 import org.decaywood.entity.DeepCopy;
+import org.decaywood.AbstractRemoteService;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Function;
 
 /**
  * @author: decaywood
  * @date: 2015/11/24 16:56
  */
 
-public abstract class AbstractMapper <T, R> extends AbstractService implements Mapper<T, R> {
+public abstract class AbstractMapper <T, R> extends AbstractRemoteService implements Function<T, R> {
 
 
     protected abstract R mapLogic(T t) throws Exception;
 
 
-    public AbstractMapper(TimeWaitingStrategy strategy) {
+    public AbstractMapper(TimeWaitingStrategy strategy) throws RemoteException {
         this(strategy, URLMapper.MAIN_PAGE.toString());
     }
 
-    public AbstractMapper(TimeWaitingStrategy strategy, String webSite) {
+    public AbstractMapper(TimeWaitingStrategy strategy, String webSite) throws RemoteException {
         super(strategy, webSite);
     }
 
@@ -71,4 +72,6 @@ public abstract class AbstractMapper <T, R> extends AbstractService implements M
         return res;
 
     }
+
+
 }

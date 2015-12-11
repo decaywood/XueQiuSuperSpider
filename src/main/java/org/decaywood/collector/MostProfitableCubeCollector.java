@@ -7,6 +7,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,15 +67,15 @@ public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> 
     private ORDER_BY order_by;
     private int topK;
 
-    public MostProfitableCubeCollector() {
+    public MostProfitableCubeCollector() throws RemoteException {
         this(Market.CN);
     }
 
-    public MostProfitableCubeCollector(Market market) {
+    public MostProfitableCubeCollector(Market market) throws RemoteException {
         this(market, ORDER_BY.MONTHLY);
     }
 
-    public MostProfitableCubeCollector(Market market, ORDER_BY order_by) {
+    public MostProfitableCubeCollector(Market market, ORDER_BY order_by) throws RemoteException {
         this(null, market, order_by, 10);
     }
 
@@ -86,7 +87,7 @@ public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> 
      * @param order_by 收益排序规则
      * @param topK 排名前K的组合
      */
-    public MostProfitableCubeCollector(TimeWaitingStrategy strategy, Market market, ORDER_BY order_by, int topK) {
+    public MostProfitableCubeCollector(TimeWaitingStrategy strategy, Market market, ORDER_BY order_by, int topK) throws RemoteException {
         super(strategy);
 
         this.market = market == null ? Market.CN : market;
@@ -137,11 +138,6 @@ public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> 
         return cubes;
 
     }
-
-    public static void main(String[] args) {
-        new MostProfitableCubeCollector().get();
-    }
-
 
     public Market getMarket() {
         return market;

@@ -5,6 +5,7 @@ import org.decaywood.mapper.stockFirst.StockToCapitalFlowEntryMapper;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
 public class StockToCapitalFlowEntryMapperTest {
 
     @Test
-    public void testFunc() {
+    public void testFunc() throws RemoteException {
         StockToCapitalFlowEntryMapper mapper = new StockToCapitalFlowEntryMapper();
         List<Stock> stocks = TestCaseGenerator.generateStocks();
         boolean match = stocks

@@ -7,6 +7,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,11 +57,11 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
     private boolean asc;
     private final int topK;
 
-    public MarketQuotationsRankCollector(StockType stockType, String orderPattern) {
+    public MarketQuotationsRankCollector(StockType stockType, String orderPattern) throws RemoteException {
         this(stockType, orderPattern, 10);
     }
 
-    public MarketQuotationsRankCollector(StockType stockType, String orderPattern, int topK) {
+    public MarketQuotationsRankCollector(StockType stockType, String orderPattern, int topK) throws RemoteException {
         this(null, stockType, orderPattern, topK);
     }
 
@@ -77,7 +78,7 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
             StockType stockType,
             String orderPattern,
             int topK
-            ) {
+            ) throws RemoteException {
 
         super(strategy);
 

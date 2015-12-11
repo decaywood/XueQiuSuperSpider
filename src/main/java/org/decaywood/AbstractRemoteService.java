@@ -12,13 +12,13 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.server.RemoteObject;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * @author: decaywood
  * @date: 2015/12/4 13:35
  */
-public abstract class AbstractService extends RemoteObject {
+public abstract class AbstractRemoteService extends UnicastRemoteObject {
 
     static {
         /**
@@ -30,12 +30,14 @@ public abstract class AbstractService extends RemoteObject {
     protected boolean rmiClient = false;
 
     protected String webSite;
+
     protected TimeWaitingStrategy strategy;
+
     protected ObjectMapper mapper;
 
 
-    public AbstractService(TimeWaitingStrategy strategy, String webSite) {
-
+    public AbstractRemoteService(TimeWaitingStrategy strategy, String webSite) throws RemoteException {
+        super();
         this.webSite = webSite;
         this.strategy = strategy == null ? new DefaultTimeWaitingStrategy() : strategy;
         this.mapper = new ObjectMapper();
@@ -45,6 +47,7 @@ public abstract class AbstractService extends RemoteObject {
     protected String request(URL url) throws IOException {
         return new HttpRequestHelper(webSite).request(url);
     }
+
 
 
     protected Object getRMIProxy() throws RemoteException, NotBoundException, MalformedURLException {
@@ -87,6 +90,7 @@ public abstract class AbstractService extends RemoteObject {
             Naming.bind(builder.toString(), this);
             System.out.println("HelloServer启动成功");
         }catch(Exception e){
+            e.printStackTrace();
             System.out.println("RMI Server 创建失败");
         }
 

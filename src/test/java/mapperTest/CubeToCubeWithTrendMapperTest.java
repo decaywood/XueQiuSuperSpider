@@ -5,6 +5,7 @@ import org.decaywood.mapper.cubeFirst.CubeToCubeWithTrendMapper;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 public class CubeToCubeWithTrendMapperTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWrongArgument() {
+    public void testWrongArgument() throws RemoteException {
 
         Calendar calendar = Calendar.getInstance();
 
@@ -31,7 +32,7 @@ public class CubeToCubeWithTrendMapperTest {
     }
 
     @Test
-    public void testFunction() {
+    public void testFunction() throws RemoteException {
 
         Calendar calendar = Calendar.getInstance();
 
