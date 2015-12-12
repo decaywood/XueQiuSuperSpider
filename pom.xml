@@ -9,11 +9,28 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+    	<maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
+    
         <jsoup-version>1.8.3</jsoup-version>
         <jackson-version>2.6.3</jackson-version>
         <junit-version>4.12</junit-version>
         <jdbc-driver>5.1.37</jdbc-driver>
     </properties>
+    
+    <build>
+    	<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.plugin.version}</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
     <dependencies>
 
