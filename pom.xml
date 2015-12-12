@@ -16,9 +16,9 @@
         <junit-version>4.12</junit-version>
         <jdbc-driver>5.1.37</jdbc-driver>
     </properties>
-    
-    <build>
-    	<plugins>
+
+	<build>
+		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
