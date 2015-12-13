@@ -1,6 +1,7 @@
 package org.decaywood.collector;
 
 import org.decaywood.AbstractRemoteService;
+import org.decaywood.remote.RemoteCollector;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
@@ -21,7 +22,7 @@ import java.util.function.Supplier;
  * 如果要贡献模块，强烈建议继承此类，它有进行数据收集所需的API
  * 供调用。有完备的超时重传机制以及等待策略
  */
-public abstract class AbstractCollector<T> extends AbstractRemoteService implements Supplier<T> {
+public abstract class AbstractCollector<T> extends AbstractRemoteService implements Supplier<T>, RemoteCollector<T> {
 
     /**
      * 收集器收集逻辑,由子类实现
@@ -56,24 +57,26 @@ public abstract class AbstractCollector<T> extends AbstractRemoteService impleme
             int loopTime = 1;
             boolean needRMI = true;
 
-            while (retryTime > loopTime) {
-                try {
-                    res = collectLogic();
-                    needRMI = false;
-                    break;
-                } catch (Exception e) {
-                    if(!(e instanceof IOException)) throw e;
-                    System.out.println("Collector: Network busy Retrying -> " + loopTime + " times");
-                    HttpRequestHelper.updateCookie(webSite);
-                    this.strategy.waiting(loopTime++);
+            if (!RMIOnly) {
+                while (retryTime > loopTime) {
+                    try {
+                        res = collectLogic();
+                        needRMI = false;
+                        break;
+                    } catch (Exception e) {
+                        if(!(e instanceof IOException)) throw e;
+                        System.out.println("Collector: Network busy Retrying -> " + loopTime + " times");
+                        HttpRequestHelper.updateCookie(webSite);
+                        this.strategy.waiting(loopTime++);
+                    }
                 }
             }
 
-            if (needRMI && rmiClient) {
-                AbstractCollector proxy = (AbstractCollector) getRMIProxy();
+            if (needRMI && rmiMaster) {
+                RemoteCollector proxy = (RemoteCollector) getRMIProxy();
                 //noinspection unchecked
                 res = (T) proxy.get();
-            } else throw new TimeoutException("Request Time Out, You've been Possibly Banned");
+            } else if(rmiMaster) throw new TimeoutException("Request Time Out, You've been Possibly Banned");
 
         } catch (Exception e) {
             e.printStackTrace();

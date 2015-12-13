@@ -1,6 +1,7 @@
 package org.decaywood.acceptor;
 
 import org.decaywood.AbstractRemoteService;
+import org.decaywood.remote.RemoteAcceptor;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
@@ -19,7 +20,7 @@ import java.util.function.Function;
 /**
  * 接受处理完的数据流并进行分析，既可以当作整个生命周期的中点也可以当作中间组件使用
  */
-public abstract class AbstractAcceptor<T> extends AbstractRemoteService implements Consumer<T>, Function<T, T> {
+public abstract class AbstractAcceptor<T> extends AbstractRemoteService implements Consumer<T>, Function<T, T>, RemoteAcceptor<T> {
 
     public AbstractAcceptor() throws RemoteException {
         this(null);
@@ -46,24 +47,26 @@ public abstract class AbstractAcceptor<T> extends AbstractRemoteService implemen
             int loopTime = 1;
             boolean needRMI = true;
 
-            while (retryTime > loopTime) {
-                try {
-                    consumLogic(t);
-                    needRMI = false;
-                    break;
-                } catch (Exception e) {
-                    if(!(e instanceof IOException)) throw e;
-                    System.out.println("Acceptor: Network busy Retrying -> " + loopTime + " times");
-                    HttpRequestHelper.updateCookie(webSite);
-                    this.strategy.waiting(loopTime++);
+            if (!RMIOnly) {
+                while (retryTime > loopTime) {
+                    try {
+                        consumLogic(t);
+                        needRMI = false;
+                        break;
+                    } catch (Exception e) {
+                        if(!(e instanceof IOException)) throw e;
+                        System.out.println("Acceptor: Network busy Retrying -> " + loopTime + " times");
+                        HttpRequestHelper.updateCookie(webSite);
+                        this.strategy.waiting(loopTime++);
+                    }
                 }
             }
 
-            if (needRMI && rmiClient) {
-                AbstractAcceptor proxy = (AbstractAcceptor) getRMIProxy();
+            if (needRMI && rmiMaster) {
+                RemoteAcceptor proxy = (RemoteAcceptor) getRMIProxy();
                 //noinspection unchecked
                 proxy.accept(t);
-            } else throw new TimeoutException("Request Time Out, You've been Possibly Banned");
+            } else if(rmiMaster) throw new TimeoutException("Request Time Out, You've been Possibly Banned");
 
         } catch (Exception e) {
             e.printStackTrace();

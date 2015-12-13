@@ -1,3 +1,4 @@
+import mapperTest.TestCaseGenerator;
 import org.decaywood.collector.*;
 import org.decaywood.entity.*;
 import org.decaywood.entity.trend.StockTrend;
@@ -28,8 +29,7 @@ public class StreamTest {
     //一阳穿三线个股
     @Test
     public void yiyinsanyang() throws RemoteException {
-        List<Stock> stocks = new MarketQuotationsRankCollector(MarketQuotationsRankCollector.StockType.GROWTH_ENTERPRISE_BOARD,MarketQuotationsRankCollector.ORDER_BY_AMOUNT, 300).get();
-//        List<Stock> stocks = TestCaseGenerator.generateStocks();
+        List<Stock> stocks = TestCaseGenerator.generateStocks();
 
         StockToStockWithAttributeMapper attributeMapper = new StockToStockWithAttributeMapper();
         StockToStockWithStockTrendMapper trendMapper = new StockToStockWithStockTrendMapper();

@@ -10,8 +10,7 @@ public class GlobalSystemConfigLoaderTest {
     @Test
     public void test() {
         GlobalSystemConfigLoader.loadConfig();
-//        Assert.assertEquals("7779", GlobalSystemConfigLoader.getRMIConfig("server_port"));
-//        Assert.assertEquals("192.168.1.155", GlobalSystemConfigLoader.getRMIConfig("server_ip"));
+//        Assert.assertEquals("192.168.1.155:7779", GlobalSystemConfigLoader.getRMIConfig("server_rcv_ip"));
     }
 
 }

@@ -3,6 +3,8 @@ package org.decaywood.entity.selectorQuota;
 import org.decaywood.utils.DateParser;
 import org.decaywood.utils.EmptyObject;
 
+import java.io.Serializable;
+
 /**
  * @author: decaywood
  * @date: 2015/11/28 13:03
@@ -11,7 +13,7 @@ import org.decaywood.utils.EmptyObject;
 /**
  * 股票选择指标统一接口
  */
-public interface QuotaChainNode {
+public interface QuotaChainNode extends Serializable {
 
 
     //获取下一个指标节点
