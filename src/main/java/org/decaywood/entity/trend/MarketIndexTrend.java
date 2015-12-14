@@ -44,7 +44,7 @@ public class MarketIndexTrend extends Trend<MarketIndexTrend.TrendBlock, MarketI
     /**
      * 趋势集合单元
      */
-    public static class TrendBlock {
+    public static class TrendBlock implements ITrendBlock {
         private final String time;
         private final String date;
         private final String value;

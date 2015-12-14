@@ -1,0 +1,5 @@
+## JVM配置文件
+## '##' 为注释符号，代表此行被忽略
+
+## 并行流底层线程数
+java.util.concurrent.ForkJoinPool.common.parallelism = 4

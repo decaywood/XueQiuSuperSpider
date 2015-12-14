@@ -8,6 +8,7 @@ import org.decaywood.entity.selectorQuota.XueQiuQuota;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
 public class StockSlectorBaseCollectorTest {
 
     @Test
-    public void testFunc() {
+    public void testFunc() throws RemoteException {
         StockSlectorBaseCollector collector = new StockSlectorBaseCollector();
         List<Stock> stocks = collector.get();
         Assert.assertFalse(stocks.isEmpty());
@@ -25,7 +26,7 @@ public class StockSlectorBaseCollectorTest {
 
 
     @Test
-    public void integrateTest() {
+    public void integrateTest() throws RemoteException {
         StockSlectorBaseCollector collector = new StockSlectorBaseCollector();
         BasicQuota basicQuota = new BasicQuota();
         basicQuota.setMc(0, 100); //总市值(亿)
@@ -45,7 +46,7 @@ public class StockSlectorBaseCollectorTest {
 
 
     @Test
-    public void testMarketQuotationsQuota() {
+    public void testMarketQuotationsQuota() throws RemoteException {
         StockSlectorBaseCollector collector = new StockSlectorBaseCollector();
         MarketQuotationsQuota quota = new MarketQuotationsQuota();
         quota.setCurrent(0, 21.51f); // 当前价 0 ~ 21.51
@@ -61,7 +62,7 @@ public class StockSlectorBaseCollectorTest {
 
 
     @Test
-    public void testBasicQuota1() {
+    public void testBasicQuota1() throws RemoteException {
         StockSlectorBaseCollector collector = new StockSlectorBaseCollector();
         BasicQuota quota = new BasicQuota();
         quota.setBps(1.84, 4.22); //每股净资产
@@ -76,7 +77,7 @@ public class StockSlectorBaseCollectorTest {
     }
 
     @Test
-    public void testBasicQuota2() {
+    public void testBasicQuota2() throws RemoteException {
         StockSlectorBaseCollector collector = new StockSlectorBaseCollector();
         BasicQuota quota = new BasicQuota();
         quota.setMc(217.65, 1088.23); //总市值(亿)
@@ -91,7 +92,7 @@ public class StockSlectorBaseCollectorTest {
     }
 
     @Test
-    public void testBasicQuota3() {
+    public void testBasicQuota3() throws RemoteException {
         StockSlectorBaseCollector collector = new StockSlectorBaseCollector();
         XueQiuQuota quota = new XueQiuQuota();
         collector.addQuotaChainNode(quota);
@@ -105,7 +106,7 @@ public class StockSlectorBaseCollectorTest {
     }
 
     @Test
-    public void testXueQiuQuota1() {
+    public void testXueQiuQuota1() throws RemoteException {
         StockSlectorBaseCollector collector = new StockSlectorBaseCollector();
         XueQiuQuota quota = new XueQiuQuota();
         quota.setFollow(348016.52, 705405); //累计关注人数
@@ -121,7 +122,7 @@ public class StockSlectorBaseCollectorTest {
     }
 
     @Test
-    public void testXueQiuQuota2() {
+    public void testXueQiuQuota2() throws RemoteException {
         StockSlectorBaseCollector collector = new StockSlectorBaseCollector();
         XueQiuQuota quota = new XueQiuQuota();
         collector.addQuotaChainNode(quota);
@@ -135,7 +136,7 @@ public class StockSlectorBaseCollectorTest {
     }
 
     @Test
-    public void testXueQiuQuota3() {
+    public void testXueQiuQuota3() throws RemoteException {
         StockSlectorBaseCollector collector = new StockSlectorBaseCollector();
         XueQiuQuota quota = new XueQiuQuota();
         collector.addQuotaChainNode(quota);

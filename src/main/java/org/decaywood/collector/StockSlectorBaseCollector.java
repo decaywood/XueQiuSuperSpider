@@ -8,6 +8,7 @@ import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class StockSlectorBaseCollector extends AbstractCollector<List<Stock>> {
      */
     QuotaChainNode head;
 
-    public StockSlectorBaseCollector() {
+    public StockSlectorBaseCollector() throws RemoteException {
         this(null);
     }
 
@@ -35,7 +36,7 @@ public class StockSlectorBaseCollector extends AbstractCollector<List<Stock>> {
      *
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public StockSlectorBaseCollector(TimeWaitingStrategy strategy) {
+    public StockSlectorBaseCollector(TimeWaitingStrategy strategy) throws RemoteException {
         super(strategy);
         head = new QuotaHead();
     }

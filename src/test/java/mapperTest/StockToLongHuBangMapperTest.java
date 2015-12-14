@@ -8,6 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -31,7 +32,7 @@ public class StockToLongHuBangMapperTest {
     }
 
     @Test
-    public void testFunction() {
+    public void testFunction() throws RemoteException {
         Stock stock = new Stock("中飞股份", "SZ300489");
 
         Calendar calendar = Calendar.getInstance();

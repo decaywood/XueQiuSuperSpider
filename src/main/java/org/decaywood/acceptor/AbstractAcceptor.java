@@ -1,8 +1,7 @@
-package org.decaywood.mapper;
+package org.decaywood.acceptor;
 
 import org.decaywood.AbstractRemoteService;
-import org.decaywood.remote.RemoteMapper;
-import org.decaywood.entity.DeepCopy;
+import org.decaywood.remote.RemoteAcceptor;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
 import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
@@ -10,53 +9,53 @@ import org.decaywood.utils.URLMapper;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
  * @author: decaywood
- * @date: 2015/11/24 16:56
+ * @date: 2015/11/30 22:22.
  */
 
-public abstract class AbstractMapper <T, R> extends AbstractRemoteService implements Function<T, R>, RemoteMapper<T, R> {
+/**
+ * 接受处理完的数据流并进行分析，既可以当作整个生命周期的中点也可以当作中间组件使用
+ */
+public abstract class AbstractAcceptor<T> extends AbstractRemoteService implements Consumer<T>, Function<T, T>, RemoteAcceptor<T> {
 
+    public AbstractAcceptor() throws RemoteException {
+        this(null);
+    }
 
-    protected abstract R mapLogic(T t) throws Exception;
-
-
-    public AbstractMapper(TimeWaitingStrategy strategy) throws RemoteException {
+    public AbstractAcceptor(TimeWaitingStrategy strategy) throws RemoteException {
         this(strategy, URLMapper.MAIN_PAGE.toString());
     }
 
-    public AbstractMapper(TimeWaitingStrategy strategy, String webSite) throws RemoteException {
+    public AbstractAcceptor(TimeWaitingStrategy strategy, String webSite) throws RemoteException {
         super(strategy, webSite);
     }
 
+    protected abstract void consumLogic(T t) throws Exception;
+
     @Override
-    public R apply(T t) {
+    public void accept(T t) {
 
-        if (t != null)
-            System.out.println(getClass().getSimpleName() + " mapping -> " + t.getClass().getSimpleName());
+        System.out.println(getClass().getSimpleName() + " accepting...");
 
-        R res = null;
         int retryTime = this.strategy.retryTimes();
 
         try {
-
             int loopTime = 1;
             boolean needRMI = true;
-
-            if(t != null) //noinspection unchecked
-                t = t instanceof DeepCopy ? ((DeepCopy<T>) t).copy() : t;
 
             if (!RMIOnly) {
                 while (retryTime > loopTime) {
                     try {
-                        res = mapLogic(t);
+                        consumLogic(t);
                         needRMI = false;
                         break;
                     } catch (Exception e) {
-                        if (!(e instanceof IOException)) throw e;
-                        System.out.println("Mapper: Network busy Retrying -> " + loopTime + " times");
+                        if(!(e instanceof IOException)) throw e;
+                        System.out.println("Acceptor: Network busy Retrying -> " + loopTime + " times");
                         HttpRequestHelper.updateCookie(webSite);
                         this.strategy.waiting(loopTime++);
                     }
@@ -64,17 +63,21 @@ public abstract class AbstractMapper <T, R> extends AbstractRemoteService implem
             }
 
             if (needRMI && rmiMaster) {
-                RemoteMapper proxy = (RemoteMapper) getRMIProxy();
+                RemoteAcceptor proxy = (RemoteAcceptor) getRMIProxy();
                 //noinspection unchecked
-                res = (R) proxy.apply(t);
+                proxy.accept(t);
             } else if(rmiMaster) throw new TimeoutException("Request Time Out, You've been Possibly Banned");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return res;
 
     }
 
+    @Override
+    public T apply(T t) {
+        accept(t);
+        return t;
+    }
 
 }

@@ -11,6 +11,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ public class CubeToCubeWithTrendMapper extends AbstractMapper<Cube, Cube> {
     private final long since;
     private final long until;
 
-    public CubeToCubeWithTrendMapper(Date since, Date until) {
+    public CubeToCubeWithTrendMapper(Date since, Date until) throws RemoteException {
         this(null, since, until);
     }
 
@@ -42,7 +43,7 @@ public class CubeToCubeWithTrendMapper extends AbstractMapper<Cube, Cube> {
     public CubeToCubeWithTrendMapper(
             TimeWaitingStrategy strategy,
             Date since,
-            Date until) {
+            Date until) throws RemoteException {
 
         super(strategy);
         if(since == null || until == null || since.after(until))

@@ -12,6 +12,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,23 +29,23 @@ public class StockToStockWithStockTrendMapper extends AbstractMapper<Stock, Stoc
     private Date from;
     private Date to;
 
-    public StockToStockWithStockTrendMapper() {
+    public StockToStockWithStockTrendMapper() throws RemoteException {
         this(Period.DAY, null, null);
     }
 
 
-    public StockToStockWithStockTrendMapper(Date from, Date to) {
+    public StockToStockWithStockTrendMapper(Date from, Date to) throws RemoteException {
         this(Period.DAY, from, to);
     }
 
-    public StockToStockWithStockTrendMapper(Period period, Date from, Date to) {
+    public StockToStockWithStockTrendMapper(Period period, Date from, Date to) throws RemoteException {
         this(null, period, from, to);
     }
 
     public StockToStockWithStockTrendMapper(TimeWaitingStrategy strategy,
                                             Period period,
                                             Date from,
-                                            Date to) {
+                                            Date to) throws RemoteException {
         super(strategy);
         if (from == null || to == null) {
             Calendar calendar = Calendar.getInstance();

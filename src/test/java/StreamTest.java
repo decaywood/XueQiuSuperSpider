@@ -14,6 +14,7 @@ import org.decaywood.utils.MathUtils;
 import org.junit.Test;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -27,7 +28,7 @@ public class StreamTest {
 
     //一阳穿三线个股
     @Test
-    public void yiyinsanyang() {
+    public void yiyinsanyang() throws RemoteException {
         List<Stock> stocks = TestCaseGenerator.generateStocks();
 
         StockToStockWithAttributeMapper attributeMapper = new StockToStockWithAttributeMapper();
@@ -59,9 +60,9 @@ public class StreamTest {
 
     }
 
-    //根据关键字获取最近新闻
+    //按关键字过滤页面
     @Test
-    public void findNewsUcareAbout() {
+    public void findNewsUcareAbout() throws RemoteException {
         List<URL> news = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 2).get();
         List<URL> res = news.parallelStream().filter(new PageKeyFilter("万孚生物", false)).collect(Collectors.toList());
 
@@ -76,36 +77,34 @@ public class StreamTest {
 
 
     //创业板股票大V统计 （耗时过长）
- /*   @Test
+/*    @Test
     public void getMarketStockFundTrend() {
-        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
         MarketQuotationsRankCollector collector = new MarketQuotationsRankCollector(
                 MarketQuotationsRankCollector.StockType.GROWTH_ENTERPRISE_BOARD,
                 MarketQuotationsRankCollector.ORDER_BY_VOLUME, 500);
-        StockToVIPFollowerCountEntryMapper mapper1 = new StockToVIPFollowerCountEntryMapper(3000, 5);//搜集每个股票的粉丝
-        UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();//写入数据库
+        StockToVIPFollowerCountEntryMapper mapper1 = new StockToVIPFollowerCountEntryMapper(3000, 300);//搜集每个股票的粉丝
+        UserInfoToDBAcceptor acceptor = new UserInfoToDBAcceptor();//写入数据库
         collector.get()
                 .parallelStream() //并行流
                 .map(mapper1)
-                .forEach(consumer);//结果写入数据库
+                .forEach(acceptor);//结果写入数据库
     }*/
 
 
     //统计股票5000粉以上大V个数，并以行业分类股票 （耗时过长）
-   /* @Test
+ /*   @Test
     public void getStocksWithVipFollowersCount() {
         CommissionIndustryCollector collector = new CommissionIndustryCollector();//搜集所有行业
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();//搜集每个行业所有股票
         StockToVIPFollowerCountEntryMapper mapper1 = new StockToVIPFollowerCountEntryMapper(5000, 300);//搜集每个股票的粉丝
-        UserInfoToDBConsumer consumer = new UserInfoToDBConsumer();//写入数据库
-        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");//设置线程数量
+        UserInfoToDBAcceptor acceptor = new UserInfoToDBAcceptor();//写入数据库
 
         List<Entry<Stock, Integer>> res = collector.get()
                 .parallelStream() //并行流
                 .map(mapper)
                 .flatMap(Collection::stream)
                 .map(mapper1)
-                .peek(consumer)
+                .peek(acceptor)
                 .collect(Collectors.toList());
         for (Entry<Stock, Integer> re : res) {
             System.out.println(re.getKey().getStockName() + " -> 5000粉丝以上大V个数  " + re.getValue());
@@ -114,15 +113,20 @@ public class StreamTest {
 
     //最赚钱组合最新持仓以及收益走势、大盘走势
     @Test
-    public void MostProfitableCubeDetail() {
+    public void MostProfitableCubeDetail() throws RemoteException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2015, Calendar.OCTOBER, 20);
         Date from = calendar.getTime();
         calendar.set(2015, Calendar.NOVEMBER, 25);
-        Date to = calendar.getTime(); //获取时间范围
+        Date to = calendar.getTime();
         MostProfitableCubeCollector cubeCollector = new MostProfitableCubeCollector( MostProfitableCubeCollector.Market.CN,
                 MostProfitableCubeCollector.ORDER_BY.DAILY);
-        CubeToCubeWithLastBalancingMapper mapper = new CubeToCubeWithLastBalancingMapper();
+        CubeToCubeWithLastBalancingMapper mapper = null;
+        try {
+            mapper = new CubeToCubeWithLastBalancingMapper();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         CubeToCubeWithTrendMapper mapper1 = new CubeToCubeWithTrendMapper(from, to);
         List<Cube> cubes = cubeCollector.get().parallelStream().map(mapper.andThen(mapper1)).collect(Collectors.toList());
         for (Cube cube : cubes) {
@@ -134,7 +138,7 @@ public class StreamTest {
 
     //获取热股榜股票信息
     @Test
-    public void HotRankStockDetail() {
+    public void HotRankStockDetail() throws RemoteException {
         StockScopeHotRankCollector collector = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.US_WITHIN_24_HOUR);
         StockToStockWithAttributeMapper mapper1 = new StockToStockWithAttributeMapper();
         StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper();
@@ -149,7 +153,7 @@ public class StreamTest {
 
     //获得某个行业所有股票的详细信息和历史走势 比如畜牧业
     @Test
-    public void IndustryStockDetail() {
+    public void IndustryStockDetail() throws RemoteException {
 
         CommissionIndustryCollector collector = new CommissionIndustryCollector();
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
@@ -176,7 +180,7 @@ public class StreamTest {
 
     //按行业分类获取所有股票
     @Test
-    public void IndustryStockInfo() {
+    public void IndustryStockInfo() throws RemoteException {
 
         CommissionIndustryCollector collector = new CommissionIndustryCollector();
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
@@ -198,7 +202,7 @@ public class StreamTest {
 
     //游资追踪
     @Test
-    public void LongHuBangTracking() {
+    public void LongHuBangTracking() throws RemoteException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2015, Calendar.DECEMBER, 1);
         Date from = calendar.getTime();
@@ -211,7 +215,7 @@ public class StreamTest {
                 .parallelStream()
                 .map(mapper)
                 .flatMap(List::stream).map(mapper1)
-                .filter(x -> x.bizsunitInBuyList("益田路", true))
+                .filter(x -> x.bizsunitInBuyList("溧阳路", true))
                 .sorted(Comparator.comparing(LongHuBangInfo::getDate))
                 .collect(Collectors.toList());
         for (LongHuBangInfo info : s) {

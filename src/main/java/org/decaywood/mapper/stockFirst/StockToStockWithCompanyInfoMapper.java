@@ -15,6 +15,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,14 +34,14 @@ public class StockToStockWithCompanyInfoMapper extends AbstractMapper <Stock, St
     private Map<String, Industry> industryMap;
     private volatile boolean initializing;
 
-    public StockToStockWithCompanyInfoMapper() {
+    public StockToStockWithCompanyInfoMapper() throws RemoteException {
         this(null);
     }
 
     /**
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public StockToStockWithCompanyInfoMapper(TimeWaitingStrategy strategy) {
+    public StockToStockWithCompanyInfoMapper(TimeWaitingStrategy strategy) throws RemoteException {
         super(strategy);
     }
 

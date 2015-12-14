@@ -5,6 +5,7 @@ import org.decaywood.entity.Stock;
 import org.decaywood.mapper.stockFirst.StockToVIPFollowerCountEntryMapper;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class StockToVIPFollowerCountEntryMapperTest {
 
 
     @Test
-    public void testFunc() {
+    public void testFunc() throws RemoteException {
 
         List<Stock> stocks = TestCaseGenerator.generateStocks();
         StockToVIPFollowerCountEntryMapper mapper = new StockToVIPFollowerCountEntryMapper();

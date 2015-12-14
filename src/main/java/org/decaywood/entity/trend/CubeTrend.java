@@ -59,7 +59,7 @@ public class CubeTrend extends Trend<CubeTrend.TrendBlock, CubeTrend> {
     /**
      * 趋势集合单元
      */
-    public static class TrendBlock {
+    public static class TrendBlock implements ITrendBlock {
 
 
         private final String time;

@@ -26,7 +26,7 @@ public class Rebalancing extends Trend<Rebalancing.TrendBlock, Rebalancing> {
     /**
      * 历史节点
      */
-    public static class TrendBlock {
+    public static class TrendBlock implements ITrendBlock {
         private final String stock_name;
         private final String stock_symbol;
         private final String created_at;//time

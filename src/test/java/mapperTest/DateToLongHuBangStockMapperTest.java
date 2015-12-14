@@ -5,6 +5,7 @@ import org.decaywood.mapper.dateFirst.DateToLongHuBangStockMapper;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 public class DateToLongHuBangStockMapperTest {
 
     @Test
-    public void testFunction() {
+    public void testFunction() throws RemoteException {
         DateToLongHuBangStockMapper mapper = new DateToLongHuBangStockMapper(null);
         Calendar calendar = Calendar.getInstance();
         calendar.set(2015, Calendar.NOVEMBER, 26);
@@ -24,7 +25,7 @@ public class DateToLongHuBangStockMapperTest {
     }
 
     @Test
-    public void testNoExchangeDate() {
+    public void testNoExchangeDate() throws RemoteException {
 
         DateToLongHuBangStockMapper mapper = new DateToLongHuBangStockMapper(null);
         Calendar calendar = Calendar.getInstance();

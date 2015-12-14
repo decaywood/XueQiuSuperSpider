@@ -2,6 +2,7 @@ package org.decaywood.entity;
 
 import org.decaywood.utils.StringUtils;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,7 @@ public class LongHuBangInfo implements DeepCopy<LongHuBangInfo> {
     private final Set<BizsunitInfo> topBuyList;
     private final Set<BizsunitInfo> topSaleList;
 
-    public static class BizsunitInfo {
+    public static class BizsunitInfo implements Serializable {
         private final String bizsunitcode; //营业部编号
         private final String bizsunitname; //营业部名称
         private final String buyamt; // 买入额度

@@ -1,0 +1,10 @@
+## JVM配置文件
+## '##' 为注释符号，代表此行被忽略
+## 此文件为RMI配置文件
+
+## 客户端请求服务IP地址（IP:port，可添加多个服务IP以进行负载分流 xxx.xxx.xxx.xxx:xxx形式 不能为localhost ）
+master_req_ip = 192.168.1.100:7779
+
+
+## 服务端接受服务IP地址（IP:port 不能为localhost ）
+slave_rcv_ip = 192.168.1.100:7779

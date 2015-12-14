@@ -5,6 +5,8 @@ import org.decaywood.mapper.cubeFirst.CubeToCubeWithLastBalancingMapper;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
+
 /**
  * @author: decaywood
  * @date: 2015/11/26 16:08
@@ -12,7 +14,7 @@ import org.junit.Test;
 public class CubeToCubeWithLastBalancingMapperTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWrongArgument() {
+    public void testWrongArgument() throws RemoteException {
 
         CubeToCubeWithLastBalancingMapper cubeCubeFirst =
                 new CubeToCubeWithLastBalancingMapper(-1);
@@ -21,7 +23,7 @@ public class CubeToCubeWithLastBalancingMapperTest {
     }
 
     @Test
-    public void testFunction() {
+    public void testFunction() throws RemoteException {
 
         CubeToCubeWithLastBalancingMapper cubeCubeFirst =
                 new CubeToCubeWithLastBalancingMapper(5);

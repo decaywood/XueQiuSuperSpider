@@ -10,6 +10,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +27,11 @@ public class IndustryToStocksMapper extends AbstractMapper<Industry, List<Stock>
     /**
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public IndustryToStocksMapper(TimeWaitingStrategy strategy) {
+    public IndustryToStocksMapper(TimeWaitingStrategy strategy) throws RemoteException {
         super(strategy);
     }
 
-    public IndustryToStocksMapper() {
+    public IndustryToStocksMapper() throws RemoteException {
         this(null);
     }
 

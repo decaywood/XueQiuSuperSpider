@@ -5,6 +5,7 @@ import org.decaywood.entity.Stock;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -15,13 +16,13 @@ public class StockScopeHotRankCollectorTest {
 
 
     @Test
-    public void testNull() {
+    public void testNull() throws RemoteException {
         StockScopeHotRankCollector collector = new StockScopeHotRankCollector(null);
         Assert.assertNotNull(collector.getScope());
     }
     
     @Test
-    public void testGlobal() {
+    public void testGlobal() throws RemoteException {
         StockScopeHotRankCollector collector1 = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.GLOBAL_WITHIN_1_HOUR);
         StockScopeHotRankCollector collector24 = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.GLOBAL_WITHIN_24_HOUR);
         List<Stock> stocks1 = collector1.get();
@@ -39,9 +40,10 @@ public class StockScopeHotRankCollectorTest {
     }
 
     @Test
-    public void test_SH_SZ() {
+    public void test_SH_SZ() throws RemoteException {
         StockScopeHotRankCollector collector1 = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.SH_SZ_WITHIN_1_HOUR);
-        StockScopeHotRankCollector collector24 = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.SH_SZ_WITHIN_24_HOUR);
+        StockScopeHotRankCollector collector24;
+        collector24 = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.SH_SZ_WITHIN_24_HOUR);
         List<Stock> stocks1 = collector1.get();
         List<Stock> stocks24 = collector24.get();
         Assert.assertTrue(stocks1.size() > 0);
@@ -60,7 +62,7 @@ public class StockScopeHotRankCollectorTest {
 
 
     @Test
-    public void test_HK() {
+    public void test_HK() throws RemoteException {
         StockScopeHotRankCollector collector1 = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.HK_WITHIN_1_HOUR);
         StockScopeHotRankCollector collector24 = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.HK_WITHIN_24_HOUR);
         List<Stock> stocks1 = collector1.get();
@@ -78,7 +80,7 @@ public class StockScopeHotRankCollectorTest {
     }
 
     @Test
-    public void test_US() {
+    public void test_US() throws RemoteException {
         StockScopeHotRankCollector collector1 = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.US_WITHIN_1_HOUR);
         StockScopeHotRankCollector collector24 = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.US_WITHIN_24_HOUR);
         List<Stock> stocks1 = collector1.get();
@@ -98,13 +100,13 @@ public class StockScopeHotRankCollectorTest {
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void testPageSize() {
+    public void testPageSize() throws RemoteException {
         new StockScopeHotRankCollector(-5);
     }
 
 
     @Test
-    public void testOverFlowPageSize() {
+    public void testOverFlowPageSize() throws RemoteException {
         StockScopeHotRankCollector collector = new StockScopeHotRankCollector(30);
         List<Stock> stocks = collector.get();
         Assert.assertTrue(stocks.size() == StockScopeHotRankCollector.PAGE_SIZE_SHRESHOLD);

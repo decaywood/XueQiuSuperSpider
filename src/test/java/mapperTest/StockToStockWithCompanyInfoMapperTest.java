@@ -7,6 +7,7 @@ import org.decaywood.utils.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,7 @@ public class StockToStockWithCompanyInfoMapperTest {
 
 
     @Test
-    public void testFunc() {
+    public void testFunc() throws RemoteException {
 
         StockToStockWithCompanyInfoMapper mapper = new StockToStockWithCompanyInfoMapper();
         List<Stock> stocks = TestCaseGenerator.generateStocks();

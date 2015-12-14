@@ -11,6 +11,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import java.util.List;
  */
 public class StockToCapitalFlowEntryMapper extends AbstractMapper<Stock, Entry<Stock, CapitalFlow>> {
 
-    public StockToCapitalFlowEntryMapper() {
+    public StockToCapitalFlowEntryMapper() throws RemoteException {
         this(null);
     }
 
@@ -32,7 +33,7 @@ public class StockToCapitalFlowEntryMapper extends AbstractMapper<Stock, Entry<S
     /**
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public StockToCapitalFlowEntryMapper(TimeWaitingStrategy strategy) {
+    public StockToCapitalFlowEntryMapper(TimeWaitingStrategy strategy) throws RemoteException {
         super(strategy, URLMapper.NETEASE_MAIN_PAGE.toString());
     }
 

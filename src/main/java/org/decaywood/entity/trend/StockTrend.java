@@ -28,7 +28,7 @@ public class StockTrend extends Trend<StockTrend.TrendBlock, StockTrend> {
         }
     }
 
-    public static class TrendBlock {
+    public static class TrendBlock implements ITrendBlock {
         private final String volume;//成交量
         private final String open;//开盘价
         private final String high;//最高

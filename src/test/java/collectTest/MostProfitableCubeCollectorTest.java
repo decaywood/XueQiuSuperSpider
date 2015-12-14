@@ -5,6 +5,7 @@ import org.decaywood.entity.Cube;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -15,21 +16,21 @@ public class MostProfitableCubeCollectorTest {
 
 
     @Test
-    public void testMarket() {
+    public void testMarket() throws RemoteException {
         doTest(MostProfitableCubeCollector.Market.CN);
         doTest(MostProfitableCubeCollector.Market.HK);
         doTest(MostProfitableCubeCollector.Market.US);
     }
 
     @Test
-    public void testORDER_BY() {
+    public void testORDER_BY() throws RemoteException {
         doTest(MostProfitableCubeCollector.ORDER_BY.DAILY);
         doTest(MostProfitableCubeCollector.ORDER_BY.MONTHLY);
         doTest(MostProfitableCubeCollector.ORDER_BY.YEARLY);
     }
 
     @Test
-    public void testNull() {
+    public void testNull() throws RemoteException {
         MostProfitableCubeCollector collector =
                 new MostProfitableCubeCollector(null, null
                         , null, 1);
@@ -39,13 +40,13 @@ public class MostProfitableCubeCollectorTest {
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIllegal() {
+    public void testIllegal() throws RemoteException {
         new MostProfitableCubeCollector(null, MostProfitableCubeCollector.Market.CN
                 , MostProfitableCubeCollector.ORDER_BY.DAILY, -500);
     }
 
     @Test
-    public void testTopKMaxSize() {
+    public void testTopKMaxSize() throws RemoteException {
 
         MostProfitableCubeCollector collector =
                 new MostProfitableCubeCollector(null, MostProfitableCubeCollector.Market.CN
@@ -64,13 +65,13 @@ public class MostProfitableCubeCollectorTest {
         List<Cube> cubes = collector.get();
         Assert.assertTrue(cubes.size() == orderSize);
     }
-    private void doTest(MostProfitableCubeCollector.Market market) {
+    private void doTest(MostProfitableCubeCollector.Market market) throws RemoteException {
         MostProfitableCubeCollector collector = new MostProfitableCubeCollector(market);
         List<Cube> cubes = collector.get();
         Assert.assertFalse(cubes.isEmpty());
     }
 
-    private void doTest(MostProfitableCubeCollector.ORDER_BY order_by) {
+    private void doTest(MostProfitableCubeCollector.ORDER_BY order_by) throws RemoteException {
         MostProfitableCubeCollector collector = new MostProfitableCubeCollector(
                 MostProfitableCubeCollector.Market.CN,
                 order_by);

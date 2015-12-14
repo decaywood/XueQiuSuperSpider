@@ -19,7 +19,7 @@ public class ShareHoldersTrend extends Trend<ShareHoldersTrend.TrendBlock, Share
         super(history);
     }
 
-    public static class TrendBlock {
+    public static class TrendBlock implements ITrendBlock {
 
         private final String enddate;//统计日期
         private final String totalshamt;//股东总户数

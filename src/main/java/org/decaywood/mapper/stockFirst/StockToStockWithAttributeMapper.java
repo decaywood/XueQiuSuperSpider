@@ -9,6 +9,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 
 /**
  * @author: decaywood
@@ -24,11 +25,11 @@ public class StockToStockWithAttributeMapper extends AbstractMapper<Stock, Stock
     /**
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public StockToStockWithAttributeMapper(TimeWaitingStrategy strategy) {
+    public StockToStockWithAttributeMapper(TimeWaitingStrategy strategy) throws RemoteException {
         super(strategy);
     }
 
-    public StockToStockWithAttributeMapper() {
+    public StockToStockWithAttributeMapper() throws RemoteException {
         this(null);
     }
 

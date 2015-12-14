@@ -10,6 +10,7 @@ import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +31,11 @@ public class CubeToCubeWithLastBalancingMapper extends AbstractMapper<Cube, Cube
 
     private final int count;
 
-    public CubeToCubeWithLastBalancingMapper() {
+    public CubeToCubeWithLastBalancingMapper() throws RemoteException {
         this(null, 10);
     }
 
-    public CubeToCubeWithLastBalancingMapper(int i) {
+    public CubeToCubeWithLastBalancingMapper(int i) throws RemoteException {
         this(null, i);
     }
 
@@ -43,7 +44,7 @@ public class CubeToCubeWithLastBalancingMapper extends AbstractMapper<Cube, Cube
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      * @param count 调仓记录数
      */
-    public CubeToCubeWithLastBalancingMapper(TimeWaitingStrategy strategy, int count) {
+    public CubeToCubeWithLastBalancingMapper(TimeWaitingStrategy strategy, int count) throws RemoteException {
         super(strategy);
         if(count <= 0) throw new IllegalArgumentException();
         this.count = Math.min(COUNT_THRESHOLD, count);
