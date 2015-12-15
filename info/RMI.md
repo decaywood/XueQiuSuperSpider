@@ -25,7 +25,7 @@ slave_rcv_ip代表slave部署机器的本地ip地址，格式为ip:port（例如
 
 ## 部署服务
 
-由于框架做了大部分工作，服务的部署尤其简单，以按行业分类获取所有股票为例子
+由于程序顶层类做了大部分工作，服务的部署尤其简单，以按行业分类获取所有股票为例子
 
 ###普通版本：
 
@@ -59,7 +59,7 @@ slave_rcv_ip代表slave部署机器的本地ip地址，格式为ip:port（例如
 ```java
 
     @Test
-    public void ss() throws RemoteException {
+    public void IndustryStockInfoSlave() throws RemoteException {
         CommissionIndustryCollector collector = new CommissionIndustryCollector();
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
         collector.asRMISlave();//切换为slave模式
@@ -73,7 +73,7 @@ slave_rcv_ip代表slave部署机器的本地ip地址，格式为ip:port（例如
 ```java
 
     @Test
-    public void IndustryStockInfo() throws RemoteException {
+    public void IndustryStockInfoMaster() throws RemoteException {
 
         CommissionIndustryCollector collector = new CommissionIndustryCollector();
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
