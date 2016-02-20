@@ -79,10 +79,12 @@ public class HttpRequestHelper {
         URL url = new URL(website);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
-        String cookie = connection.getHeaderField("Set-Cookie");
+        String cookie = connection.getHeaderFields().get("Set-Cookie")
+                .stream()
+                .filter(x -> x.contains("token=") || x.contains("s="))
+                .map(x -> x.split(";")[0].concat(";"))
+                .reduce("", String::concat);
         FileLoader.updateCookie(cookie, website);
     }
-
-
 
 }
