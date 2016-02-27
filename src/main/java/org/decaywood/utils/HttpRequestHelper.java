@@ -81,8 +81,8 @@ public class HttpRequestHelper {
         connection.connect();
         String cookie = connection.getHeaderFields().get("Set-Cookie")
                 .stream()
-                .filter(x -> x.contains("token=") || x.contains("s="))
                 .map(x -> x.split(";")[0].concat(";"))
+                .filter(x -> x.contains("token=") || x.contains("s="))
                 .reduce("", String::concat);
         FileLoader.updateCookie(cookie, website);
     }
