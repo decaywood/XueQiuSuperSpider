@@ -3,3 +3,8 @@
 
 ## 并行流底层线程数
 java.util.concurrent.ForkJoinPool.common.parallelism = 4
+
+## areaCode = 86 可选 默认国内
+## userID = 186xxxxxxxx
+## password = xxxx
+## rememberMe = true 可选 默认开启

@@ -1,9 +1,9 @@
 package org.decaywood.acceptor;
 
 import org.decaywood.AbstractRemoteService;
+import org.decaywood.CookieProcessor;
 import org.decaywood.remote.RemoteAcceptor;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
-import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
@@ -20,7 +20,11 @@ import java.util.function.Function;
 /**
  * 接受处理完的数据流并进行分析，既可以当作整个生命周期的中点也可以当作中间组件使用
  */
-public abstract class AbstractAcceptor<T> extends AbstractRemoteService implements Consumer<T>, Function<T, T>, RemoteAcceptor<T> {
+public abstract class AbstractAcceptor<T> extends AbstractRemoteService implements
+        Consumer<T>,
+        Function<T, T>,
+        RemoteAcceptor<T>,
+        CookieProcessor {
 
     public AbstractAcceptor() throws RemoteException {
         this(null);
@@ -35,6 +39,7 @@ public abstract class AbstractAcceptor<T> extends AbstractRemoteService implemen
     }
 
     protected abstract void consumLogic(T t) throws Exception;
+
 
     @Override
     public void accept(T t) {
@@ -56,7 +61,7 @@ public abstract class AbstractAcceptor<T> extends AbstractRemoteService implemen
                     } catch (Exception e) {
                         if(!(e instanceof IOException)) throw e;
                         System.out.println("Acceptor: Network busy Retrying -> " + loopTime + " times");
-                        HttpRequestHelper.updateCookie(webSite);
+                        updateCookie(webSite);
                         this.strategy.waiting(loopTime++);
                     }
                 }
