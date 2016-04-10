@@ -56,33 +56,24 @@ public class HttpRequestHelper {
 
     public String request(URL url, Map<String, String> config) throws IOException {
         HttpURLConnection httpURLConn = null;
-        try
-        {
-            httpURLConn= (HttpURLConnection)url.openConnection();
-            if(post) httpURLConn.setRequestMethod("Post");
+        try {
+            httpURLConn = (HttpURLConnection) url.openConnection();
+            if (post) httpURLConn.setRequestMethod("POST");
             httpURLConn.setDoOutput(true);
-            for (Map.Entry<String, String> entry : config.entrySet()) httpURLConn.setRequestProperty(entry.getKey(), entry.getValue());
+            for (Map.Entry<String, String> entry : config.entrySet())
+                httpURLConn.setRequestProperty(entry.getKey(), entry.getValue());
             httpURLConn.connect();
-            InputStream in =httpURLConn.getInputStream();
-            if(gzip) in = new GZIPInputStream(in);
+            InputStream in = httpURLConn.getInputStream();
+            if (gzip) in = new GZIPInputStream(in);
             BufferedReader bd = new BufferedReader(new InputStreamReader(in));
             StringBuilder builder = new StringBuilder();
             String text;
-            while((text=bd.readLine())!=null) builder.append(text);
+            while ((text = bd.readLine()) != null) builder.append(text);
             return builder.toString();
+        } finally {
+            if (httpURLConn != null) httpURLConn.disconnect();
         }
-        finally { if(httpURLConn!=null) httpURLConn.disconnect(); }
     }
-
-
-    public static void updateCookie(String website) throws Exception {
-        URL url = new URL(website);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.connect();
-        String cookie = connection.getHeaderField("Set-Cookie");
-        FileLoader.updateCookie(cookie, website);
-    }
-
 
 
 }

@@ -2,7 +2,6 @@ package org.decaywood.collector;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
-import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.RequestParaBuilder;
 import org.decaywood.utils.URLMapper;
 
@@ -100,7 +99,7 @@ public class HuShenNewsRefCollector extends AbstractCollector<List<URL>> {
                     } catch (Exception e) {
                         if(!(e instanceof IOException)) throw e;
                         System.out.println("Collector: Network busy Retrying -> " + loopTime + " times");
-                        HttpRequestHelper.updateCookie(webSite);
+                        updateCookie(webSite);
                         this.strategy.waiting(loopTime++);
                     }
                 }

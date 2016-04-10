@@ -10,7 +10,7 @@ package org.decaywood.timeWaitingStrategy;
  */
 public class DefaultTimeWaitingStrategy implements TimeWaitingStrategy {
 
-    private final long timeWaitingShreshold;
+    private final long timeWaitingThreshold;
     private final long timeWaiting;
 
     private final int retryTime;
@@ -22,12 +22,12 @@ public class DefaultTimeWaitingStrategy implements TimeWaitingStrategy {
 
     /**
      *
-     * @param timeWaitingShreshold 超时等待阈值（最多等待阈值指定时间然后进入下一次请求尝试）
+     * @param timeWaitingThreshold 超时等待阈值（最多等待阈值指定时间然后进入下一次请求尝试）
      * @param timeWaiting 起始等待时间
      * @param retryTime 重试次数（超过次数抛出超时异常）
      */
-    public DefaultTimeWaitingStrategy(final long timeWaitingShreshold, long timeWaiting, int retryTime) {
-        this.timeWaitingShreshold = timeWaitingShreshold;
+    public DefaultTimeWaitingStrategy(final long timeWaitingThreshold, long timeWaiting, int retryTime) {
+        this.timeWaitingThreshold = timeWaitingThreshold;
         this.timeWaiting = timeWaiting;
         this.retryTime = retryTime;
     }
@@ -38,7 +38,7 @@ public class DefaultTimeWaitingStrategy implements TimeWaitingStrategy {
         try {
 
             long sleepTime = this.timeWaiting * (2 << loopTime);
-            sleepTime = Math.min(sleepTime, timeWaitingShreshold);
+            sleepTime = Math.min(sleepTime, timeWaitingThreshold);
             Thread.sleep(sleepTime);
 
         } catch (InterruptedException e) {
