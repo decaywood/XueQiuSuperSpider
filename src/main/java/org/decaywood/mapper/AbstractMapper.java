@@ -2,10 +2,9 @@ package org.decaywood.mapper;
 
 import org.decaywood.AbstractRemoteService;
 import org.decaywood.CookieProcessor;
-import org.decaywood.remote.RemoteMapper;
 import org.decaywood.entity.DeepCopy;
+import org.decaywood.remote.RemoteMapper;
 import org.decaywood.timeWaitingStrategy.TimeWaitingStrategy;
-import org.decaywood.utils.HttpRequestHelper;
 import org.decaywood.utils.URLMapper;
 
 import java.io.IOException;
@@ -60,7 +59,7 @@ public abstract class AbstractMapper <T, R> extends AbstractRemoteService implem
                         break;
                     } catch (Exception e) {
                         if (!(e instanceof IOException)) throw e;
-                        System.out.println("Mapper: Network busy Retrying -> " + loopTime + " times");
+                        System.out.println("Mapper: Network busy Retrying -> " + loopTime + " times" + "  " + this.getClass().getSimpleName());
                         updateCookie(webSite);
                         this.strategy.waiting(loopTime++);
                     }

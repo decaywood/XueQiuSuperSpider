@@ -1,7 +1,6 @@
 import org.decaywood.collector.HuShenNewsRefCollector;
 import org.decaywood.entity.Stock;
 import org.decaywood.mapper.dateFirst.DateToLongHuBangStockMapper;
-import org.junit.Test;
 
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -15,7 +14,7 @@ import java.util.List;
 public class RMITest {
 
 
-    @Test
+//    @Test
     public void RMICollectorTest() throws RemoteException {
 
         HuShenNewsRefCollector slave = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 1);
@@ -32,7 +31,7 @@ public class RMITest {
 
 
     //远程调用组件功能
-    @Test
+//    @Test
     public void RMIMapperTest() throws RemoteException {
 
         /*
