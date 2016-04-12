@@ -25,7 +25,6 @@ public class StockToLongHuBangMapperTest {
     public void testWrongArgument() throws Exception{
 
         Stock stock = new Stock("中飞股份", "SZ300489");
-        stock.setStockQueryDate(new Date());
         StockToLongHuBangMapper mapper = new StockToLongHuBangMapper();
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("lost parameter: stockQueryDate");
