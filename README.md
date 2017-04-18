@@ -1,10 +1,10 @@
-#雪球超级爬虫
+# 雪球超级爬虫
 <a href="http://junit.org/"><img src="https://img.shields.io/badge/Test-JUnit-orange.svg?style=flat"></a>
 <a href="http://jsoup.org/"><img src="https://img.shields.io/badge/Dependency-Jsoup-yellow.svg?style=flat"></a>
 <a href="http://jackson-users.ning.com/"><img src="https://img.shields.io/badge/Dependency-Jackson-blue.svg?style=flat"></a>
 <a href="http://dev.mysql.com/"><img src="https://img.shields.io/badge/Database-MySQL-red.svg?style=flat"></a>
 
-##更新日志
+## 更新日志
 
 2016.4.12 -- 更新url: http -\> https
 
@@ -32,7 +32,7 @@ rememberMe = true 可选 默认开启
 12.14 -- 更新高级特性，增加RMI分布式数据抓取特性，可将需要访问网络的组件部署至Slave集群，分散流量，
 防止被反爬虫机制锁定。   [RMI高级特性](https://github.com/decaywood/XueQiuSuperSpider/blob/master/info/RMI.md)
 
-##前言
+## 前言
 
 雪球网或者东方财富或者同花顺目前已经提供了很多种股票筛选方式，但是筛选方式是根据个人操作
 风格来定义的，三个网站有限的筛选方式显然不能满足广大股民、程序员特别是数据分析控的要求，
@@ -41,7 +41,7 @@ rememberMe = true 可选 默认开启
 （项目严重依赖JDK8新特性，偏重函数式编程思想，不熟悉的已备好教程以及例子：
 [Java8 简明教程](http://decaywood.github.io/2015/12/23/Java8-guide/)）
 
-##结构
+## 结构
 
 雪球超级爬虫的所有组件互相没有任何依赖，包括参数。整体架构由Collector、Mapper
 以及Consumer三个接口支撑。功能分别为数据搜集、数据相关信息（分支信息）的组装、以及最终
@@ -54,7 +54,7 @@ rememberMe = true 可选 默认开启
 
 ![](https://github.com/decaywood/XueQiuSuperSpider/blob/master/info/structure.png)
 
-##优势
+## 优势
 
 * 稳定
 
@@ -77,7 +77,7 @@ rememberMe = true 可选 默认开启
 雪球网站自己数据综合进行分析，你所做的只是添加几个Collector和Mapper而已，很多基础
 的模块我已经提供好了。（是不是和Python有点像）
 
-##贡献模块的一些注意事项
+## 贡献模块的一些注意事项
 
 * 参数对象请实现DeepCopy接口
 
@@ -126,7 +126,7 @@ rememberMe = true 可选 默认开启
 包括网络请求、Exception捕获，网络IO异常重新请求以及Cookie更新保存等有用的功能，
 除非有必要，否则推荐继承模版模块，它们以Abstract开头，支持泛型。
 
-##一些例子
+## 一些例子
 
 * 统计一阳穿三线个股
 ```java
