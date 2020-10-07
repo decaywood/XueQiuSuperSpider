@@ -16,21 +16,21 @@ public class MostProfitableCubeCollectorTest {
 
 
     @Test
-    public void testMarket() throws RemoteException {
+    public void testMarket() {
         doTest(MostProfitableCubeCollector.Market.CN);
         doTest(MostProfitableCubeCollector.Market.HK);
         doTest(MostProfitableCubeCollector.Market.US);
     }
 
     @Test
-    public void testORDER_BY() throws RemoteException {
+    public void testORDER_BY() {
         doTest(MostProfitableCubeCollector.ORDER_BY.DAILY);
         doTest(MostProfitableCubeCollector.ORDER_BY.MONTHLY);
         doTest(MostProfitableCubeCollector.ORDER_BY.YEARLY);
     }
 
     @Test
-    public void testNull() throws RemoteException {
+    public void testNull() {
         MostProfitableCubeCollector collector =
                 new MostProfitableCubeCollector(null, null
                         , null, 1);
@@ -40,13 +40,13 @@ public class MostProfitableCubeCollectorTest {
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIllegal() throws RemoteException {
+    public void testIllegal() {
         new MostProfitableCubeCollector(null, MostProfitableCubeCollector.Market.CN
                 , MostProfitableCubeCollector.ORDER_BY.DAILY, -500);
     }
 
     @Test
-    public void testTopKMaxSize() throws RemoteException {
+    public void testTopKMaxSize() {
 
         MostProfitableCubeCollector collector =
                 new MostProfitableCubeCollector(null, MostProfitableCubeCollector.Market.CN
@@ -65,13 +65,13 @@ public class MostProfitableCubeCollectorTest {
         List<Cube> cubes = collector.get();
         Assert.assertTrue(cubes.size() == orderSize);
     }
-    private void doTest(MostProfitableCubeCollector.Market market) throws RemoteException {
+    private void doTest(MostProfitableCubeCollector.Market market) {
         MostProfitableCubeCollector collector = new MostProfitableCubeCollector(market);
         List<Cube> cubes = collector.get();
         Assert.assertFalse(cubes.isEmpty());
     }
 
-    private void doTest(MostProfitableCubeCollector.ORDER_BY order_by) throws RemoteException {
+    private void doTest(MostProfitableCubeCollector.ORDER_BY order_by) {
         MostProfitableCubeCollector collector = new MostProfitableCubeCollector(
                 MostProfitableCubeCollector.Market.CN,
                 order_by);

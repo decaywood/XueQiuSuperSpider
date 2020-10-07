@@ -81,9 +81,9 @@ public abstract class GlobalSystemConfigLoader {
             final String[] text = new String[1];
             while ((text[0] = reader.readLine()) != null) {
                 if (filters.stream().noneMatch(x -> x.test(text[0]))) {
-                    String[] kv = text[0].split("=");
-                    String key = kv[0];
-                    String value = kv[1];
+                    int index = text[0].indexOf("=");
+                    String key = text[0].substring(0, index);
+                    String value = text[0].substring(index + 1);
                     System.setProperty(key.trim(), value.trim());
                 }
             }

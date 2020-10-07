@@ -15,7 +15,7 @@ import java.util.List;
 public class StockToCapitalFlowEntryMapperTest {
 
     @Test
-    public void testFunc() throws RemoteException {
+    public void testFunc() {
         StockToCapitalFlowEntryMapper mapper = new StockToCapitalFlowEntryMapper();
         List<Stock> stocks = TestCaseGenerator.generateStocks();
         boolean match = stocks

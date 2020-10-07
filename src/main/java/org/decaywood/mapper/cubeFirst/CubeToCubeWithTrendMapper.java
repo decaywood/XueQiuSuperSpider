@@ -29,7 +29,7 @@ public class CubeToCubeWithTrendMapper extends AbstractMapper<Cube, Cube> {
     private final long since;
     private final long until;
 
-    public CubeToCubeWithTrendMapper(Date since, Date until) throws RemoteException {
+    public CubeToCubeWithTrendMapper(Date since, Date until) {
         this(null, since, until);
     }
 
@@ -43,7 +43,7 @@ public class CubeToCubeWithTrendMapper extends AbstractMapper<Cube, Cube> {
     public CubeToCubeWithTrendMapper(
             TimeWaitingStrategy strategy,
             Date since,
-            Date until) throws RemoteException {
+            Date until) {
 
         super(strategy);
         if(since == null || until == null || since.after(until))

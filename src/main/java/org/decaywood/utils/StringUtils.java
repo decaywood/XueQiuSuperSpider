@@ -8,6 +8,14 @@ import java.util.Arrays;
  */
 public abstract class StringUtils {
 
+    public static boolean isNull(String string) {
+        return !isNotNull(string);
+    }
+
+    public static boolean isNotNull(String string) {
+        return string != null;
+    }
+
     public static boolean isNumeric(String test) {
         return test != null
                 && test.length() > 0

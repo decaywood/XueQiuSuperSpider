@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class StockToCapitalFlowEntryMapper extends AbstractMapper<Stock, Entry<Stock, CapitalFlow>> {
 
-    public StockToCapitalFlowEntryMapper() throws RemoteException {
+    public StockToCapitalFlowEntryMapper() {
         this(null);
     }
 
@@ -33,7 +33,7 @@ public class StockToCapitalFlowEntryMapper extends AbstractMapper<Stock, Entry<S
     /**
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public StockToCapitalFlowEntryMapper(TimeWaitingStrategy strategy) throws RemoteException {
+    public StockToCapitalFlowEntryMapper(TimeWaitingStrategy strategy) {
         super(strategy, URLMapper.NETEASE_MAIN_PAGE.toString());
     }
 

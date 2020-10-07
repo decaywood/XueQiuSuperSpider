@@ -57,11 +57,11 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
     private boolean asc;
     private final int topK;
 
-    public MarketQuotationsRankCollector(StockType stockType, String orderPattern) throws RemoteException {
+    public MarketQuotationsRankCollector(StockType stockType, String orderPattern) {
         this(stockType, orderPattern, 10);
     }
 
-    public MarketQuotationsRankCollector(StockType stockType, String orderPattern, int topK) throws RemoteException {
+    public MarketQuotationsRankCollector(StockType stockType, String orderPattern, int topK) {
         this(null, stockType, orderPattern, topK);
     }
 
@@ -78,7 +78,7 @@ public class MarketQuotationsRankCollector extends AbstractCollector<List<Stock>
             StockType stockType,
             String orderPattern,
             int topK
-            ) throws RemoteException {
+            ) {
 
         super(strategy);
 

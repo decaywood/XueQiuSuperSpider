@@ -32,11 +32,11 @@ public class StockToVIPFollowerCountEntryMapper extends AbstractMapper <Stock, E
     private int VIPFriendsCountShreshold;
     private int latestK_NewFollowers;
 
-    public StockToVIPFollowerCountEntryMapper() throws RemoteException {
+    public StockToVIPFollowerCountEntryMapper() {
         this(10000, 5);
     }
 
-    public StockToVIPFollowerCountEntryMapper(int VIPFriendsCountShreshold, int latestK_NewFollowers) throws RemoteException {
+    public StockToVIPFollowerCountEntryMapper(int VIPFriendsCountShreshold, int latestK_NewFollowers) {
         this(null, VIPFriendsCountShreshold, latestK_NewFollowers);
     }
 
@@ -49,7 +49,7 @@ public class StockToVIPFollowerCountEntryMapper extends AbstractMapper <Stock, E
      */
     public StockToVIPFollowerCountEntryMapper(TimeWaitingStrategy strategy,
                                               int VIPFriendsCountShreshold,
-                                              int latestK_NewFollowers) throws RemoteException {
+                                              int latestK_NewFollowers) {
         super(strategy);
         if(VIPFriendsCountShreshold < 0 || latestK_NewFollowers < 0) throw new IllegalArgumentException();
         this.VIPFriendsCountShreshold = VIPFriendsCountShreshold;

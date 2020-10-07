@@ -17,7 +17,7 @@ import java.util.List;
 public class CubeToCubeWithTrendMapperTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWrongArgument() throws RemoteException {
+    public void testWrongArgument() {
 
         Calendar calendar = Calendar.getInstance();
 
@@ -32,7 +32,7 @@ public class CubeToCubeWithTrendMapperTest {
     }
 
     @Test
-    public void testFunction() throws RemoteException {
+    public void testFunction() {
 
         Calendar calendar = Calendar.getInstance();
 

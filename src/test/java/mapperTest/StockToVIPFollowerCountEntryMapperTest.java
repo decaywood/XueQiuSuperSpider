@@ -16,7 +16,7 @@ public class StockToVIPFollowerCountEntryMapperTest {
 
 
     @Test
-    public void testFunc() throws RemoteException {
+    public void testFunc() {
 
         List<Stock> stocks = TestCaseGenerator.generateStocks();
         StockToVIPFollowerCountEntryMapper mapper = new StockToVIPFollowerCountEntryMapper();

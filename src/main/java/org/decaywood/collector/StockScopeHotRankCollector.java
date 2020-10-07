@@ -58,15 +58,15 @@ public class StockScopeHotRankCollector extends AbstractCollector<List<Stock>> {
     private Scope scope;
     private int topK;
 
-    public StockScopeHotRankCollector() throws RemoteException {
+    public StockScopeHotRankCollector() {
         this(PAGE_SIZE_SHRESHOLD);
     }
 
-    public StockScopeHotRankCollector(Scope scope) throws RemoteException {
+    public StockScopeHotRankCollector(Scope scope) {
         this(null, scope, PAGE_SIZE_SHRESHOLD);
     }
 
-    public StockScopeHotRankCollector(int topK) throws RemoteException {
+    public StockScopeHotRankCollector(int topK) {
         this(null, Scope.SH_SZ_WITHIN_1_HOUR, topK);
     }
 
@@ -77,7 +77,7 @@ public class StockScopeHotRankCollector extends AbstractCollector<List<Stock>> {
      * @param scope 热股关注范围
      * @param topK 排名前K个股
      */
-    public StockScopeHotRankCollector(TimeWaitingStrategy strategy, Scope scope, int topK) throws RemoteException {
+    public StockScopeHotRankCollector(TimeWaitingStrategy strategy, Scope scope, int topK) {
         super(strategy);
         if(topK <= 0) throw new IllegalArgumentException();
         this.topK = Math.min(topK, PAGE_SIZE_SHRESHOLD);

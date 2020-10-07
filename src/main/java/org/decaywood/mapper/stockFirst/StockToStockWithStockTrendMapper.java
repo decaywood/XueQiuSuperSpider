@@ -29,23 +29,23 @@ public class StockToStockWithStockTrendMapper extends AbstractMapper<Stock, Stoc
     private Date from;
     private Date to;
 
-    public StockToStockWithStockTrendMapper() throws RemoteException {
+    public StockToStockWithStockTrendMapper() {
         this(Period.DAY, null, null);
     }
 
 
-    public StockToStockWithStockTrendMapper(Date from, Date to) throws RemoteException {
+    public StockToStockWithStockTrendMapper(Date from, Date to) {
         this(Period.DAY, from, to);
     }
 
-    public StockToStockWithStockTrendMapper(Period period, Date from, Date to) throws RemoteException {
+    public StockToStockWithStockTrendMapper(Period period, Date from, Date to) {
         this(null, period, from, to);
     }
 
     public StockToStockWithStockTrendMapper(TimeWaitingStrategy strategy,
                                             Period period,
                                             Date from,
-                                            Date to) throws RemoteException {
+                                            Date to) {
         super(strategy);
         if (from == null || to == null) {
             Calendar calendar = Calendar.getInstance();

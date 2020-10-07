@@ -20,7 +20,7 @@ import java.sql.PreparedStatement;
  */
 public class UserInfoToDBAcceptor extends AbstractAcceptor<Entry<Stock, Integer>> {
 
-    public UserInfoToDBAcceptor() throws RemoteException {}
+    public UserInfoToDBAcceptor() {}
 
     /**
 

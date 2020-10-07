@@ -28,7 +28,7 @@ public class StockSlectorBaseCollector extends AbstractCollector<List<Stock>> {
      */
     QuotaChainNode head;
 
-    public StockSlectorBaseCollector() throws RemoteException {
+    public StockSlectorBaseCollector() {
         this(null);
     }
 
@@ -36,7 +36,7 @@ public class StockSlectorBaseCollector extends AbstractCollector<List<Stock>> {
      *
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public StockSlectorBaseCollector(TimeWaitingStrategy strategy) throws RemoteException {
+    public StockSlectorBaseCollector(TimeWaitingStrategy strategy) {
         super(strategy);
         head = new QuotaHead();
     }

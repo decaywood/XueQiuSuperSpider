@@ -23,14 +23,14 @@ import java.util.List;
  */
 public class CommissionIndustryCollector extends AbstractCollector<List<Industry>> {
 
-    public CommissionIndustryCollector() throws RemoteException {
+    public CommissionIndustryCollector() {
         this(null);
     }
 
     /**
      *@param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public CommissionIndustryCollector(TimeWaitingStrategy strategy) throws RemoteException {
+    public CommissionIndustryCollector(TimeWaitingStrategy strategy) {
         super(strategy);
     }
 

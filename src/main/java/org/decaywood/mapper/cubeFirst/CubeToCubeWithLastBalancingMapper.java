@@ -31,11 +31,11 @@ public class CubeToCubeWithLastBalancingMapper extends AbstractMapper<Cube, Cube
 
     private final int count;
 
-    public CubeToCubeWithLastBalancingMapper() throws RemoteException {
+    public CubeToCubeWithLastBalancingMapper() {
         this(null, 10);
     }
 
-    public CubeToCubeWithLastBalancingMapper(int i) throws RemoteException {
+    public CubeToCubeWithLastBalancingMapper(int i) {
         this(null, i);
     }
 
@@ -44,7 +44,7 @@ public class CubeToCubeWithLastBalancingMapper extends AbstractMapper<Cube, Cube
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      * @param count 调仓记录数
      */
-    public CubeToCubeWithLastBalancingMapper(TimeWaitingStrategy strategy, int count) throws RemoteException {
+    public CubeToCubeWithLastBalancingMapper(TimeWaitingStrategy strategy, int count) {
         super(strategy);
         if(count <= 0) throw new IllegalArgumentException();
         this.count = Math.min(COUNT_THRESHOLD, count);

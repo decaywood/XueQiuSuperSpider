@@ -25,11 +25,11 @@ public class StockToStockWithAttributeMapper extends AbstractMapper<Stock, Stock
     /**
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public StockToStockWithAttributeMapper(TimeWaitingStrategy strategy) throws RemoteException {
+    public StockToStockWithAttributeMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }
 
-    public StockToStockWithAttributeMapper() throws RemoteException {
+    public StockToStockWithAttributeMapper() {
         this(null);
     }
 

@@ -19,7 +19,7 @@ public class StockToStockWithCompanyInfoMapperTest {
 
 
     @Test
-    public void testFunc() throws RemoteException {
+    public void testFunc() {
 
         StockToStockWithCompanyInfoMapper mapper = new StockToStockWithCompanyInfoMapper();
         List<Stock> stocks = TestCaseGenerator.generateStocks();

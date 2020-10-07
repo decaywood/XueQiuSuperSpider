@@ -28,7 +28,7 @@ public class StreamTest {
 
     //一阳穿三线个股
     @Test
-    public void yiyinsanyang() throws RemoteException {
+    public void yiyinsanyang() {
         List<Stock> stocks = TestCaseGenerator.generateStocks();
 
         StockToStockWithAttributeMapper attributeMapper = new StockToStockWithAttributeMapper();
@@ -62,7 +62,7 @@ public class StreamTest {
 
     //按关键字过滤页面
     @Test
-    public void findNewsUcareAbout() throws RemoteException {
+    public void findNewsUcareAbout() {
         List<URL> news = new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 2).get();
         List<URL> res = news.parallelStream().filter(new PageKeyFilter("万孚生物", false)).collect(Collectors.toList());
 
@@ -113,7 +113,7 @@ public class StreamTest {
 
     //最赚钱组合最新持仓以及收益走势、大盘走势
     @Test
-    public void MostProfitableCubeDetail() throws RemoteException {
+    public void MostProfitableCubeDetail() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2015, Calendar.OCTOBER, 20);
         Date from = calendar.getTime();
@@ -121,12 +121,7 @@ public class StreamTest {
         Date to = calendar.getTime();
         MostProfitableCubeCollector cubeCollector = new MostProfitableCubeCollector( MostProfitableCubeCollector.Market.CN,
                 MostProfitableCubeCollector.ORDER_BY.DAILY);
-        CubeToCubeWithLastBalancingMapper mapper = null;
-        try {
-            mapper = new CubeToCubeWithLastBalancingMapper();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        CubeToCubeWithLastBalancingMapper mapper = new CubeToCubeWithLastBalancingMapper();
         CubeToCubeWithTrendMapper mapper1 = new CubeToCubeWithTrendMapper(from, to);
         List<Cube> cubes = cubeCollector.get().parallelStream().map(mapper.andThen(mapper1)).collect(Collectors.toList());
         for (Cube cube : cubes) {
@@ -138,7 +133,7 @@ public class StreamTest {
 
     //获取热股榜股票信息
     @Test
-    public void HotRankStockDetail() throws RemoteException {
+    public void HotRankStockDetail() {
         StockScopeHotRankCollector collector = new StockScopeHotRankCollector(StockScopeHotRankCollector.Scope.US_WITHIN_24_HOUR);
         StockToStockWithAttributeMapper mapper1 = new StockToStockWithAttributeMapper();
         StockToStockWithStockTrendMapper mapper2 = new StockToStockWithStockTrendMapper();
@@ -153,7 +148,7 @@ public class StreamTest {
 
     //获得某个行业所有股票的详细信息和历史走势 比如畜牧业
     @Test
-    public void IndustryStockDetail() throws RemoteException {
+    public void IndustryStockDetail() {
 
         CommissionIndustryCollector collector = new CommissionIndustryCollector();
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
@@ -180,7 +175,7 @@ public class StreamTest {
 
     //按行业分类获取所有股票
     @Test
-    public void IndustryStockInfo() throws RemoteException {
+    public void IndustryStockInfo() {
 
         CommissionIndustryCollector collector = new CommissionIndustryCollector();
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
@@ -202,7 +197,7 @@ public class StreamTest {
 
     //游资追踪
     @Test
-    public void LongHuBangTracking() throws RemoteException {
+    public void LongHuBangTracking() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2015, Calendar.DECEMBER, 1);
         Date from = calendar.getTime();

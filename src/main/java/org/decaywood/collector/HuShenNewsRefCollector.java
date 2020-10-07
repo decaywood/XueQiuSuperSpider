@@ -48,11 +48,11 @@ public class HuShenNewsRefCollector extends AbstractCollector<List<URL>> {
     private Topic topicType = Topic.TOTAL;
     private int pageEndTo = 1;
 
-    public HuShenNewsRefCollector() throws RemoteException {
+    public HuShenNewsRefCollector() {
         this(Topic.TOTAL, 1);
     }
 
-    public HuShenNewsRefCollector(Topic topicType, int pageEndTo) throws RemoteException {
+    public HuShenNewsRefCollector(Topic topicType, int pageEndTo) {
         this(null, topicType, pageEndTo);
     }
 
@@ -62,7 +62,7 @@ public class HuShenNewsRefCollector extends AbstractCollector<List<URL>> {
      * @param topicType 主题类型
      * @param pageEndTo 搜索页面数 从1到pageEndTo
      */
-    public HuShenNewsRefCollector(TimeWaitingStrategy strategy, Topic topicType, int pageEndTo) throws RemoteException {
+    public HuShenNewsRefCollector(TimeWaitingStrategy strategy, Topic topicType, int pageEndTo) {
         super(strategy);
         if(pageEndTo < 1)
             throw new IllegalArgumentException();

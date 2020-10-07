@@ -18,7 +18,7 @@ import java.util.List;
 public class StockToStockWithShareHolderTrendMapperTest {
 
     @Test
-    public void testFunc() throws RemoteException {
+    public void testFunc() {
 
         List<Stock> stocks = TestCaseGenerator.generateStocks();
         StockToStockWithShareHolderTrendMapper mapper = new StockToStockWithShareHolderTrendMapper();
@@ -32,7 +32,7 @@ public class StockToStockWithShareHolderTrendMapperTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWrongArgument() throws RemoteException {
+    public void testWrongArgument() {
 
         Calendar calendar = Calendar.getInstance();
 
@@ -48,7 +48,7 @@ public class StockToStockWithShareHolderTrendMapperTest {
     }
 
     @Test
-    public void testRangeFunc() throws RemoteException {
+    public void testRangeFunc() {
         List<Stock> stocks = TestCaseGenerator.generateStocks();
         StockToStockWithShareHolderTrendMapper mapper = new StockToStockWithShareHolderTrendMapper();
 
@@ -64,12 +64,7 @@ public class StockToStockWithShareHolderTrendMapperTest {
         Date until = calendar.getTime();
 
         StockToStockWithShareHolderTrendMapper rangeMapper =
-                null;
-        try {
-            rangeMapper = new StockToStockWithShareHolderTrendMapper(since, until);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+                new StockToStockWithShareHolderTrendMapper(since, until);
 
         int count2 = stocks.stream()
                 .map(rangeMapper.andThen(Stock::getShareHoldersTrend).andThen(Trend::getHistory))

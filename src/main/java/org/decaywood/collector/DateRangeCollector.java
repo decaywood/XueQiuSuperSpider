@@ -21,7 +21,7 @@ public class DateRangeCollector extends AbstractCollector <List<Date>> {
     private final Date from;
     private final Date to;
 
-    public DateRangeCollector(Date from, Date to) throws RemoteException {
+    public DateRangeCollector(Date from, Date to) {
         this(null, from, to);
     }
 
@@ -32,7 +32,7 @@ public class DateRangeCollector extends AbstractCollector <List<Date>> {
      * @param from 起始时间
      * @param to 结束时间
      */
-    public DateRangeCollector(TimeWaitingStrategy strategy, Date from, Date to) throws RemoteException {
+    public DateRangeCollector(TimeWaitingStrategy strategy, Date from, Date to) {
         super(strategy);
         if(from == null || to == null || from.after(to)) throw new IllegalArgumentException();
         this.from = from;

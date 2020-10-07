@@ -23,6 +23,10 @@ public abstract class FileLoader {
      * @return cookie
      */
     public static String loadCookie(String key) {
+        String cookies = System.getProperty("cookies");
+        if (StringUtils.isNotNull(cookies)) {
+            return cookies;
+        }
         if(cookie.containsKey(key)) return cookie.get(key);
         return EmptyObject.emptyString;
     }

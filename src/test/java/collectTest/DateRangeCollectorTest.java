@@ -16,7 +16,7 @@ import java.util.List;
 public class DateRangeCollectorTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWrongArgument() throws RemoteException {
+    public void testWrongArgument() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2015, Calendar.SEPTEMBER, 21);
         Date from = calendar.getTime();
@@ -28,7 +28,7 @@ public class DateRangeCollectorTest {
 
 
     @Test
-    public void functionTest() throws RemoteException {
+    public void functionTest() {
 
         Calendar calendar = Calendar.getInstance();
 

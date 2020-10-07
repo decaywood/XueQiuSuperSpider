@@ -20,6 +20,7 @@ public interface CookieProcessor {
         String areacode = System.getProperty("areaCode");
         String userID = System.getProperty("userID");
         String passwd = System.getProperty("password");
+        String cookies = System.getProperty("cookies");
         boolean rememberMe = Boolean.parseBoolean(System.getProperty("rememberMe"));
 
         HttpURLConnection connection = null;
@@ -31,7 +32,7 @@ public interface CookieProcessor {
                     (HttpURLConnection) new URL(website).openConnection() : connection;
             connection.connect();
 
-            String cookie = connection.getHeaderFields().get("Set-Cookie")
+            String cookie = cookies != null ? cookies : connection.getHeaderFields().get("Set-Cookie")
                     .stream()
                     .map(x -> x.split(";")[0].concat(";"))
                     .filter(x -> x.contains("token=") || x.contains("s="))

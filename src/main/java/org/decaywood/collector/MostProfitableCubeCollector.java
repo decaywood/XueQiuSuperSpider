@@ -67,15 +67,15 @@ public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> 
     private ORDER_BY order_by;
     private int topK;
 
-    public MostProfitableCubeCollector() throws RemoteException {
+    public MostProfitableCubeCollector() {
         this(Market.CN);
     }
 
-    public MostProfitableCubeCollector(Market market) throws RemoteException {
+    public MostProfitableCubeCollector(Market market) {
         this(market, ORDER_BY.MONTHLY);
     }
 
-    public MostProfitableCubeCollector(Market market, ORDER_BY order_by) throws RemoteException {
+    public MostProfitableCubeCollector(Market market, ORDER_BY order_by) {
         this(null, market, order_by, 10);
     }
 
@@ -87,7 +87,7 @@ public class MostProfitableCubeCollector extends  AbstractCollector<List<Cube>> 
      * @param order_by 收益排序规则
      * @param topK 排名前K的组合
      */
-    public MostProfitableCubeCollector(TimeWaitingStrategy strategy, Market market, ORDER_BY order_by, int topK) throws RemoteException {
+    public MostProfitableCubeCollector(TimeWaitingStrategy strategy, Market market, ORDER_BY order_by, int topK) {
         super(strategy);
 
         this.market = market == null ? Market.CN : market;

@@ -7,10 +7,10 @@ package org.decaywood.utils;
 public enum URLMapper {
 
     /*--------------------------------  Xue Qiu     --------------------------------------*/
-
     MAIN_PAGE("https://xueqiu.com"),
+    STOCK_MAIN_PAGE("https://xueqiu.com/query/v1/symbol/search/status"),
+    USER_MAIN_PAGE("https://xueqiu.com/statuses/original/show.json"),
     COMPREHENSIVE_PAGE("https://xueqiu.com/hq"),
-
     HU_SHEN_NEWS_REF_JSON("https://xueqiu.com/statuses/topic.json"),
     STOCK_SHAREHOLDERS_JSON("https://xueqiu.com/stock/f10/shareholdernum.json"),
     STOCK_SELECTOR_JSON("https://xueqiu.com/stock/screener/screen.json"),

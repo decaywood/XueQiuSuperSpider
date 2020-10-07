@@ -17,7 +17,7 @@ public class IndustryToStocksMapperTest {
 
 
     @Test
-    public void testFunction() throws RemoteException {
+    public void testFunction() {
         List<Industry> industries = TestCaseGenerator.generateIndustries();
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
         Assert.assertTrue(industries.stream()
@@ -26,7 +26,7 @@ public class IndustryToStocksMapperTest {
     }
 
     @Test
-    public void testNull() throws RemoteException {
+    public void testNull() {
         IndustryToStocksMapper mapper = new IndustryToStocksMapper();
         Assert.assertNotNull(mapper.apply(null));
         Assert.assertNotNull(mapper.apply(EmptyObject.emptyIndustry));

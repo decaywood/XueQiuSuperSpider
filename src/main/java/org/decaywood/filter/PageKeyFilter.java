@@ -18,7 +18,7 @@ public class PageKeyFilter extends AbstractFilter<URL> {
 
 
 
-    public PageKeyFilter(String key, boolean regex) throws RemoteException {
+    public PageKeyFilter(String key, boolean regex) {
         this(null, key, regex);
     }
 
@@ -28,7 +28,7 @@ public class PageKeyFilter extends AbstractFilter<URL> {
      * @param key 关键字
      * @param regex 是否启用正则表达式
      */
-    public PageKeyFilter(TimeWaitingStrategy strategy, String key, boolean regex) throws RemoteException {
+    public PageKeyFilter(TimeWaitingStrategy strategy, String key, boolean regex) {
         super(strategy);
         this.key = key;
         this.regex = regex;
