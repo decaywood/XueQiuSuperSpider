@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
@@ -21,12 +22,20 @@ public class HttpRequestHelper {
     private boolean gzip;
 
     public HttpRequestHelper(String webSite) {
+        this(webSite, true);
+    }
+
+    public HttpRequestHelper(String webSite, boolean gzip) {
         this.config = new HashMap<>();
-        this.gzipDecode()
-                .addToHeader("Referer", webSite)
+        if (gzip) {
+            this.gzipDecode()
+                    .addToHeader("Accept-Encoding", "gzip,deflate,sdch");
+        } else {
+            this.addToHeader("Accept-Encoding", "utf-8");
+        }
+        this.addToHeader("Referer", webSite)
                 .addToHeader("Cookie", FileLoader.loadCookie(webSite))
-                .addToHeader("Host", "xueqiu.com")
-                .addToHeader("Accept-Encoding", "gzip,deflate,sdch");
+                .addToHeader("Host", "xueqiu.com");
     }
 
     public HttpRequestHelper post() {

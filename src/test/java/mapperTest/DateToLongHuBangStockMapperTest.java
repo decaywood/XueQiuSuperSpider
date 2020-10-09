@@ -16,7 +16,7 @@ import java.util.List;
 public class DateToLongHuBangStockMapperTest {
 
     @Test
-    public void testFunction() throws RemoteException {
+    public void testFunction() {
         DateToLongHuBangStockMapper mapper = new DateToLongHuBangStockMapper(null);
         Calendar calendar = Calendar.getInstance();
         calendar.set(2015, Calendar.NOVEMBER, 26);
@@ -25,7 +25,7 @@ public class DateToLongHuBangStockMapperTest {
     }
 
     @Test
-    public void testNoExchangeDate() throws RemoteException {
+    public void testNoExchangeDate() {
 
         DateToLongHuBangStockMapper mapper = new DateToLongHuBangStockMapper(null);
         Calendar calendar = Calendar.getInstance();

@@ -15,7 +15,7 @@ import java.util.List;
 public class StockToStockWithStockTrendMapperTest {
 
     @Test
-    public void testFunc() throws RemoteException {
+    public void testFunc() {
         StockToStockWithStockTrendMapper mapper = new StockToStockWithStockTrendMapper();
         List<Stock> stocks = TestCaseGenerator.generateStocks();
         boolean res = stocks.stream().map(mapper.andThen(Stock::getStockTrend)).noneMatch(x -> x.getHistory().isEmpty());

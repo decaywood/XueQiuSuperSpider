@@ -15,18 +15,18 @@ import java.util.List;
 public class HuShenNewsRefCollectorTest {
 
     @Test
-    public void testCorrectArg() throws RemoteException {
+    public void testCorrectArg() {
         new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 3);
     }
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWrongArgument2() throws RemoteException {
+    public void testWrongArgument2() {
         new HuShenNewsRefCollector(HuShenNewsRefCollector.Topic.TOTAL, 0);
     }
 
     @Test
-    public void testFunc() throws RemoteException {
+    public void testFunc() {
         List<URL> res = new HuShenNewsRefCollector().get();
         Assert.assertFalse(res.isEmpty());
     }

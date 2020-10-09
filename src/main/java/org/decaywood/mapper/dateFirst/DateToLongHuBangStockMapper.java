@@ -25,14 +25,14 @@ import java.util.List;
  */
 public class DateToLongHuBangStockMapper extends AbstractMapper<Date, List<Stock>> {
 
-    public DateToLongHuBangStockMapper() throws RemoteException {
+    public DateToLongHuBangStockMapper() {
         this(null);
     }
 
     /**
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public DateToLongHuBangStockMapper(TimeWaitingStrategy strategy) throws RemoteException {
+    public DateToLongHuBangStockMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }
 

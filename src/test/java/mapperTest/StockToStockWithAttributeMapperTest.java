@@ -16,7 +16,7 @@ import java.util.List;
 public class StockToStockWithAttributeMapperTest {
 
     @Test
-    public void testFunction() throws RemoteException {
+    public void testFunction() {
         List<Stock> industries = TestCaseGenerator.generateStocks();
         StockToStockWithAttributeMapper mapper = new StockToStockWithAttributeMapper();
         industries.stream().map(mapper)
@@ -24,7 +24,7 @@ public class StockToStockWithAttributeMapperTest {
     }
 
     @Test
-    public void testNull() throws RemoteException {
+    public void testNull() {
         StockToStockWithAttributeMapper mapper = new StockToStockWithAttributeMapper();
         Assert.assertEquals(EmptyObject.emptyStock, mapper.apply(null));
         Assert.assertEquals(EmptyObject.emptyStock, mapper.apply(EmptyObject.emptyStock));

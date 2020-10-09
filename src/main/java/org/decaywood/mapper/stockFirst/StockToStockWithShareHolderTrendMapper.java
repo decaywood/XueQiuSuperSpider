@@ -29,11 +29,11 @@ public class StockToStockWithShareHolderTrendMapper extends AbstractMapper<Stock
     private Date from;
     private Date to;
 
-    public StockToStockWithShareHolderTrendMapper() throws RemoteException {
+    public StockToStockWithShareHolderTrendMapper() {
         this(new Date(0), new Date());
     }
 
-    public StockToStockWithShareHolderTrendMapper(Date from, Date to) throws RemoteException {
+    public StockToStockWithShareHolderTrendMapper(Date from, Date to) {
         this(null, from, to);
     }
 
@@ -44,7 +44,7 @@ public class StockToStockWithShareHolderTrendMapper extends AbstractMapper<Stock
      * @param from 查询起始时间
      * @param to 查询结束时间
      */
-    public StockToStockWithShareHolderTrendMapper(TimeWaitingStrategy strategy, Date from, Date to) throws RemoteException {
+    public StockToStockWithShareHolderTrendMapper(TimeWaitingStrategy strategy, Date from, Date to) {
         super(strategy);
         if(from.after(to)) throw new IllegalArgumentException();
         this.from = from;

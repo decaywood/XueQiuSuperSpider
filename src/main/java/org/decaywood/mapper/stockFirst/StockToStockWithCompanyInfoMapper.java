@@ -34,14 +34,14 @@ public class StockToStockWithCompanyInfoMapper extends AbstractMapper <Stock, St
     private Map<String, Industry> industryMap;
     private volatile boolean initializing;
 
-    public StockToStockWithCompanyInfoMapper() throws RemoteException {
+    public StockToStockWithCompanyInfoMapper() {
         this(null);
     }
 
     /**
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public StockToStockWithCompanyInfoMapper(TimeWaitingStrategy strategy) throws RemoteException {
+    public StockToStockWithCompanyInfoMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }
 

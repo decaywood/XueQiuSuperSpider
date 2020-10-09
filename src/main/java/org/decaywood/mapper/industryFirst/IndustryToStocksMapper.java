@@ -27,11 +27,11 @@ public class IndustryToStocksMapper extends AbstractMapper<Industry, List<Stock>
     /**
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public IndustryToStocksMapper(TimeWaitingStrategy strategy) throws RemoteException {
+    public IndustryToStocksMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }
 
-    public IndustryToStocksMapper() throws RemoteException {
+    public IndustryToStocksMapper() {
         this(null);
     }
 

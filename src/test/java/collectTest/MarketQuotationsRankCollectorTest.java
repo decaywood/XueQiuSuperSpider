@@ -17,7 +17,7 @@ public class MarketQuotationsRankCollectorTest {
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNull() throws RemoteException {
+    public void testNull() {
 
         MarketQuotationsRankCollector collector =
                 new MarketQuotationsRankCollector(null,
@@ -33,7 +33,7 @@ public class MarketQuotationsRankCollectorTest {
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void testOverFlowTopK() throws RemoteException {
+    public void testOverFlowTopK() {
         MarketQuotationsRankCollector collector =
                 new MarketQuotationsRankCollector(StockType.GROWTH_ENTERPRISE_BOARD,
                         MarketQuotationsRankCollector.ORDER_BY_TURNOVER_RATE,
@@ -63,7 +63,7 @@ public class MarketQuotationsRankCollectorTest {
     }
 
     @Test
-    public void testStockType() throws RemoteException {
+    public void testStockType() {
         doTestStockType(StockType.GROWTH_ENTERPRISE_BOARD);
         doTestStockType(StockType.HK);
         doTestStockType(StockType.SH_A);
@@ -74,7 +74,7 @@ public class MarketQuotationsRankCollectorTest {
         doTestStockType(StockType.US);
     }
 
-    private void doTestStockType(StockType type) throws RemoteException {
+    private void doTestStockType(StockType type) {
         MarketQuotationsRankCollector collector =
                 new MarketQuotationsRankCollector(type,
                         MarketQuotationsRankCollector.ORDER_BY_TURNOVER_RATE);
@@ -83,13 +83,13 @@ public class MarketQuotationsRankCollectorTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWrongOrderBy() throws RemoteException {
+    public void testWrongOrderBy() {
         doTestOrderBy("wrong");
     }
 
 
     @Test
-    public void testOrderBy() throws RemoteException {
+    public void testOrderBy() {
         doTestOrderBy(MarketQuotationsRankCollector.ORDER_BY_AMOUNT);
         doTestOrderBy(MarketQuotationsRankCollector.ORDER_BY_PERCENT);
         doTestOrderBy(MarketQuotationsRankCollector.ORDER_BY_TURNOVER_RATE);
@@ -97,7 +97,7 @@ public class MarketQuotationsRankCollectorTest {
     }
 
 
-    private void doTestOrderBy(String orderBy) throws RemoteException {
+    private void doTestOrderBy(String orderBy) {
         MarketQuotationsRankCollector collector =
                 new MarketQuotationsRankCollector(StockType.HK, orderBy);
         List<Stock> stocks = collector.get();

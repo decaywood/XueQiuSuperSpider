@@ -25,7 +25,7 @@ import java.util.*;
 public class StockToLongHuBangMapper extends AbstractMapper <Stock, LongHuBangInfo> {
 
 
-    public StockToLongHuBangMapper() throws RemoteException {
+    public StockToLongHuBangMapper() {
         this(null);
     }
 
@@ -33,7 +33,7 @@ public class StockToLongHuBangMapper extends AbstractMapper <Stock, LongHuBangIn
     /**
      * @param strategy 超时等待策略（null则设置为默认等待策略）
      */
-    public StockToLongHuBangMapper(TimeWaitingStrategy strategy) throws RemoteException {
+    public StockToLongHuBangMapper(TimeWaitingStrategy strategy) {
         super(strategy);
     }
 

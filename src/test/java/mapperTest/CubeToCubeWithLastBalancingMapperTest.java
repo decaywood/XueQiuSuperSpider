@@ -7,7 +7,7 @@ package mapperTest;
 public class CubeToCubeWithLastBalancingMapperTest {
 
 //    @Test(expected = IllegalArgumentException.class)
-//    public void testWrongArgument() throws RemoteException {
+//    public void testWrongArgument() {
 //
 //        CubeToCubeWithLastBalancingMapper cubeCubeFirst =
 //                new CubeToCubeWithLastBalancingMapper(-1);
@@ -16,7 +16,7 @@ public class CubeToCubeWithLastBalancingMapperTest {
 //    }
 //
 //    @Test
-//    public void testFunction() throws RemoteException {
+//    public void testFunction() {
 //
 //        CubeToCubeWithLastBalancingMapper cubeCubeFirst =
 //                new CubeToCubeWithLastBalancingMapper(5);
