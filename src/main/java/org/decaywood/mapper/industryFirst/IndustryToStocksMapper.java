@@ -45,13 +45,18 @@ public class IndustryToStocksMapper extends AbstractMapper<Industry, List<Stock>
         builder.addParameter("page", 1)
                 .addParameter("size", 500)
                 .addParameter("order", "desc")
-                .addParameter("orderBy", "percent");
+                .addParameter("order_by", "percent")
+                .addParameter("exchange", "CN")
+                .addParameter("market", "CN");
         String info = industry.getIndustryInfo();
         if (info.startsWith("#")) info = info.substring(1);
         for (String s : info.split("&")) {
             String[] keyAndVal = s.split("=");
-            builder.addParameter(keyAndVal[0], keyAndVal[1]);
+            if ("level2code".equalsIgnoreCase(keyAndVal[0])) {
+                builder.addParameter("ind_code", keyAndVal[1]);
+            }
         }
+        builder.addParameter("_", System.currentTimeMillis());
         URL url = new URL(builder.build());
 
         String json = request(url);
@@ -67,7 +72,7 @@ public class IndustryToStocksMapper extends AbstractMapper<Industry, List<Stock>
         List<Stock> stocks = new ArrayList<>();
 
         JsonNode data = node.get("data");
-        for (JsonNode jsonNode : data) {
+        for (JsonNode jsonNode : data.get("list")) {
             Stock stock = new Stock(jsonNode.get("name").asText(), jsonNode.get("symbol").asText());
             stocks.add(stock);
         }

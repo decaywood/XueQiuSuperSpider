@@ -25,7 +25,7 @@ public enum URLMapper {
     SCOPE_STOCK_RANK_JSON("https://xueqiu.com/stock/rank.json"),
     STOCK_TREND_JSON("https://xueqiu.com/stock/forchartk/stocklist.json"),
     STOCK_JSON("https://xueqiu.com/v4/stock/quote.json"),
-    INDUSTRY_JSON("https://xueqiu.com/industry/quote_order.json"),
+    INDUSTRY_JSON("https://xueqiu.com/service/v5/stock/screener/quote/list"),
 
     /*--------------------------------  NetEase     --------------------------------------*/
 

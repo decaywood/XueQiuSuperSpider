@@ -45,7 +45,7 @@ public class CommissionIndustryCollector extends AbstractCollector<List<Industry
         Document doc = Jsoup.parse(content);
         Elements element = doc.getElementsByClass("second-nav")
                 .get(1).children()
-                .get(3).children()
+                .get(2).children()
                 .get(3).children()
                 .select("a");
         StringBuilder builder = new StringBuilder();
