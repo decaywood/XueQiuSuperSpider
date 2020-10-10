@@ -22,6 +22,9 @@ public class Comment implements User.UserSetter {
     /** 用户信息 */
     private User user;
 
+    /** 引用 */
+    private Comment reply_comment;
+
     /** 评论内容 */
     private String text;
 
@@ -54,6 +57,14 @@ public class Comment implements User.UserSetter {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public Comment getReply_comment() {
+        return reply_comment;
+    }
+
+    public void setReply_comment(Comment reply_comment) {
+        this.reply_comment = reply_comment;
     }
 
     @Override

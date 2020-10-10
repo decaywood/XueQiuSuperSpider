@@ -18,6 +18,11 @@ public class RequestParaBuilder {
         return this;
     }
 
+    public RequestParaBuilder addParameter(String key, boolean val) {
+        this.config.append(key).append("=").append(val).append("&");
+        return this;
+    }
+
     public RequestParaBuilder addParameter(String key, int val) {
         this.config.append(key).append("=").append(val).append("&");
         return this;
