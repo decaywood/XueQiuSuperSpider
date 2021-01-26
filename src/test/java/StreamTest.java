@@ -223,7 +223,7 @@ public class StreamTest {
     // 某只股票下的热帖过滤出大V评论
     @Test
     public void CommentReduce() {
-        List<PostInfo> sh688180 = new StockCommentCollector("SH688180", StockCommentCollector.SortType.alpha, 1, 10)
+        List<PostInfo> sh688180 = new StockCommentCollector("SH689009", StockCommentCollector.SortType.alpha, 1, 10)
                 .get()
                 .stream()
                 .map(new CommentSetMapper<>())
@@ -241,7 +241,7 @@ public class StreamTest {
     @Test
     public void NewComment() {
         for (int i = 0; i < 10; i++) {
-            List<PostInfo> sh688180 = new StockCommentCollector("SH688180", StockCommentCollector.SortType.time, i+1, 10)
+            List<PostInfo> sh688180 = new StockCommentCollector("SH601866", StockCommentCollector.SortType.time, i+1, 10)
                     .get()
                     .stream()
                     .map(new CommentSetMapper<>())
@@ -249,23 +249,52 @@ public class StreamTest {
             for (PostInfo postInfo : sh688180) {
                 for (Comment comment : postInfo.getComments()) {
                     int followerCnt = Integer.parseInt(comment.getUser().getFollowers_count());
-                    if (followerCnt > 10000) {
-                        System.out.println(comment.getUser().getScreen_name() + "  " + followerCnt + "  " + comment.getText());
+                    if (followerCnt > 3000) {
+                        if (comment.getReply_comment() != null) {
+                            System.out.println(comment.getUser().getScreen_name() + "  " + followerCnt + "  [" + comment.getReply_comment().getText() + "] " + comment.getText());
+                        } else {
+                            System.out.println(comment.getUser().getScreen_name() + "  " + followerCnt + "  " + comment.getText());
+                        }
                     }
                 }
             }
         }
     }
 
+    // 大V主页某帖子评论
     @Test
     public void UserComment() {
-        List<PostInfo> collect = new UserCommentCollector("1598715146", 1, 2, 20).get()
-                .stream().map(new CommentSetMapper<>()).collect(Collectors.toList());
+        List<PostInfo> collect = new UserCommentCollector("8579417716", 1, 10, 20).get()
+                .stream()
+
+                .map(new CommentSetMapper<>()).collect(Collectors.toList());
         for (PostInfo postInfo : collect) {
             for (Comment comment : postInfo.getComments()) {
-                if (comment.getUser_id().equalsIgnoreCase("1598715146")) {
-                    System.out.println(comment.getText());
+                if (!comment.getText().contains("天康") && (comment.getReply_comment() == null || !comment.getReply_comment().getText().contains("天康"))) {
+                    continue;
                 }
+                if (comment.getReply_comment() != null) {
+                    System.out.println(comment.getUser().getScreen_name() + "  " +  "[" + comment.getReply_comment().getText() + "] " + comment.getText());
+                } else {
+                    System.out.println(comment.getUser().getScreen_name() + "  " + comment.getText());
+                }
+            }
+        }
+    }
+
+    // 某条帖子评论
+    @Test
+    public void UserOneComment() {
+        List<Comment> collect = new CommentCollector("161847108").get();
+        for (Comment comment : collect) {
+
+            if (!comment.getText().contains("万科") && !comment.getText().contains("地产")) {
+                continue;
+            }
+            if (comment.getReply_comment() != null) {
+                System.out.println(comment.getUser().getScreen_name() + "  " +  "[" + comment.getReply_comment().getText() + "] " + comment.getText());
+            } else {
+                System.out.println(comment.getUser().getScreen_name() + "  " + comment.getText());
             }
         }
     }
