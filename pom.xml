@@ -15,7 +15,7 @@
         <junit-version>4.12</junit-version>
         <jdbc-driver-version>8.0.21</jdbc-driver-version>
         <jvppeteer-version>1.1.0</jvppeteer-version>
-        <spring-version>5.2.9.RELEASE</spring-version>
+        <spring-version>5.3.18</spring-version>
     </properties>
 
     <build>
