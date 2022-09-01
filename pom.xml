@@ -10,7 +10,7 @@
 
     <properties>
         <maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
-        <jsoup-version>1.8.3</jsoup-version>
+        <jsoup-version>1.15.3</jsoup-version>
         <jackson-version>2.11.3</jackson-version>
         <junit-version>4.12</junit-version>
         <jdbc-driver-version>8.0.21</jdbc-driver-version>
