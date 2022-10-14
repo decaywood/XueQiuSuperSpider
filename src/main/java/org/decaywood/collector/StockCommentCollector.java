@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * 某只标的下的用户评论收集器
- * @author decaywood (zyx@webull.com)
+ * @author decaywood
  * @date 2020/10/7 16:04
  */
 public class StockCommentCollector extends AbstractCollector<List<PostInfo>> {
