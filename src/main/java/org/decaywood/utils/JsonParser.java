@@ -11,7 +11,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 /**
- * @author decaywood (zyx@webull.com)
+ * @author decaywood
  * @date 2020/10/7 17:15
  */
 public abstract class JsonParser {
