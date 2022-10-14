@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * 评论模型
- * @author decaywood (zyx@webull.com)
+ * @author decaywood
  * @date 2020/10/7 19:18
  */
 public class Comment implements User.UserSetter {
