@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author decaywood (zyx@webull.com)
+ * @author decaywood
  * @date 2020/10/7 22:05
  */
 public class StockCommentCollectorTest {
