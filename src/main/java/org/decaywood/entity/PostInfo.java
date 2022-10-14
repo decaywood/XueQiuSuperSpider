@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  * 评论模型
- * @author decaywood (zyx@webull.com)
+ * @author decaywood
  * @date 2020/10/7 16:56
  */
 public class PostInfo implements User.UserSetter, Comment.CommentSetter {
