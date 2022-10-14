@@ -12,7 +12,7 @@ import java.net.URL;
 
 /**
  * 用户信息组装器
- * @author decaywood (zyx@webull.com)
+ * @author decaywood
  * @date 2020/10/7 17:41
  */
 public class UserSetMapper extends AbstractMapper<User.UserSetter, User.UserSetter> {
