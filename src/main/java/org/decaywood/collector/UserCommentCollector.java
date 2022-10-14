@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author decaywood (zyx@webull.com)
+ * @author decaywood
  * @date 2020/10/9 12:39
  */
 public class UserCommentCollector extends AbstractCollector<List<PostInfo>>  {
