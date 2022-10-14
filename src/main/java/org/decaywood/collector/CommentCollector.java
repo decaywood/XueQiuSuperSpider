@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author decaywood (zyx@webull.com)
+ * @author decaywood
  * @date 2020/11/7 12:59
  */
 public class CommentCollector extends AbstractCollector<List<Comment>> {
