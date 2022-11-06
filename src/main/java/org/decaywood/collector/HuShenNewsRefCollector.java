@@ -111,9 +111,14 @@ public class HuShenNewsRefCollector extends AbstractCollector<List<URL>> {
         return processNode(nodeList);
     }
 
+    /**
+     * 从JSON对象中把URL抽取出来
+     * @param nodeList
+     * @return
+     */
     private List<URL> processNode(List<JsonNode> nodeList) {
 
-        List<URL> res = new ArrayList<>();
+        List<URL> res = new ArrayList<>(nodeList.size());
 
         for (JsonNode node : nodeList) {
             try {
