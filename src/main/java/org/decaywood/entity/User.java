@@ -1,7 +1,7 @@
 package org.decaywood.entity;
 
 /**
- * @author decaywood (zyx@webull.com)
+ * @author decaywood
  * @date 2020/10/7 17:37
  */
 public class User {
